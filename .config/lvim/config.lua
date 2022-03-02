@@ -8,6 +8,11 @@ an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
+vim.cmd([[nnoremap j jzz]])
+vim.cmd([[nnoremap k kzz]])
+vim.cmd([[nnoremap <C-d> <C-d>zz]])
+vim.cmd([[nnoremap <C-u>  <C-u>zz]])
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
@@ -74,6 +79,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "vue",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -137,15 +143,13 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- }
 
 -- Additional Plugins
--- lvim.plugins = {
---     {"folke/tokyonight.nvim"},
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
+lvim.plugins = {
+{"ellisonleao/gruvbox.nvim"},
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
+
+lvim.colorscheme = "gruvbox"
