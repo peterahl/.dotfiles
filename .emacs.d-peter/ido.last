@@ -1,0 +1,145 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/peter/.emacs.d/straight/build/" . "darcula-theme/")
+ ("/home/peter/.emacs.d/straight/" . "repos/")
+ ("/home/peter/.emacs.d/" . "straight/")
+ ("/tmp/" . "rde/")
+ ("/home/peter/.config/" . "guix/")
+ ("/home/peter/.local/share/flatpak/exports/share/" . "applications/")
+ ("/home/peter/.local/share/flatpak/exports/" . "share/")
+ ("/home/peter/.local/share/flatpak/" . "exports/")
+ ("/home/peter/.local/share/" . "flatpak/")
+ ("/home/peter/.local/" . "share/")
+ ("/home/peter/.guix-profile/" . "etc/")
+ ("/run/current-system/profile/share/emacs/" . "site-lisp/")
+ ("/run/current-system/profile/share/" . "emacs/")
+ ("/run/current-system/profile/" . "share/")
+ ("/run/current-system/" . "profile/")
+ ("/run/" . "current-system/")
+ ("/home/" . "peter/")
+ ("/home/peter/" . ".emacs.d/")
+ ("/home/peter/Documents/" . "org/")
+ ("/sudo::/etc/NetworkManager/" . "system-connections/")
+ ("/sudo::/etc/" . "NetworkManager/")
+ ("/sudo::/" . "etc/")
+ ("/" . "tmp/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/peter/.emacs.d/"
+ "/home/peter/.emacs.d/straight/"
+ "/home/peter/"
+ "/home/peter/.emacs.d/straight/build/darcula-theme/"
+ "/tmp/rde/"
+ "/tmp/rde/rde/"
+ "/home/peter/.config/guix/"
+ "/etc/"
+ "/sudo:localhost:"
+ "/home/peter/.config/"
+ "/sudo::/etc/"
+ "/home/peter/Documents/org/"
+ "/home/peter/Documents/occ/"
+ "/home/peter/.local/share/flatpak/exports/share/applications/"
+ "/home/peter/Documents/"
+ "/home/peter/.guix-profile/etc/"
+ "/run/current-system/profile/share/emacs/site-lisp/"
+ "/sudo:root@t14s:/etc/"
+ "/sudo::/etc/NetworkManager/system-connections/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "darcula-theme.el"
+ "pre-inst-env"
+ "config.scm"
+ "README"
+ ".bashrc"
+ ".bash_profile"
+ "desktop-env.scm"
+ "cli-tools.scm"
+ "pavucontrol.ini"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/peter/.config/" (24779 9250 908090 841000) "htop/" "epiphany/" "nano/" "nyxt/" "monitors.xml~" "user-dirs.dirs" "goa-1.0/" "nautilus/" "QtProject.conf" "pulse/" "keepassxc/" "pavucontrol.ini" "evolution/" "gnome-boxes/" "gnome-session/" "chromium/" "dconf/" "monitors.xml" "ibus/" "user-dirs.locale" "../" "gtk-3.0/" "guix/" "./")
+
+ ("/etc/" (24779 9517 592233 149000) "shadow" "asound.conf" "bashrc" "group" "skel/" "hostname" "environment" "machine-id" "timezone" "dbus-1/" "pulse/" "mtab" "hosts" "sudoers" "rpc" "ssl/" "protocols" "NetworkManager/" "polkit-1/" "services" "pam.d/" "passwd" "profile" "login.defs" ".pwd.lock" "static/" "rottlog/" "config.scm" "nsswitch.conf" "config.scm~" "../" "resolv.conf" "shells" "guix/" "issue" "./" "localtime" "fstab")
+
+ ("/home/peter/.emacs.d/straight/repos/" (24779 13679 214787 546000) "horizon-theme.el/" "projectile/" "el-get/" "gnu-elpa-mirror/" "emacs/" "pkg-info/" "use-package/" "company-mode/" "emacsmirror-mirror/" "epl/" "emacs-darcula-theme/" "swiper/" "melpa/" "straight.el/" "../" "./")
+
+ ("/home/peter/.emacs.d/straight/" (24779 14335 819228 672000) "build-cache.el" "build/" "repos/" "../" "./")
+
+ ("/home/peter/.emacs.d/" (24779 14335 531228 477000) "eshell/" "projectile-bookmarks.eld" "tramp" "straight/" "init.el" "init.el~" "auto-save-list/" "session.102e470e17eadd9b8162256128378148800000014310054" "ido.last" "recentf" "init2.el" "../" "ido.last~" "eln-cache/" "./" "backups/" "bookmarks")
+
+ ("/home/peter/" (24779 11677 933495 402000) ".var/" "Templates/" ".zoom/" ".authinfo" ".bashrc~" ".git-credentials" ".local/" ".bash_profile~" ".profile" ".lesshst" ".zprofile" "cisco.cer" ".guix-profile/" ".guile" ".dbus/" "Downloads/" ".gdbinit" "Documents/" ".pki/" ".mozilla/" "Pictures/" ".config/" ".emacs.d/" "Public/" ".bash_history" ".cache/" "Desktop/" ".guix-extra-profiles/" ".ssh/" "Videos/" ".bash_profile" "mozilla.pdf" ".Xdefaults" "Music/" ".esd_auth" "../" "wpa_sup.conf" "./" ".bashrc")
+
+ ("/home/peter/.emacs.d/straight/repos/emacs-darcula-theme/" (24773 43365 944212 857000) ".git/" "darcula-theme.el" "README.md" ".gitignore" "darcula-example.jpg" "../" "./")
+
+ ("/home/peter/.emacs.d/straight/build/darcula-theme/" (24773 43366 336213 48000) "darcula-theme.el" "darcula-theme-autoloads.el" "darcula-theme.elc" "../" "./")
+
+ ("/home/peter/Documents/org/" (24772 64628 161592 229000) "20210119081915-dactyl.org" "k8s-nfr.org" "20210103211743-obbola.org" "20210106153209-call.org" "projects.org" "20210106153830-put_options.org" ".git/" ".orgids" "occ_deployment_process.drawio" "20201230154011-options.org" "journal.org" "index.org" "20210125110412-ci729.org" "20210125112257-terminology.org" "20201230160848-equities.org" "20210106152944-call_options.org" "ip-meeting.org" "dactly.org" "notes.org" "20201230152117-ccp.org" "uc-lmec.drawio" "20210105121357-introduction.org" ".attach/" "bond-price-flow.drawio" "20210119093132-lmec.org" "nasdaq.org" ".project.el" "20210119200056-ci728.org" "uk-bank-holiday.drawio" "reference-data.drawio" "../" "todo.org" "images/" "20210119094005-lmec_r8_1.org" "20201230161450-etf.org" "./" "daily/" ".projectile" "20201230160227-futures.org" "20210211110822-occ.org")
+
+ ("/home/peter/.config/guix/" (24772 64639 345601 963000) "desktop-env.scm" "channels.scm" "dev-tools.scm" "#cli-tools.scm#" "cli-tools.scm" "desktop-env.scm~" "../" "current/" "./")
+
+ ("/home/peter/.emacs.d/straight/build/" (24773 43366 8212 888000) "bind-key/" "use-package/" "darcula-theme/" "straight/" "../" "./" "horizon-theme/")
+
+ ("/tmp/rde/gnu/" (24772 64551 765525 713000) ".#home.scm" "home-services/" "#home.scm#" "home-services.scm" "README" "home-services-utils.scm" "../" "home/" "./" "home.scm")
+
+ ("/tmp/rde/rde/" (24772 63929 600972 493000) "packages.scm" "emacs/" "zsh/" "examples/" "system/" "sway/" "config.scm" "scripts/" "../" "features.scm" "features/" "guix/" "./")
+
+ ("/tmp/rde/" (24772 63929 600972 493000) "gnu/" ".git/" "NEWS" "README" "pre-inst-env" "stale/" "LICENSE" ".guix-channel" "TODO" "Makefile" "../" "rde/" "guix/" "./" ".guix-authorizations")
+
+ ("/tmp/" (24772 63939 684981 686000) "straight-stderr-2125" "Temp-a39879f6-fe72-43bf-afd2-06194340768d/" ".X11-unix/" ".esd-983/" "straight-stderr-2261" ".esd-1000/" "straight-stderr-1258" "babel-yWguZY/" "Temp-2857326b-d2cf-4ebc-8a53-66556b9b139b/" ".ICE-unix/" "../" "rde/" "straight-stderr-2325" "./")
+
+ ("/home/peter/.config/nyxt/" (24761 14988 487393 662000) "auto-config.lisp" "../" "./")
+
+ ("/home/peter/.local/share/flatpak/exports/share/applications/" (24758 21047 855581 496000) "com.jgraph.drawio.desktop.desktop" "com.spotify.Client.desktop" "mimeinfo.cache" "us.zoom.Zoom.desktop" "../" "./" "com.slack.Slack.desktop")
+
+ ("/home/peter/Documents/occ/" (24627 42351 870463 919000) "k8s-nfr.org" "ip-meeting.org" "../" "./" "20210211110822-occ.org")
+
+ ("/home/peter/.guix-profile/share/" (0 1 0 0) "applications/" "mime/" "xml/" "glib-2.0/" "dbus-1/" "fontconfig/" "graphite2/" "gettext/" "keepassxc/" "wayland/" "gdb/" "man/" "info/" "defaults/" "fonts/" "X11/" "icu/" "drirc.d/" "thumbnailers/" "icons/" "vulkan/" "wayland-protocols/" "doc/" "metainfo/" "bash-completion/" "guile/" "../" "libdrm/" "locale/" "gtk-doc/" "gir-1.0/" "pkgconfig/" "installed-tests/" "./" "aclocal/")
+
+ ("/home/peter/.guix-profile/share/applications/" (0 1 0 0) "icecat.desktop" "gtk3-demo.desktop" "mimeinfo.cache" "gtk3-icon-browser.desktop" "../" "firefox.desktop" "org.keepassxc.KeePassXC.desktop" "gtk3-widget-factory.desktop" "./")
+
+ ("/home/peter/Documents/" (24642 12794 187508 201000) "Zoom/" "aktiebok.doc" "occ/" "org/" "aktiebrev.doc" "emacs-get-help-from-tutorial" "../" "Kopeavtal-foretag.doc" "./")
+
+ ("/var/" (24620 60367 352121 495000) "log/" "lib/" "run/" "cache/" "db/" "tmp/" "empty/" "../" "guix/" "./" "lock/")
+
+ ("/var/log/" (24618 26831 245748 0) "mcron.log" "messages.1.gz" "messages" "secure.1.gz" "guix-daemon.log" "gdm/" "secure" "guix-daemon.log.2" "guix-daemon.log.3" "nscd.log" "maillog" "debug.1.gz" "../" "debug" "wtmp" "guix/" "./")
+
+ ("/home/peter/.local/share/flatpak/exports/share/" (24610 28523 175878 601000) "applications/" "mime/" "icons/" "../" "./")
+
+ ("/home/peter/.local/share/flatpak/exports/" (24610 28523 175878 601000) "share/" "../" "./" "bin/")
+
+ ("/home/peter/.local/" (24605 26359 557442 462000) "share/" "../" "./")
+
+ ("/home/peter/.local/share/" (24620 4151 884344 234000) "recently-used.xbel" "xorg/" "flatpak/" "../" "./")
+
+ ("/home/peter/.local/share/flatpak/" (24619 34842 961886 980000) "runtime/" ".changed" "exports/" "appstream/" "repo/" "../" "app/" "./")
+
+ ("/home/peter/.guix-profile/etc/" (0 1 0 0) "fonts/" "profile" "../" "./" "xdg/" "vdpau_wrapper.cfg")
+
+ ("/home/peter/.guix-profile/" (0 1 0 0) "libexec/" "lib/" "include/" "etc/" "share/" "manifest" "../" "sbin/" "./" "bin/")
+
+ ("/run/current-system/profile/share/emacs/site-lisp/" (0 1 0 0) "xcb-shm.el" "xcb-record.elc" "exwm-input.el" "xcb-res.el" "xelb-autoloads.el" "site-start.elc" "xcb-randr.elc" "xcb-xv.el" "xcb-screensaver.elc" "xcb-damage.elc" "xcb-xevie.el" "xcb-xprint.el" "xcb-res.elc" "exwm-layout.elc" "xcb-randr.el" "xcb-xkb.el" "xcb-xinerama.elc" "exwm-autoloads.elc" "xcb-bigreq.elc" "xcb-dpms.elc" "desktop-environment-autoloads.el" "xcb-dpms.el" "exwm-xim.elc" "exwm-config.el" "exwm-manage.el" "xcb-xf86dri.elc" "xcb-dri2.el" "xcb-xlib.el" "xcb-dri3.elc" "xcb-systemtray.elc" "xcb-xevie.elc" "xcb-dri2.elc" "xcb-types.el" "xcb-dri3.el" "xcb-render.elc" "guix-emacs.el" "exwm-manage.elc" "xcb-cursor.elc" "xcb-glx.elc" "exwm-floating.el" "xcb-keysyms.elc" "desktop-environment.el" "xcb-present.el" "xcb-record.el" "exwm-cm.el" "xcb-sync.elc" "xcb-xselinux.elc" "desktop-environment-autoloads.elc" "exwm-autoloads.el" "xcb-ewmh.elc" "xcb-icccm.elc" "guix-emacs.elc" "xcb-xv.elc" "xcb-xfixes.elc" "xcb-glx.el" "xcb-xinput.elc" "xcb-xfixes.el" "xcb-cursor.el" "exwm-systemtray.elc" "xcb-shm.elc" "xcb-xproto.el" "xcb-render.el" "desktop-environment.elc" "xcb-present.elc" "xcb-debug.el" "xcb-shape.el" "xcb-xinerama.el" "xcb-xprint.elc" "el_client.el" "exwm-xim.el" "exwm.elc" "xcb-shape.elc" "exwm-core.el" "site-start.el" "exwm-core.elc" "xcb-xembed.el" "exwm-layout.el" "xcb-xc_misc.el" "xelb.el" "xcb-xlib.elc" "xcb-xim.elc" "xcb-xvmc.el" "xcb-xkb.elc" "xcb-xselinux.el" "xcb-types.elc" "xcb-xf86vidmode.el" "exwm-input.elc" "xcb-xembed.elc" "exwm.el" "xcb-renderutil.elc" "xcb-ge.el" "xcb-bigreq.el" "xcb-renderutil.el" "exwm-config.elc" "xcb-keysyms.el" "exwm-floating.elc" "xelb.elc" "xcb-damage.el" "xcb-sync.el" "xcb-xc_misc.elc" "xcb.el" "xcb-composite.elc" "xelb-autoloads.elc" "xcb-xim.el" "xcb-xf86vidmode.elc" "xcb-composite.el" "../" "exwm-randr.el" "exwm-workspace.el" "xcb-icccm.el" "xcb-systemtray.el" "xcb-xf86dri.el" "xcb-xinput.el" "xcb.elc" "xcb-debug.elc" "xcb-screensaver.el" "exwm-randr.elc" "xcb-ewmh.el" "exwm-systemtray.el" "exwm-workspace.elc" "xcb-ge.elc" "./" "xcb-xvmc.elc" "xcb-xproto.elc" "el_client.elc" "exwm-cm.elc")
+
+ ("/run/current-system/profile/share/emacs/" (0 1 0 0) "27.1/" "site-lisp/" "../" "./")
+
+ ("/run/current-system/profile/share/" (0 1 0 0) "gitweb/" "themes/" "selinux/" "guile-ssh/" "gitk/" "nano/" "applications/" "mime/" "xml/" "emacs/" "avahi/" "systemd/" "glib-2.0/" "dbus-1/" "zsh/" "consoletrans/" "fontconfig/" "graphite2/" "cmake/" "gettext/" "pixmaps/" "wayland/" "fish/" "gdb/" "man/" "keymaps/" "et/" "texinfo/" "info/" "defaults/" "consolefonts/" "polkit-1/" "unimaps/" "ss/" "fonts/" "factory/" "vi/" "X11/" "icu/" "drirc.d/" "thumbnailers/" "icons/" "gnupg/" "vulkan/" "wayland-protocols/" "flatpak/" "git-core/" "doc/" "metainfo/" "pavucontrol/" "bash-completion/" "xsessions/" "GConf/" "guile/" "../" "libdrm/" "locale/" "awk/" "gtk-doc/" "gir-1.0/" "git-gui/" "gtk-3.0/" "pkgconfig/" "installed-tests/" "perl5/" "guix/" "./" "vala/" "aclocal/" "hwdata/")
+
+ ("/run/current-system/profile/" (0 1 0 0) "libexec/" "lib/" "include/" "etc/" "share/" "manifest" "../" "sbin/" "./" "bin/")
+
+ ("/run/current-system/" (0 1 0 0) "configuration.scm" "provenance" "initrd" "kernel/" "etc/" "channels.scm" "parameters" "profile/" "../" "locale/" "boot" "./")
+
+ ("/run/" (24618 6180 16046 521000) "booted-system/" "udev/" "systemd/" "setuid-programs/" "current-system/" "../" "./" "avahi-daemon/" "user/")
+
+ ("/home/" (24605 26095 480151 454000) "../" "peter/" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

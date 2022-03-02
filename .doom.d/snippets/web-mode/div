@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: <div></div>
+# key: div
+# uuid: web-mode-div
+# --
+<div$1>${0:`%`}</div>

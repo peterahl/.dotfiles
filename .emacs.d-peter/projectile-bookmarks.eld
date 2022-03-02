@@ -1,0 +1,1 @@
+("~/git/github/jacekschae/learn-reagent-course-files/" "~/.emacs.d/straight/repos/yasnippet-snippets/" "~/dev/nasdhaq/" "~/dev/learn-reframe/" "~/Documents/org/" "/tmp/rde/" "~/.fzf/" "~/.clojure/")

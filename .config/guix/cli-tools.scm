@@ -1,0 +1,9 @@
+(specifications->manifest
+ '("fd"
+   "htop"
+   "protonvpn-cli"
+   "tree"
+   "screen"
+   "fzf"
+   "file"
+   "stow"))

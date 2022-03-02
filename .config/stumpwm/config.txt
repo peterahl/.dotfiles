@@ -1,0 +1,204 @@
+;; -*-lisp-*-
+
+;; (let ((quicklisp-init (merge-pathnames ".local/share/quicklisp/setup.lisp"
+;;                                        (user-homedir-pathname))))
+;;   (when (probe-file quicklisp-init)
+;;     (load quicklisp-init)))
+
+;; (ql:quickload :swank)
+
+(in-package :stumpwm)
+
+(toggle-mode-line (current-screen)
+                  (current-head))
+
+(set-prefix-key (kbd "s-t"))
+
+(defcommand nyxt () ()
+  "Start Nyxt or switch to it, if it is already running"
+  (run-or-raise "nyxt" '(:class "Nyxt")))
+
+(defcommand firefox () ()
+  "Start firefox or switch to it, if it is already running"
+  (run-or-raise "firefox" '(:class "Nightly")))
+
+(defcommand pavucontrol () ()
+  "Start pavucontrol or switch to it, if it is already running"
+  (run-or-raise "pavucontrol" '(:class "Pavucontrol")))
+
+(defcommand chromium () ()
+  "Start chromium or switch to it, if it is already running"
+  (run-or-raise "chromium" '(:class "Chromium-browser")))
+
+(defcommand gnome-terminal () ()
+  "Start gnome-terminal or switch to it, if it is already running"
+  (run-or-raise "gnome-terminal" '(:class "Gnome-terminal")))
+
+(defvar *my-app-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "n") "nyxt")
+    (define-key m (kbd "e") "emacs")
+    (define-key m (kbd "p") "pavucontrol")
+    (define-key m (kbd "f") "firefox")
+    (define-key m (kbd "c") "chromium")
+    (define-key m (kbd "x") "gnome-terminal")
+    m                                   ; NOTE: this is important
+    ))
+
+(define-key *top-map* (kbd "s-a") '*my-app-bindings*)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Basic settings                                                          ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; load gaps from guix package
+(asdf:load-system :swm-gaps)
+(asdf:load-system :slynk)
+
+;; load Stump contrib modules
+;; (mapc #'load-module '("ttf-fonts"
+;;                       "swm-gaps"))
+
+;; font settings
+;; (set-font (list (make-instance 'xft:font
+;;                                :family "DejaVu Sans Mono"
+;;                                :subfamily "Bold"
+;;                                :size 13)
+;;                 (make-instance 'xft:font
+;;                                :family "Fira Code"
+;;                                :subfamily "Regular"
+;;                                :size 13)))|#
+
+;; setup groups
+(grename "Base")
+(gnewbg "Extra")
+(gnewbg-float "Float")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General settings                                                        ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setf *window-border-style* :thin
+      *message-window-padding* 10
+      *maxsize-border-width* 2
+      *normal-border-width* 2
+      *transient-border-width* 2
+      stumpwm::*float-window-border* 4
+      stumpwm::*float-window-title-height* 20
+      *mouse-focus-policy* :click)
+
+;; mouse pointer
+(run-shell-command "xsetroot -cursor_name left_ptr")
+
+;; message and input window location
+(setf *message-window-gravity* :center)
+(setf *input-window-gravity* :center)
+
+;; message/input bar colors
+;; (set-bg-color *msg-bg-color*)
+;; (set-fg-color *msg-fg-color*)
+;; (set-border-color *msg-border-color*)
+
+;; message/input bar settings
+(set-msg-border-width 3)
+(setf *message-window-padding* 6)
+
+;;; gaps settings
+;; inner gaps run along all the 4 borders of a frame
+(setf swm-gaps:*inner-gaps-size* 10)
+;; outer gaps add more padding to the outermost borders
+;; (touching the screen border)
+(setf swm-gaps:*outer-gaps-size* 10)
+
+;; toggle useless gaps keybinding (Super + u)
+(define-key *top-map* (kbd "s-u") "toggle-gaps")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modeline settings                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setf *mode-line-timeout* 1)
+(setf *mode-line-border-width* 0)
+
+;; (setf *mode-line-background-color* *mode-line-bg-color*)
+;; (setf *mode-line-border-color* *mode-line-bg-color*)
+;; (setf *mode-line-foreground-color* *mode-line-fg-color*)
+
+;; (setf *time-modeline-string* "^2^f1^f0^n %H:%M")
+
+;; (defparameter *battery-percent* "")
+
+;; (defun get-battery-status ()
+;;   (let* ((batgetcap (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t)))
+;;     (setf *battery-percent* (format nil "^4^f1^f0^n ~a% " batgetcap))))
+
+;; (defun battery-percentage (ml)
+;;   (declare (ignore ml))
+;;   *battery-percent*)
+
+;; (run-with-timer 0 10 #'get-battery-status)
+;; (add-screen-mode-line-formatter #\B #'battery-percentage)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setf *screen-mode-line-format*
+      (list "^5[%g]^n "
+            "%W"                        ; windows
+            "^>"                        ; right align
+            "%S"                        ; swank status
+            "%B"                        ; battery percentage
+            "%d"))                      ; time/date
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Repl settings                                                           ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(slynk:create-server :dont-close t)
+;; (require :swank)
+;; (asdf:load-system :swank)
+;; (swank-loader:init)
+
+;; (defparameter *port-number* 4004
+;;   "My default port number for Swank")
+
+;; (defvar *swank-server-p* nil
+;;   "Keep track of swank server, turned off by default on startup")
+
+;; (defcommand start-swank () ()
+;;   "Start Swank if it is not already running"
+;;   (if *swank-server-p*
+;;       (message "Swank server is already active on Port^5 ~a^n" *port-number*)
+;;       (progn
+;;         (swank:create-server :port *port-number*
+;;                              :style swank:*communication-style*
+;;                              :dont-close t)
+;;         (setf *swank-server-p* t)
+;;         (message "Swank server is now active on Port^5 ~a^n. Use^4 M-x slime-connect^n in Emacs. Type^2 in-package :stumpwm^n in Slime REPL." *port-number*))))
+
+;; (defcommand stop-swank () ()
+;;   "Stop Swank"
+;;   (swank:stop-server *port-number*)
+;;   (setf *swank-server-p* nil)
+;;   (message "Stopping Swank Server! Closing Port^5 ~a^n." *port-number*))
+
+;; (defcommand toggle-swank () ()
+;;   (if *swank-server-p*
+;;       (run-commands "stop-swank")
+;;       (run-commands "start-swank")))
+
+;; (define-key *top-map* (kbd "s-s") "toggle-swank")
+
+;; ;\;\ modeline status
+;; (defun get-swank-status ()
+;;   (if *swank-server-p*
+;;       (setf *swank-ml-status* (format nil "Swank ^3^f1^f0^n Port:^5 ~a^n " *port-number*))
+;;       (setf *swank-ml-status* "")))
+
+;; (defun ml-fmt-swank-status (ml)
+;;   (declare (ignore ml))
+;;   (get-swank-status))
+
+;; (add-screen-mode-line-formatter #\S #'ml-fmt-swank-status)

@@ -1,0 +1,8 @@
+autodetach on
+startup_message off
+hardstatus alwayslastline
+shelltitle 'bash'
+
+hardstatus string '%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}]'
+
+termcapinfo xterm* ti@:te@

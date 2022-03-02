@@ -1,0 +1,718 @@
+#+TITLE: Lispyville User Manual
+#+AUTHOR: Fox Kiester
+#+LANGUAGE: en
+#+TEXINFO_DIR_CATEGORY: Emacs
+#+TEXINFO_DIR_TITLE: Lispyville: (lispyville).
+#+TEXINFO_DIR_DESC: Evil+lispy
+
+[[https://melpa.org/#/lispyville][file:https://melpa.org/packages/lispyville-badge.svg]]
+[[https://github.com/noctuid/lispyville/actions?query=workflow%3Atest][https://github.com/noctuid/lispyville/workflows/test/badge.svg]]
+[[https://codecov.io/gh/noctuid/lispyville][https://codecov.io/gh/noctuid/lispyville/branch/master/graph/badge.svg]]
+
+* Recent Changes
+** 2018-01-20: =s-operators= key theme has been removed
+The =operators= key theme now remaps commands instead of directly binding keys,
+so there is no longer a need for a separate =s-operators= key theme.
+
+* Relationship with Lispy
+While lispyville can be used without =lispy-mode=, some additional setup may be
+required to make editing lisp comfortable. For example, =(= would need to be
+explicitly bound to ~lispy-parens~ for auto-pairing behavior (and the other
+functionality provided by ~lispy-pair~). If your gripe with lispy is its style
+of having "special" locations where letter keys act as commands, you can still
+use =lispy-mode= for the "normal" keybindings it provides by not using =special=
+in your lispy "key theme":
+#+begin_src emacs-lisp
+  (lispy-set-key-theme '(lispy c-digits))
+#+end_src
+
+You can always override these keybindings later.
+
+* Key Themes
+By default, the only keys that lispyville remaps are the operators and =C-w=. To
+allow for the user to choose between various sets of keybindings without making
+them manually remap every command, lispyville provides "key themes" similarly to
+how lispy does.
+
+The user can still define commands in =lispyville-mode= using ~evil-define-key~
+or something like [[https://github.com/noctuid/general.el][general]], but ~lispyville-set-key-theme~ can also be used to
+define keys. It takes one argument which is a list of symbols corresponding to
+the different themes. By default, most commands will be mapped in the normal
+(and visual) state. The default states are listed below. To change them, a list
+of the key theme symbol and the states to map the keys in can be specified
+instead.
+
+As an example, the following command will map the "operators" theme in the
+normal and visual states, the "escape" theme in just the insert state, and the
+"additional-movement" theme in the normal, visual, and motion states:
+#+begin_src emacs-lisp
+(with-eval-after-load 'lispyville
+  (lispyville-set-key-theme
+   '(operators
+     c-w
+     (escape insert)
+     (additional-movement normal visual motion))))
+#+end_src
+
+Note that you will generally not need to change the states. It is usually
+unnecessary to bind keys in both normal and visual state because keys bound in
+normal state are inherited in visual state. Similarly, keys bound in motion
+state are inherited in the normal and visual (and operator) states. As an
+example, the =)= motion is bound only in ~evil-motion-state-map~. The lispyville
+=)= motion is also only bound in motion state. However, if you were to bind a
+custom =)= motion in =evil-visual-state-map=, for example, it would override
+lispyville's =)=. Most users will not have to worry about this issue as this
+customization is unlikely to be useful (more likely it would come as the result
+of the user or some package unnecessarily binding a motion in visual state), but
+this is a case where you would need to alter the states if you wanted
+lispyville's motion to have precedence:
+#+begin_src emacs-lisp
+(evil-define-key 'visual 'global
+  ")" #'my-custom-motion)
+
+;; if `lispyville-up-list' should be used instead of `my-custom-motion' in
+;; visual state when `lispyville-mode' is active:
+(lispyville-set-key-theme '((additional-movement motion visual)))
+;; or just
+(evil-define-key 'visual lispyville-mode-map
+  ")" #'lispyville-up-list)
+#+end_src
+If you find yourself having to do this because a package explicitly binds
+motions in normal or visual state, you should probably make an issue for that
+package. Finally, note that this is not applicable when =[remap]= is used. For
+key themes that use =[remap]=, the states do not matter.
+
+~lispyville-set-key-theme~ will not reset lispyville's keymap, so it will not
+remove user-defined keybindings (unless they are overwritten by a key in one of
+the themes). The keybindings will be added in the order of the list, so if there
+is overlap between the listed themes, the one listed last will take precedence.
+
+** Operators Key Theme
+The corresponding symbol is =operators=. There are no default states; any state
+where these operators are bound will be affected. These are safe versions of the
+corresponding evil operators that won't unbalance parentheses.
+
+Like with cleverparens, =dd= will bring closing delimiters that are on a line by
+themselves to the previous line while =cc= won't. On lines with unmatched
+opening or closing delimiters, =cc= will put the point after the opening
+delimiters or before the closing delimiters.
+
+| key                                 | command                                      |
+|-------------------------------------+----------------------------------------------|
+| =[remap evil-yank]=                 | ~lispyville-yank~                            |
+| =[remap evil-delete]=               | ~lispyville-delete~                          |
+| =[remap evil-change]=               | ~lispyville-change~                          |
+| =[remap evil-yank-line]=            | ~lispyville-yank-line~                       |
+| =[remap evil-delete-line]=          | ~lispyville-delete-line~                     |
+| =[remap evil-change-line]=          | ~lispyville-change-line~                     |
+| =[remap evil-delete-char]=          | ~lispyville-delete-char-or-splice~           |
+| =[remap evil-delete-backward-char]= | ~lispyville-delete-char-or-splice-backwards~ |
+| =[remap evil-substitute]=           | ~lispyville-substitute~                      |
+| =[remap evil-change-whole-line]=    | ~lispyville-change-whole-line~               |
+| =[remap evil-join]=                 | ~lispyville-join~                            |
+
+In particular, =J= implements a safe version of the evil-join operator, which
+preserves structure by always placing uncommented regions to the left of line
+comments, avoiding the scenario of an unbalanced line being joined to the inline
+comment above it.
+
+#+begin_src emacs-lisp
+;; before (cursor at |)
+|(foo  ; bar
+  baz)
+
+;; after "J":
+(foo| baz) ; bar
+#+end_src
+
+To "slurp" following line(s) into the commented region in the usual manner,
+first explicitly comment them out with =lispyville-comment-or-uncomment=, which
+moves unbalanced delimiters out of the way (refer to the =commentary= theme).
+=lispyville-join= will then splice the comments together, removing any
+intermediate whitespace and comment syntax.
+
+#+begin_src emacs-lisp
+;; initial state (cursor at |)
+(foo  ; bar
+ |quux)
+
+;; "gcc"
+(foo  ; bar
+ |;; quux
+ )
+
+;; "kJ"
+(foo  ; bar| quux
+ )
+
+;; "J"
+(foo)|  ; bar quux
+#+end_src
+
+** C-w Key Theme
+The corresponding symbol is =c-w=. There are no default states; any state where
+~evil-delete-backward-word~ is bound will be affected. This is the safe version
+of ~evil-delete-backward-word~. It will act as ~lispy-delete-backward~ after
+delimiters (and delete everything within the delimiters).
+
+The reason no safe version of ~evil-delete-backward-char-and-join~ is provided
+is because lispy already maps =DEL= to ~lispy-delete-backward~.
+
+| key                                 | command                            |
+|-------------------------------------+------------------------------------|
+| =[remap evil-delete-backward-word]= | ~lispyville-delete-backward-word~  |
+
+** C-u Key Theme
+The corresponding symbol is =c-u=. There are no default states; any state where
+~evil-delete-back-to-indentation~ is bound will be affected. This is the safe
+version of ~evil-delete-back-to-indentation~. It will act as
+~lispy-delete-backward~ after delimiters (and delete everything within the
+delimiters).
+
+The reason no safe version of ~evil-delete-backward-char-and-join~ is provided
+is because lispy already maps =DEL= to ~lispy-delete-backward~.
+
+| key                                       | command                                 |
+|-------------------------------------------+-----------------------------------------|
+| =[remap evil-delete-back-to-indentation]= | ~lispyville-delete-back-to-indentation~ |
+
+** Prettify Key Theme
+The corresponding symbol is =prettify=. There are no default states; any state
+where ~evil-indent~ is bound will be affected. This key theme replaces
+~evil-indent~ with an operator equivalent of ~lispy-tab~. In addition to
+correcting indentation, ~lispy-tab~ will also, for example, remove empty
+newlines and pull trailing closing delimiters all onto the same line. This
+operator works by normalizing the current list and all subsequent same-level
+lists that start within the region.
+
+| key                   | command               |
+|-----------------------+-----------------------|
+| =[remap evil-indent]= | ~lispyville-prettify~ |
+
+** Text Objects Key Theme
+Note that these commands are considered experimental (e.g. there are still no
+written tests and they need to be polished).
+
+The corresponding symbol is =text-objects=. There are no default states; the
+text objects are bound globally in =evil-inner-text-objects-map= and
+=evil-outer-text-objects-map= by default. Alternatively, you could bind the full
+key sequences in the visual and operator states in =lispyville-mode-map= (this
+will likely be the default in the future).
+
+=inner= and =a= versions exist for all of these:
+
+| key | command                     |
+|-----+-----------------------------|
+| =a= | ~lispyville-inner-atom~     |
+| =l= | ~lispyville-inner-list~     |
+| =x= | ~lispyville-inner-sexp~     |
+| =f= | ~lispyville-inner-function~ |
+| =c= | ~lispyville-inner-comment~  |
+| =S= | ~lispyville-inner-string~   |
+
+An atom is comparable to an evil symbol, except it will select entire strings
+and comments. The string, comment, and top-level function/form text objects are
+fairly generic and will likely work in other programming languages. Multiple
+adjacent line comments are considered to be one comment.
+
+All text objects have corresponding =forward-begin=, =forward-end=,
+=backward-begin=, and =backward-end= evil motions.
+
+All text objects are designed to work with [[https://github.com/noctuid/targets.el][targets.el]], and it is highly
+recommended that you use it if only for these text objects as they will work
+much better:
+
+- Seeking and region expansion will work
+- Next, previous, and remote (i.e. selected with avy overlays) text objects are
+  provided
+
+Once targets is more stable, I will likely depend on it for this package. For
+now, if you want to try these out with targets, you can create and bind them
+with ~targets-define-to~. Here's example setup that will only create
+corresponding versions of the lispyville text objects:
+#+begin_src emacs-lisp
+(setq targets-text-objects nil)
+
+(targets-setup)
+
+(targets-define-to lispyville-comment 'lispyville-comment nil object
+                   :bind t :keys "c")
+
+(targets-define-to lispyville-atom 'lispyville-atom nil object
+                   :bind t :keys "a")
+
+(targets-define-to lispyville-list 'lispyville-list nil object
+                   :bind t :keys "l")
+
+(targets-define-to lispyville-sexp 'lispyville-sexp nil object
+                   :bind t :keys "x")
+
+(targets-define-to lispyville-function 'lispyville-function nil object
+                   :bind t :keys "f")
+
+(targets-define-to lispyville-comment 'lispyville-comment nil object
+                   :bind t :keys "c")
+
+(targets-define-to lispyville-string 'lispyville-string nil object
+                   :bind t :keys "S")
+#+end_src
+
+** Atom Movement Key Theme
+The corresponding symbol is =atom-motions= or =atom-movement=. There are no
+default states as remaps are used. The states argument is repurposed to
+determine whether to override the =WORD= motions instead. These motions are
+comparable to cleverparen's "symbol" motions and vim-sexp's "element" motions.
+
+Normally (e.g. =(theme1 ... atom-movement)=):
+| key                                | command                          |
+|------------------------------------+----------------------------------|
+| =[remap evil-forward-word-begin]=  | ~lispyville-forward-atom-begin~  |
+| =[remap evil-forward-word-end]=    | ~lispyville-forward-atom-end~    |
+| =[remap evil-backward-word-begin]= | ~lispyville-backward-atom-begin~ |
+| =[remap evil-backward-word-end]=   | ~lispyville-backward-atom-end~   |
+
+With a states argument (e.g. =(theme1 ... (atom-movement t))=)
+| key                                | command                          |
+|------------------------------------+----------------------------------|
+| =[remap evil-forward-WORD-begin]=  | ~lispyville-forward-atom-begin~  |
+| =[remap evil-forward-WORD-end]=    | ~lispyville-forward-atom-end~    |
+| =[remap evil-backward-WORD-begin]= | ~lispyville-backward-atom-begin~ |
+| =[remap evil-backward-WORD-end]=   | ~lispyville-backward-atom-end~   |
+
+** Additional Movement Key Theme
+The corresponding symbol is =additional-motions= or =additional-movement=. The
+default state is motion (inherited in the normal, visual, and operator states).
+This key theme is the equivalent of cleverparen's additional movement keys. =[=
+and =]= are like the reverse of ~lispy-flow~. ={= and =}= are like ~lispy-flow~.
+=(= and =)= are like ~lispy-left~ and ~lispy-right~. Also see [[https://github.com/noctuid/lispyville#more-fluid-transitioning-between-normal-state-and-special][here]] for some
+extra information on automatically enter special after executing these motions.
+
+| key   | command                         |
+|-------+---------------------------------|
+| =H=   | ~lispyville-backward-sexp~      |
+| =L=   | ~lispyville-forward-sexp~       |
+| =M-h= | ~lispyville-beginning-of-defun~ |
+| =M-l= | ~lispyville-end-of-defun~       |
+| =[=   | ~lispyville-previous-opening~   |
+| =]=   | ~lispyville-next-closing~       |
+| ={=   | ~lispyville-next-opening~       |
+| =}=   | ~lispyville-previous-closing~   |
+| =(=   | ~lispyville-backward-up-list~   |
+| =)=   | ~lispyville-up-list~            |
+
+~lispyville-left~ is an alias for ~lispyville-backward-up-list~, and
+~lispyville-right~ is an alias for ~lispyville-up-list~.
+
+There is also the unbound ~lispyville-beginning-of-next-defun~.
+
+** Commentary Key Theme
+The corresponding symbol is =commentary=. The default state is normal state
+(inherited in visual state). The bindings follow vim/evil-commentary defaults as
+shown below:
+
+| key   | command                                |
+|-------+----------------------------------------|
+| =gc=  | ~lispyville-comment-or-uncomment~      |
+| =gy=  | ~lispyville-comment-and-clone-dwim~    |
+| =s-/= | ~lispyville-comment-or-uncomment-line~ |
+
+If you prefer evil-nerd-commenter style bindings, add the following to your
+configuration, where =,= is the evil leader key:
+#+begin_src emacs-lisp
+(evil-define-key 'normal lispyville-mode-map
+  ",,"  #'lispyville-comment-or-uncomment
+  ",."  #'lispyville-comment-and-clone-dwim
+  ",ci" #'lispyville-comment-or-uncomment-line)
+#+end_src
+
+The safe comment-and-clone operator operates only on the rightmost balanced
+region by default. If the region is selected visually, it operates separately on
+all balanced subregions.
+#+begin_src emacs-lisp
+;; initial state (cursor on first line)
+(foo (bar) (baz|
+            (quux)))
+
+;; "gyy"
+(foo (bar) (;; baz
+            baz
+            (quux)))
+
+;; with visual line selection: "Vgy"
+(;; foo (bar)
+ foo (bar) (;; baz
+            baz
+            (quux)))
+#+end_src
+
+** Slurp/Barf Key Themes
+Two key themes are provided for slurping and barfing keybindings. The default
+state for both is normal. Note that the commands in both key themes work with
+digit arguments. A positive argument will barf or slurp that many times like in
+cleverparens. Additionally, for the slurp commands, an argument of =-1= will
+slurp to the end of the line where the sexp after the closing paren ends, and an
+argument of =0= will slurp as far as possible. See the documentation for
+[[http://oremacs.com/lispy/#lispy-slurp][lispy-slurp]] for more information. Also see [[https://github.com/noctuid/lispyville#more-fluid-transitioning-between-normal-state-and-special][here]] for some extra information on
+automatically entering special after executing these commands.
+
+Note that the commands for both key themes will act on the paren /after/ the
+point, meaning that the point should be before a closing paren to be considered
+"on" it.
+
+The =slurp/barf-cp= key theme provides commands that act the same as
+cleverparens' slurp and barf keys or lispy's ~lispy-slurp-or-barf-right~ and
+~lispy-slurp-or-barf-left~. =>= and =<= can be thought of arrows that will move
+the paren at point in the corresponding direction. If there is no paren at the
+point, the keys will take the action they would on a right paren but will not
+move the point.
+
+| key | command        |
+|-----+----------------|
+| =>= | ~lispyville->~ |
+| =<= | ~lispyville-<~ |
+
+The =slurp/barf-lispy= key theme provides commands that act the same as the
+default ~lispy-slurp~ and ~lispy-barf~. In this case, =>= and =<= can be thought
+to correspond to "grow" and "shrink" respectively. =>= will always slurp, and
+=<= will always barf. If there is no paren at the point, the keys will take the
+action they would on a right paren but will not move the point.
+
+| key | command                  |
+|-----+--------------------------|
+| =>= | ~lispyville-slurp~       |
+| =<= | ~lispyville-barf~        |
+
+For both =<= bindings, if =lispyville-barf-stay-with-closing= is non-nil and
+barfing would move the closing delimiter behind the point, the point will
+instead be put on the closing delimiter.
+
+** Wrap Key Theme
+The corresponding symbol is =wrap=. The default state is normal state. Note
+binding =M-[= in terminal is the same as binding the scroll wheel. If you use
+the terminal Emacs and use the scroll wheel, you should not use this key theme.
+
+| key   | command                         |
+|-------+---------------------------------|
+| =M-(= | ~lispyville-wrap-with-round~    |
+| =M-[= | ~lispyville-wrap-with-brackets~ |
+| =M-{= | ~lispyville-wrap-with-braces~   |
+
+These are operators that will wrap the specified region with the corresponding
+delimiter. These are potentially fewer keypresses than using =evil-surround=
+since you do not have to specify the delimiter to use afterwards. If you use
+these often, you might want to bind them to something more convenient (e.g.
+=M-b= or =(= for ~lispyville-wrap-with-round~: =(evil-define-key 'normal
+lispyville-mode-map "(" 'lispyville-wrap-with-round)= if you are not using the
+additional movement key theme). Also note that you can wrap in lispy special
+(e.g. in insert state with region selected) just by pressing the delimiter. If
+you don't use the movement key theme in visual state (e.g. you only use it to
+enter lispy special), you can bind =(= to wrap only in visual state (e.g.
+=(evil-define-key 'visual lispyville-mode-map "(" 'lispy-parens)=;
+~lispy-parens~ (which is what ~lispyville-wrap-with-round~ calls) can be used
+directly in this case; =v$(= would then wrap to the end of the line).
+
+See the [[#additional-wrap-key-theme][additional wrap key theme]] for an alternative.
+
+** Additional Key Theme
+The corresponding symbol is =additional=. The default state is normal state.
+This key theme is the equivalent of cleverparens' "additional bindings" keys. It
+is currently incomplete. =M-j= is comparable to ~evil-cp-drag-forward~ and
+~lispy-move-down~. =M-k= is comparable to ~evil-cp-drag-backward~ and
+~lispy-move-up~.
+
+| key   | command                                  |
+|-------+------------------------------------------|
+| =M-j= | ~lispyville-drag-forward~                |
+| =M-k= | ~lispyville-drag-backward~               |
+| =M-J= | ~lispy-join~                             |
+| =M-s= | ~lispy-splice~                           |
+| =M-S= | ~lispy-split~                            |
+| =M-r= | ~lispy-raise-sexp~                       |
+| =M-R= | ~lispyville-raise-list~                  |
+| =M-t= | ~transpose-sexps~                        |
+| =M-v= | ~lispy-convolute-sexp~                   |
+
+~lispyville-move-down~ is an alias for ~lispyville-drag-forward~, and
+~lispyville-move-up~ is an alias for ~lispyville-drag-backward~.
+
+*** Additional Insert Key Theme
+The corresponding symbol is =additional-insert=. The default state is normal
+state. This key theme also corresponds to keybindings from cleverparens
+additional keybindings.
+
+| key   | command                                  |
+|-------+------------------------------------------|
+| =M-i= | ~lispyville-insert-at-beginning-of-list~ |
+| =M-a= | ~lispyville-insert-at-end-of-list~       |
+| =M-o= | ~lispyville-open-below-list~             |
+| =M-O= | ~lispyville-open-above-list~             |
+
+Unlike cleverparens, these commands work only with lists.
+~evil-cp-insert-at-beginning-of-form~, for example, will insert at the beginning
+of strings as well. To me, it is simpler and more consistent to only consider
+lists instead of specially handling string atoms. If you would prefer the
+original behavior, feel free to make an issue, and I can add alternative
+commands.
+
+*** Additional Wrap Key Theme
+The corresponding symbol is =additional-wrap=. The default state is normal state
+(to mimic cleverparens; you may want to also bind these in insert state).
+
+| key   | command                    |
+|-------+----------------------------|
+| =M-(= | ~lispyville-wrap-round~    |
+| =M-[= | ~lispyville-wrap-brackets~ |
+| =M-{= | ~lispyville-wrap-braces~   |
+
+These are equivalents of ~lispy-wrap-round~, ~lispy-wrap-brackets~, and
+~lispy-wrap-braces~. By default, they will wrap the sexp at the point. With a
+positive count, they will wrap that number of sexps. With a count of 0, they
+will wrap as far as possible. With a negative count, they will wrap to the sexp
+at the end of the line (e.g. =|foo bar= to =(|foo bar)=). If you would prefer
+this behavior by default, you can bind =(= to =lispy-parens-auto-wrap= in insert
+state (e.g. =(define-key lispy-mode-map-lispy "(" 'lispy-parens-auto-wrap)=).
+Also, if you would prefer to use something more generic, you can try the [[#wrap-key-theme][wrap
+key theme]] which provides corresponding operators instead.
+
+Normally, lispy will insert a space after the opening delimiter when wrapping.
+The lispyville versions will never insert a space in normal state. When in a
+state in =lispyville-insert-states=, these commands will insert a space when
+=lispy-insert-space-after-wrap= is non-nil (the default).
+
+Unlike cleverparens, no commands to wrap previous sexps are provided. If you
+would like this functionality, feel free to make an issue.
+
+** Arrows Key Theme
+The corresponding symbol is =arrows=. The default state is normal state. This
+key theme provides similar keybindings to those from
+[[https://github.com/tpope/vim-sexp-mappings-for-regular-people][vim-sexp-mappings-for-regular-people]]. It is currently incomplete.
+
+| key  | command                                  |
+|------+------------------------------------------|
+| =<i= | ~lispyville-insert-at-beginning-of-list~ |
+| =>i= | ~lispyville-insert-at-end-of-list~       |
+
+Note that the original plugin uses =>I= and =<I= in order not to override the
+default =<= and =>= used with inner text objects. Since manual indentation is
+never necessary with lisp (e.g. use =aggressive-indent-mode= or
+~lispyville-prettify~ / ~lispy-tab~ instead), this key theme does not attempt to
+leave the original keybindings intact.
+
+** Escape Key Theme
+The corresponding symbol is =escape=. The default states are insert and emacs.
+See [[#using-both-separately][here]] for more information.
+
+| key   | command                   |
+|-------+---------------------------|
+| =ESC= | ~lispyville-normal-state~ |
+
+** Mark Key Themes
+The corresponding symbols are =mark= and =mark-special=. The default states are
+normal and visual. While the commands from =mark= will enter visual state, the
+commands from =mark-special= will enter =lispyville-preferred-lispy-state=. See
+[[#visual-state-and-special-integration][here]] for more information.
+
+| key   | command                     |
+|-------+-----------------------------|
+| =v=   | wrapped ~lispy-mark-symbol~ |
+| =V=   | wrapped ~lispy-mark~        |
+| =C-v= | wrapped ~lispy-mark~        |
+
+** Mark Toggle Key Theme
+The corresponding symbol is =mark-toggle=. The default states are insert and
+emacs. Note that =v= will be bound in visual state (not changeable).
+
+| key   | command                       |
+|-------+-------------------------------|
+| =v=   | ~lispyville-toggle-mark-type~ |
+| =ESC= | ~lispyville-escape~           |
+
+The idea of this theme is to use the same key you used to get into visual state
+or special to toggle between them and to use =ESC= to get rid of the region. For
+example, after entering visual state, you can press =v= to enter lispy special
+or =ESC= to return to normal state and cancel the region. After marking
+something with lispy, you can press the key for ~lispy-mark-list~ (I use =v=,
+but it is =m= by default) to enter visual state or =ESC= to return to insert or
+emacs state and cancel the region.
+
+Note that this requires also binding ~lispyville-toggle-mark-type~ in lispy
+after it loads:
+#+begin_src emacs-lisp
+(lispy-define-key lispy-mode-map "m" #'lispyville-toggle-mark-type)
+;; or v for better consistency (I swap m and v)
+(lispy-define-key lispy-mode-map "v" #'lispyville-toggle-mark-type)
+#+end_src
+
+By re-purposing =v= in visual state (which normally enters visual line mode) to
+enter lispy special and re-purposing =m= (or =v=) in lispy special with an
+active region to enter visual state (while moving =m='s normal functionality to
+=ESC=), this functionality is achieved without requiring any complicated
+keybindings. Note that the toggle key will still act as ~lispy-mark-list~ in
+lispy special if you use a prefix arg (other than 1).
+
+When using this theme with the =mark= theme, the =mark= theme should be
+specified first. If you would prefer that =ESC= always enters normal state
+(instead of returning you to lispy special with no region if you are in lispy
+special with a region), you can specify the =escape= theme after the
+=mark-toggle= theme.
+
+* Integration with Lispy
+** Mode Line Indicator for Lispy Special
+If you would like an additional visual indicator that lispy keybindings are
+active (i.e. when in special and in a state in =lispyville-insert-states=),
+lispyville also provides ~lispyville-mode-line-string~. It optionally takes two
+arguments: the text to display when lispy keybindings are active ("🍰-special "
+by default) and the default text (nothing by default). You can change the
+color/style of the text by customizing =lispyville-special-face=.
+#+begin_src emacs-lisp
+(setq-default mode-line-format
+              ;; ...
+               '(:eval (when (featurep 'lispyville)
+                         (lispyville-mode-line-string)))
+              ;; ...
+              )
+#+end_src
+
+Alternatively, you can use lispyville's lighter for this purpose (it will change
+to the color/style of =lispyville-special-face= when lispy keybindings are
+active):
+#+begin_src emacs-lisp
+(diminish 'lispyville-mode (lispyville-mode-line-string " 🍰" " 🍰"))
+#+end_src
+
+** More Fluid Transitioning Between Normal State and Special
+Getting to special when in insert or emacs state is already pretty easy. You can
+use =)= or =[= and =]= (if you like those keybindings) to jump to a special
+location at any time. If you want to get there from normal state, it's a bit
+more tedious, since you need to first navigate to a special location and then
+enter insert or emacs state.
+
+Lispyville provides an option that will automatically enter insert or emacs
+state for lispyville navigation commands that would put you at a paren. To
+enable this behavior, =lispyville-motions-put-into-special= can be set to a
+non-nil value. If you prefer to edit in emacs-state, you can set
+=lispyville-preferred-lispy-state= to =emacs=.
+
+Note that this behavior will not affect the use of motions with an operator or
+in visual state (which wouldn't make sense).
+
+There is also an option for commands called
+=lispyville-commands-put-into-special= that can be customized in the same way.
+The currently applicable commands are the slurp and barf commands.
+
+** Visual State and Special Integration
+:PROPERTIES:
+:CUSTOM_ID: visual-state-and-special-integration
+:END:
+Lispyville tries to be unobtrusive by default, only rebinding the major operator
+keys. Since there are many potential ways to better integrate evil's visual
+state with lispy's special (with the region active), lispyville doesn't make a
+default choice for the user.
+
+*** Using Both Separately
+:PROPERTIES:
+:CUSTOM_ID: using-both-separately
+:END:
+
+This is probably the simplest method of improving things. By default, pressing
+escape after using something like ~lispy-mark~ from special will enter normal
+state but won't cancel the region. Lispyville provides ~lispyville-normal-state~
+to deactivate the region and enter normal state in one step. You can map it
+manually or use the =escape= key theme (e.g. ~(lispyville-set-key-theme '(...
+(escape insert emacs)))~).
+
+On the other hand, if you want to map a key in normal state to mark something
+with a lispy command like ~lispy-mark~, normally evil's visual state will be
+entered, and the selection will be off by a character. ~lispyville-wrap-command~
+can be used to create commands that will enter a specific evil state and ensure
+that the resulting selection is correct. It is mainly meant to be used with
+=visual= and =special=:
+#+begin_src emacs-lisp
+;; enter visual state after `lispy-mark-symbol' with correct selection
+(evil-define-key 'normal lispyville-mode-map
+  "v" (lispyville-wrap-command lispy-mark-symbol visual))
+;; enter lispy special after `lispy-mark-symbol' with correct selection
+(evil-define-key 'normal lispyville-mode-map
+  "v" (lispyville-wrap-command lispy-mark-symbol special))
+#+end_src
+
+To toggle between special and visual state at any time, you can use the
+=mark-toggle= key theme.
+
+*** Using Only Lispy's Mark Commands
+Lispy's special mark state won't always work correctly when entered with an
+active region it wouldn't normally mark (e.g. half of a symbol is marked).
+Because of this, you'll probably want to rebind =v=, =V=, and =C-v=. Lispyville
+provides a key theme to remap =v= to a wrapped version of ~lispy-mark-symbol~
+and =V= and =C-v= to a wrapped version of ~lispy-mark~ (e.g.
+~(lispyville-set-key-theme '(... mark-special))~).
+
+The old way of automatically switching to insert or emacs state was found to
+have serious bugs, so I do not currently recommend using it. Instead, you need
+to wrap all selection-related functions that you use with
+~lispyville-wrap-command~.
+
+*** Using Only Evil's Mark Commands
+One can have all lispy mark commands enter evil's visual state instead:
+#+begin_src emacs-lisp
+(lispyville-enter-visual-when-marking)
+#+end_src
+
+The behavior can be removed by running ~lispyville-remove-marking-hooks~.
+
+*** Final Notes
+If you prefer evil or lispy for working with regions but don't want to use
+either all of the time, it's probably best to pick the one you find the most
+useful and bind some keys from the other in the relevant keymap.
+
+I may add a key theme for this, but I personally prefer to mainly using lispy's
+keys, as they are generally more useful than the default evil motions and will
+keep the region balanced. Evil's commands can be more useful for editing
+comments, so I'm personally using the first solution ([[#using-both-separately][Using Both Separately]]) to
+choose which to use.
+
+Note that you can still use the =mark-toggle= keybinding to switch between
+visual and special even if you run ~(lispyville-enter-special-when-marking)~
+(use not recommended) or ~(lispyville-enter-visual-when-marking)~.
+
+* Lispy Settings
+:PROPERTIES:
+:CUSTOM_ID: lispy-settings
+:END:
+
+I've added the main functions behind safe deletion and copying directly to
+lispy. To have lispy's commands always act safely on a region,
+=lispy-safe-delete=, =lispy-safe-copy=, and =lispy-safe-paste= can be set to
+non-nil values. Lispyville's commands keep delimiters balanced regardless of
+these settings. Lispyville does not yet have a safe paste operator though.
+
+The options that /will/ affect lispyville's behavior are =lispy-safe-threshold=,
+=lispy-safe-actions-ignore-strings=, =lispy-safe-actions-ignore-comments=, and
+=lispy-safe-actions-no-pull-delimiters-into-comments=.
+
+=lispy-safe-threshold= is the maximum size a region can be before operators will
+no longer attempt to keep delimiters balanced. If you ever have an issue with
+the limit, you can try increasing it and see if there are any performance
+issues. I haven't tested performance on larger regions, so any feedback would be
+appreciated.
+
+The "ignore" options will determine whether commands will ignore unbalanced
+delimiters in comments and strings. It is recommended to keep these options at
+their default value (true).
+
+When =lispy-safe-actions-no-pull-delimiters-into-comments= is non-nil,
+lispy/lispyville commands will avoid pulling unmatched delimiters into comments
+(e.g. =dd= on a line after a comment will keep unmatched closing delimiters on
+the same line instead of commenting them out).
+
+By default, ~lispyville-mode~ will automatically make the following changes when
+turned on for maximum safety levels:
+#+begin_src emacs-lisp
+  (setq lispy-safe-delete t
+        lispy-safe-copy t
+        lispy-safe-paste t
+        lispy-safe-actions-no-pull-delimiters-into-comments t)
+#+end_src
+
+To prevent lispyville from changing lispy variables, you can set
+ =lispyville-no-alter-lispy-options= to a non-nil value. aoeuaoeuuaoeuoaue
