@@ -9,8 +9,12 @@ augroup end
 
 return require('packer').startup(function()
 	-- Packer can manage itself
-	-- 
+
+  use "terrortylor/nvim-comment"
+
 	use 'wbthomason/packer.nvim'
+
+  use "lukas-reineke/indent-blankline.nvim"
 
 	use { "ellisonleao/gruvbox.nvim" }
 

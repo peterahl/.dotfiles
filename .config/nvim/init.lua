@@ -4,12 +4,28 @@ require('telescope')
 
 require('telescope').load_extension('fzf')
 
-require('keybindings')
+require('nvim-tree')
 
-vim.opt.completeopt = { 'menu' , 'menuone', 'noselect' }
-vim.o.expandtab = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+local opt = vim.opt
+opt.termguicolors = true
+opt.completeopt = { 'menu' , 'menuone', 'noselect' }
+
+local o = vim.o
+o.background = "dark" -- or "light" for light mode
+o.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
+
+vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[nnoremap j jzz]])
+vim.cmd([[nnoremap k kzz]])
+vim.cmd([[nnoremap <C-d> <C-d>zz]])
+vim.cmd([[nnoremap <C-u>  <C-u>zz]])
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+    space_char_blankline = " ",
+}
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -100,9 +116,14 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
-require('nvim-tree')
+require('nvim_comment').setup()
 
-vim.opt.termguicolors = true
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.g.indent_blankline_char = '┊'
 
+require("indent_blankline").setup {
+  -- for example, context is off by default, use this to turn it on
+  show_current_context = true,
+  show_current_context_start = true,
+}
+
+require('keybindings')
