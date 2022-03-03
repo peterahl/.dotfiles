@@ -66,6 +66,8 @@
 
 (package! visual-fill-column)
 
+(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
+
 (package! prisma-mode
   :recipe (:host github
            :repo "pimeys/emacs-prisma-mode"

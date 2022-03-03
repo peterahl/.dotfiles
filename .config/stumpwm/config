@@ -1,0 +1,114 @@
+;;; -*- mode: lisp -*-
+;;; init.lisp --- StumpWM demo configuration
+;;;
+
+;; Copyright © 2020-2021 James McCabe
+
+;; Author: James McCabe <james.mccab3(at)gmail.com>
+;; URL: https://github.com/jamesmccabe/stumpwm-config
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; This is a basic StumpWM configuration for my demo video.
+
+;;; Code:
+
+;; (ql:quickload :stumpwm)
+;; (ql:quickload "clx")
+;; (ql:quickload "cl-ppcre")
+;; (ql:quickload "alexandria")
+;; https://labs.phundrak.com/phundrak/dotfiles/src/branch/master/org/config/stumpwm.org#Theme-Fonts-28pc8141v5j0
+
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+
+(in-package :stumpwm)
+(setf *default-package* :stumpwm)
+
+
+(ql:quickload :clx-truetype)
+(set-module-dir "/usr/share/stumpwm/contrib/")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Basic settings                                                          ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; load Stump contrib modules
+(mapc #'load-module '("ttf-fonts"
+                      "swm-gaps"))
+
+;; set desktop background color
+(setf (xlib:window-background (screen-root (current-screen))) #x47456d)
+;; set wallpaper
+;; (run-shell-command "feh --bg-fill ~/Pictures/wallpaper.png")
+
+;; font settings. Sometimes you need to cashe it.
+;; (xft:cache-fonts)
+(set-font (list (make-instance 'xft:font
+                               :family "FuraCode Nerd Font Mono"
+                               :subfamily "Regular"
+                               :size 13)))
+(grename "Base")
+(gnewbg "Extra")
+(gnewbg-float "Float")
+;(gnewbg ".scratchpad") ; hidden group / scratchpad
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Color settings                                                          ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load "~/.config/stumpwm/colors.lisp")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General settings                                                        ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; mouse pointer
+(run-shell-command "xsetroot -cursor_name left_ptr")
+
+;; messages display time
+(setf *timeout-wait* 7)
+
+;; ignore window hints
+(setf *ignore-wm-inc-hints* t)
+
+;; window name format (truncate name after 20 letters)
+(setf *window-format* "%m%n%s%20t")
+
+;; input focus is transferred to the window you click on
+(setf *mouse-focus-policy* :click)
+
+;; startup message
+(setf *startup-message* "^5    Stump Window Manager ^0has initialized!
+Press ^2Ctrl+z ? ^0for Help. ^5Never Stop Hacking!^n
+          Powered with ^02 Common Lisp ")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Swank settings                                                          ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load "~/.config/stumpwm/swank.lisp")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; keybingings                                                             ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load "~/.config/stumpwm/keybindings.lisp")
+
+;;; init.lisp ends here

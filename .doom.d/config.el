@@ -138,6 +138,14 @@
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
 
+(after! tree-sitter
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  (tree-sitter-load 'vue "vue")
+  (add-to-list 'tree-sitter-major-mode-language-alist '(vue-mode . vue)))
+(use-package! lsp-volar)
+
+
 (use-package turbo-log
   :bind (("C-S-l" . turbo-log-print)
          ("C-S-i" . turbo-log-print-immediately)
@@ -151,6 +159,8 @@
   (setq turbo-log-allow-insert-without-tree-sitter-p t))
 
 (setq typescript-indent-level 2)
+
+(setq highlight-indent-guides-method 'bitmap)
 
 (use-package! prisma-mode)
 (after! prisma-mode

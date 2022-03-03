@@ -10,7 +10,7 @@ augroup end
 return require('packer').startup(function()
 	-- Packer can manage itself
 
-  use "terrortylor/nvim-comment"
+  use 'numToStr/Comment.nvim'
 
 	use 'wbthomason/packer.nvim'
 

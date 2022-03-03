@@ -58,6 +58,7 @@ get_session(){
 		lxqt) dbus_args+=(lxqt-session) ;;
 		mate) dbus_args+=(mate-session) ;;
 		xfce) dbus_args+=(xfce4-session) ;;
+		stumpwm) dbus_args+=(stumpwm) ;;
 		openbox) dbus_args+=(openbox-session) ;;
 		*) dbus_args+=($DEFAULT_SESSION) ;;
 	esac

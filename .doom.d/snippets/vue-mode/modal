@@ -1,0 +1,58 @@
+# -*- mode: snippet -*-
+# name: <modal>
+# uuid: vue_modal
+# key: modal
+# --
+<template>
+  <modal
+    :name=\"modalName\"
+    :pivot-y=\"0.2\"
+    :scrollable=\"true\"
+    height=\"auto\"
+    adaptive
+    width=\"95%\"
+    :min-width=\"320\"
+    :max-width=\"1000\"
+    @before-open=\"beforeOpen\"
+    :clickToClose=\"true\"
+  >
+    <BaseModalHeader title=\"${2:NewModal}\" @close=\"close\" />
+    <BaseModalBody>
+    $0
+    </BaseModalBody>
+    <BaseModalFooter class=\"flex\">
+      <div class=\"flex ml-auto space-x-2\">
+        <button @click=\"close\" class=\"btn btn-default\">Stäng</button>
+        <button @click=\"() => {}\" class=\"btn btn-primary\" disabled=\"\">Spara</button>
+      </div>
+    </BaseModalFooter>
+  </modal>
+</template>
+
+<script>
+export default {
+  name: '${3:ComponentName}',
+  data() {
+    return {
+      modalName: '${1:NewModal}',
+      isOpen: false,
+      onClose: undefined,
+    }
+  },
+  methods: {
+    beforeOpen({ params } = {}) {
+      if (!params) {
+        return console.warn(\`\${this.modalName} is missing params\`)
+      }
+      this.onClose = params?.onClose
+      this.isOpen = true
+    },
+    close({ success } = {}) {
+      if (typeof this.onClose === 'function') this.onClose({ success })
+
+      this.$modal.hide(this.modalName)
+      this.isOpen = false
+    },
+  },
+}
+</script>

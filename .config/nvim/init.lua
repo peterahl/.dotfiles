@@ -9,6 +9,7 @@ require('nvim-tree')
 local opt = vim.opt
 opt.termguicolors = true
 opt.completeopt = { 'menu' , 'menuone', 'noselect' }
+opt.ignorecase = true
 
 local o = vim.o
 o.background = "dark" -- or "light" for light mode
@@ -28,7 +29,7 @@ require("indent_blankline").setup {
 }
 
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require('cmp')
 
 cmp.setup({
   snippet = {
@@ -116,7 +117,7 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
-require('nvim_comment').setup()
+require('Comment').setup()
 
 vim.g.indent_blankline_char = '┊'
 
