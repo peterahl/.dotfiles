@@ -22,7 +22,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
-(setq doom-big-font (font-spec :family "FiraCode Nerd Font" :size 24))
+(setq doom-big-font (font-spec :family "FiraCode Nerd Font" :size 32))
 
 
 
@@ -79,6 +79,7 @@
 ;; Preformance stuff
 (setq which-key-idle-delay 0.2
       gc-cons-threshold 100000000
+      company-idle-delay 0.1
       read-process-output-max (* 1024 1024))
 
 ;; (map! :leader
