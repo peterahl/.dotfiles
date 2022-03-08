@@ -19,7 +19,7 @@ wk.register({
   },
   q = {
     name = "quit", 
-    q = { "<cmd>q<cr>", "Quit" },
+    q = { "<cmd>qa<cr>", "Quit" },
   },
   s = {
     name = "search", 

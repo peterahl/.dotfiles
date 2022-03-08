@@ -6,12 +6,12 @@
 
 xrdb -merge ~/.Xresources
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
+userresources=${HOME}/.Xresources
+usermodmap=${HOME}/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-DEFAULT_SESSION=gnome-session
+DEFAULT_SESSION='i3 --shmlog-size 0'
 
 # merge in defaults and keymaps
 
@@ -58,7 +58,6 @@ get_session(){
 		lxqt) dbus_args+=(lxqt-session) ;;
 		mate) dbus_args+=(mate-session) ;;
 		xfce) dbus_args+=(xfce4-session) ;;
-		stumpwm) dbus_args+=(stumpwm) ;;
 		openbox) dbus_args+=(openbox-session) ;;
 		*) dbus_args+=($DEFAULT_SESSION) ;;
 	esac
@@ -66,7 +65,9 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
+export PATH=${HOME}/.local/bin:${PATH}
+export PATH=${HOME}/.cargo/bin:${PATH}
+export PATH=${HOME}/.emacs.d/bin:${PATH}
+export PATH=${HOME}/go/bin:${PATH}
+
 exec $(get_session "$1")
-xset r rate 500 33
-
-
