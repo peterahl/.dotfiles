@@ -1,17 +1,3 @@
-cd .local/
-#1645090815
-cat doom.error.log 
-#1645090826
-rg voday
-#1645090851
-cd etc/
-#1645090866
-cd workspaces/
-#1645090870
-cd ..
-#1645090880
-rm -rf workspaces/
-#1645090924
 cd ..
 #1645090938
 rm -rf .local
@@ -992,3 +978,10 @@ exit
 exit
 #1646126995
 google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland 
+which
+which npm
+nvim
+nvim .bashrc
+exit
+which npm
+exit 

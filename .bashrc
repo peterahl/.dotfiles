@@ -138,11 +138,6 @@ alias grep='grep --color=auto'
 # export SDKMAN_DIR="/home/peter/.sdkman"
 [[ -s "/home/peter/.sdkman/bin/sdkman-init.sh" ]] && source "/home/peter/.sdkman/bin/sdkman-init.sh"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # BEGIN_KITTY_SHELL_INTEGRATION

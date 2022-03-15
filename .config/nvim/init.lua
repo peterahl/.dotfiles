@@ -1,10 +1,13 @@
 require('plugins')
-
-require('telescope')
+-- require('telescope')
+-- require('telescope').load_extension('project')
+-- require('telescope').load_extension('file_browser')
+-- require('nvim-tree')
+-- require('hop')
+-- require('neogit').setup()
+-- require('Comment').setup()
 
 require('telescope').load_extension('fzf')
-
-require('nvim-tree')
 
 local opt = vim.opt
 opt.termguicolors = true
@@ -13,16 +16,23 @@ opt.ignorecase = true
 opt.cursorline = true
 
 local o = vim.o
-o.background = "dark" -- or "light" for light mode
+-- o.background = "dark" -- or "light" for light mode
 o.expandtab = true
 o.tabstop = 2
 o.shiftwidth = 2
+o.guifont = "Fira Code:h10"
+o.clipboard = "unnamedplus"
+o.timeoutlen = 300
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
-vim.cmd([[colorscheme gruvbox]])
+
+vim.cmd([[colorscheme tokyonight]])
 vim.cmd([[nnoremap j jzz]])
 vim.cmd([[nnoremap k kzz]])
 vim.cmd([[nnoremap <C-d> <C-d>zz]])
 vim.cmd([[nnoremap <C-u>  <C-u>zz]])
+
 
 require("indent_blankline").setup {
     show_end_of_line = true,
@@ -100,10 +110,38 @@ end)
 
 -- Setup lspconfig.
 local opts = { noremap=true, silent=true }
+local keymap = vim.api.nvim_set_keymap
+
+keymap('n', '<M-o>', '<cmd>wincmd p<CR>', opts)
+keymap('v', '<S-r>', '"hy/<C-r>h<CR>:%s/<C-r>h//g<left><left>', opts)
+keymap('n', '<S-r>', ':noh<CR>', opts)
+keymap('n', '<M-g><M-g>', '<cmd>HopWord<CR>', opts)
+
+-- vim.cmd([[nnoremap <M-i>  "hy:%s/<C-r>h//gc<left><left><left>]])
+
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+
+vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+-- Mappings.
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -129,38 +167,26 @@ local on_lsp_attach = function(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { 'sumneko_lua', 'vuels', 'tsserver' }
+local servers = {'volar', 'tsserver', 'graphql', 'prismals'}
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
     on_attach = on_lsp_attach
   }
 end
+ 
+-- require'lspconfig'.sumneko_lua.setup(require("lua-lsp"))
 
-require('nvim-treesitter.configs').setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-  indent = {
-    enable = true
-  }
+
+local signature_config = {
+  log_path = vim.fn.expand("$HOME") .. "/.cache/nvim/sig.log",
 }
 
-require('Comment').setup()
+require("lsp_signature").setup(signature_config)
+
+require('lspsaga').setup()
 
 vim.g.indent_blankline_char = '┊'
-
 require("indent_blankline").setup {
   -- for example, context is off by default, use this to turn it on
   show_current_context = true,

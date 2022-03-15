@@ -1,6 +1,7 @@
 source ~/.local/share/zsh-snap/znap.zsh
 
 znap source marlonrichert/zsh-autocomplete
+
 # Use powerline
 USE_POWERLINE="true"
 # Source manjaro-zsh-configuration
@@ -21,9 +22,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.emacs.d/bin:$PATH
-export PATH=$HOME/go/bin:$PATH
-export DENO_INSTALL="/home/peter/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
