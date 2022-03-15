@@ -86,10 +86,11 @@ return require('packer').startup(function()
 		config = function()
 			require("telescope").setup {
         defaults = {
+          sorting_strategy = "ascending",
           layout_strategy = 'vertical',
           path_display = function(opts, path)
             local tail = require("telescope.utils").path_tail(path)
-            return string.format("%s%s%s", tail, string.rep(" ", 100 -#tail), path)
+            return string.format("%s%s%s", tail, string.rep(" ", 90 -#tail), path)
           end,
           layout_config = {
             height = 0.9,
