@@ -33,8 +33,10 @@
 (gnewbg "Extra")
 (gnewbg-float "Float")
 
+;; input focus is transferred to the window you click on
+(setf *mouse-focus-policy* :click)
+
 (ql:quickload :slynk)
 (slynk:create-server :port 4005)
 
 (load "~/.stumpwm.d/keybindings.lisp")
-;; (print *root-map*)

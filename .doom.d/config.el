@@ -23,8 +23,8 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 ;;(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
 ;;(setq doom-big-font (font-spec :family "FiraCode Nerd Font" :size 32))
-(setq doom-font (font-spec :family "Fira Code" :size 22 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 23))
+(setq doom-font (font-spec :family "Fira Code" :size 20 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 21))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -32,7 +32,7 @@
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-laserwave)
 ;; (setq doom-theme 'doom-horizon)
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-tokyo-night)
 ;; (setq doom-theme 'doom-one-light)
 
 
@@ -79,8 +79,10 @@
 
 ;; Preformance stuff
 (setq which-key-idle-delay 0.2
-      gc-cons-threshold 100000000
-      company-idle-delay 0.1
+      company-idle-delay 0.0
+      lsp-idle-delay 0.2
+      company-minimum-prefix-length 1
+      gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024))
 
 ;; (map! :leader
@@ -130,23 +132,37 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(define-derived-mode vue-mode web-mode "vue"
-  "A major mode derived from web-mode, for editing .vue files with LSP support.")
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-(add-hook! 'vue-mode-hook #'lsp
-  (setq web-mode-markup-indent-offset 2
-        web-mode-script-padding 0
-        web-mode-style-padding 0
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2))
+;; (define-derived-mode vue-mode web-mode "vue"
+;;   "A major mode derived from web-mode, for editing .vue files with LSP support.")
+;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+;; (add-hook! 'vue-mode-hook
+;;            #'lsp
+;;            (setq web-mode-markup-indent-offset 2
+;;              web-mode-script-padding 0
+;;                  web-mode-style-padding 0
+;;                  web-mode-css-indent-offset 2
+;;                  web-mode-code-indent-offset 2))
+;;
+
+(setq web-mode-markup-indent-offset 2
+      web-mode-script-padding 0
+      web-mode-style-padding 0
+      web-mode-css-indent-offset 2
+      web-mode-code-indent-offset 2)
+
 
 ;;(after! tree-sitter
  ;; (global-tree-sitter-mode)
   ;;(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
   ;;(tree-sitter-load 'vue "vue")
   ;;(add-to-list 'tree-sitter-major-mode-language-alist '(vue-mode . vue)))
-(use-package! lsp-volar)
 
+(use-package! lsp-volar)
+;; (setq lsp-volar-take-over-mode nil)
+
+(use-package! lsp-tailwindcss
+  :init
+  (setq lsp-tailwindcss-add-on-mode t))
 
 (use-package turbo-log
   :bind (("C-S-l" . turbo-log-print)

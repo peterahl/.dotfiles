@@ -68,6 +68,8 @@
 
 (package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
 
+(package! lsp-tailwindcss :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
+
 (package! prisma-mode
   :recipe (:host github
            :repo "pimeys/emacs-prisma-mode"

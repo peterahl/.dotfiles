@@ -14,21 +14,45 @@
 (undefine-key *root-map* (kbd "Q"))
 (undefine-key *root-map* (kbd "f"))
 (undefine-key *root-map* (kbd "w"))
+(undefine-key *root-map* (kbd "k"))
+(undefine-key *root-map* (kbd "K"))
+
+
+(defun peter-run-or-raise (cmd props &optional preserved (all-groups *run-or-raise-all-groups*)
+                                 (all-screens *run-or-raise-all-screens*))
+  (let* ((group (current-group))
+         (windows (sort-windows group))
+         (matches (find-matching-windows props all-groups all-screens))
+         ;; other-matches is list of matches "after" the current
+         ;; win, if current win matches. getting 2nd element means
+         ;; skipping over the current win, to cycle through matches
+         (other-matches (member (current-window) matches))
+         (win (if (> (length other-matches) 1)
+                  (progn
+                    (renumber 100)
+                    (second other-matches))
+                  (first matches))))
+    (if win
+        (progn
+          (focus-all win)
+          (renumber 0)
+          (repack-window-numbers))
+        (run-shell-command cmd))))
 
 ;; Apps
 (defcommand alacritty () ()
   "Start Alacritty or switch to it, if it is already running"
-  (run-or-raise "alacritty" '(:class "Alacritty")))
+  (peter-run-or-raise "alacritty" '(:class "Alacritty")))
 
 (define-key *top-map* (kbd "s-a") "alacritty")
 
 (defcommand firefox () ()
   "Start Firefox or switch to it, if it is already running"
-  (run-or-raise "firefox" '(:class "firefox")))
+  (peter-run-or-raise "firefox" '(:class "firefox")))
 
 (defcommand chrome () ()
   "Start google-chrome or switch to it, if it is already running"
-  (run-or-raise "google-chrome-stable" '(:class "Google-chrome")))
+  (peter-run-or-raise "google-chrome-stable" '(:class "Google-chrome")))
 
 (defcommand figma () ()
   "Start figma or switch to it, if it is already running"
@@ -40,7 +64,7 @@
 
 (defcommand neovide () ()
   "Start neovide or switch to it, if it is already running"
-  (run-or-raise "neovide" '(:class "neovide")))
+  (peter-run-or-raise "neovide" '(:class "neovide")))
 
 (defcommand dbeaver () ()
   "Start dbeaver or switch to it, if it is already running"
@@ -56,7 +80,7 @@
 
 (defcommand nyxt () ()
   "Start nyxt or switch to it, if it is already running"
-  (run-or-raise "nyxt" '(:class "Nyxt")))
+  (peter-run-or-raise "nyxt" '(:class "Nyxt")))
 
 
 (define-key *top-map* (kbd "s-e") "emacs")
@@ -115,7 +139,7 @@
 (defvar *utils*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "h") "refresh-heads")
-    (define-key m (kbd "e") "exec xrandr --output HDMI-A-0 --left-of eDP")
+    (define-key m (kbd "e") "exec xrandr --output HDMI-A-0 --auto --pos 0x0 --output eDP --auto --pos 3840x720")
     (define-key m (kbd "a") "exec xrandr --auto")
     m
     ))

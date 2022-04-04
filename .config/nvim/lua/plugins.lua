@@ -1,5 +1,3 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 vim.cmd([[
 augroup packer_user_config
 autocmd!
@@ -12,6 +10,45 @@ local use = require('packer').use
 return require('packer').startup(function()
 	-- Packer can manage itself
 
+	use 'wbthomason/packer.nvim'
+
+	use 'williamboman/nvim-lsp-installer'
+
+  use {
+    "gaelph/logsitter.nvim",
+    requires = {"nvim-treesitter/nvim-treesitter"},
+    config = function ()
+      require("logsitter").log('javascript')
+    end
+  }
+
+  use {
+    "nvim-neorg/neorg",
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {}
+        }
+      }
+    end,
+    requires = "nvim-lua/plenary.nvim"
+  }
+
+	use 'ellisonleao/gruvbox.nvim'
+
+  use 'arcticicestudio/nord-vim'
+
+  use {
+    "lukas-reineke/lsp-format.nvim",
+    config = function ()
+      require("lsp-format").setup {}
+    end
+  }
+
+  use 'folke/tokyonight.nvim'
+
+  use "folke/lua-dev.nvim"
+
   use {
     'numToStr/Comment.nvim',
     config = function ()
@@ -19,11 +56,20 @@ return require('packer').startup(function()
     end
   }
 
-	use 'wbthomason/packer.nvim'
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function ()
+      require("indent_blankline").setup {
+        -- for example, context is off by default, use this to turn it on
+        show_current_context = true,
+        -- show_current_context_start = true,
+        --
+        show_end_of_line = true,
+        space_char_blankline = " ",
+      }
+    end
+  }
 
-  use "lukas-reineke/indent-blankline.nvim"
-
-	use { "ellisonleao/gruvbox.nvim" }
 
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
@@ -90,7 +136,7 @@ return require('packer').startup(function()
           layout_strategy = 'vertical',
           path_display = function(opts, path)
             local tail = require("telescope.utils").path_tail(path)
-            return string.format("%s%s%s", tail, string.rep(" ", 90 -#tail), path)
+            return string.format("%s%s%s", tail, string.rep(" ", 60 -#tail), path)
           end,
           layout_config = {
             height = 0.9,
@@ -125,11 +171,7 @@ return require('packer').startup(function()
 	use {
 		"folke/which-key.nvim",
 		config = function()
-			require("which-key").setup {
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			}
+			require("which-key").setup()
 		end
 	}
 
@@ -142,7 +184,6 @@ return require('packer').startup(function()
   }
 
 	use 'neovim/nvim-lspconfig'
-	use 'williamboman/nvim-lsp-installer'
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
@@ -151,7 +192,14 @@ return require('packer').startup(function()
 	use 'hrsh7th/cmp-vsnip'
 	use 'hrsh7th/vim-vsnip'
 
-  use 'ray-x/lsp_signature.nvim'
+  use {
+    'ray-x/lsp_signature.nvim',
+    config = function ()
+      require("lsp_signature").setup({
+        log_path = vim.fn.expand("$HOME") .. "/.cache/nvim/sig.log",
+      })
+    end
+  }
 
   use {
     'lewis6991/gitsigns.nvim',
@@ -162,11 +210,14 @@ return require('packer').startup(function()
       require('gitsigns').setup()
     end
   }
-  use 'tami5/lspsaga.nvim'
-  
-  use 'arcticicestudio/nord-vim'
 
-  use 'folke/tokyonight.nvim'
+  use {
+    'tami5/lspsaga.nvim',
+    config = function ()
+      require('lspsaga').setup()
+    end
+  }
+
 
 	use {
 		'kyazdani42/nvim-tree.lua',
@@ -176,6 +227,12 @@ return require('packer').startup(function()
 		config = function() require'nvim-tree'.setup {} end
 	}
 
-  use 'windwp/nvim-autopairs'
+  use {
+    'windwp/nvim-autopairs',
+    config = function ()
+      require('nvim-autopairs').setup{}
+    end
+  }
+
 
 end)

@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+-- vim.g.mapleader = " "
 local wk = require("which-key")
 
 wk.register({
@@ -61,5 +61,9 @@ wk.register({
     name = "Window",
     d = { "<cmd>q<cr>", "close window" },
     m = { "<cmd>only<cr>", "close window" },
+    w = { "<C-w>w", "other window" },
+    v = { "<C-w>v", "Split vertically" },
+    s = { "<C-w>s", "Split horizontally" },
   },
 }, { prefix = "<leader>" })
+

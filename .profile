@@ -1,6 +1,7 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=/usr/bin/emacs
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+# export GDK_SCALE=2
 # fix "xdg-open fork-bomb" export your preferred browser from here
 export BROWSER=/usr/bin/google-chrome-stable
 
