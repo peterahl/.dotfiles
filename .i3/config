@@ -3,7 +3,8 @@
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
-set $meh Control+Shift+Mod1
+# set $meh Control+Shift+Mod1
+set $meh Print
 
 # Run or raise a bunch of programs
 bindsym $meh+e exec --no-startup-id run-or-raise 'class = "Emacs"' emacs

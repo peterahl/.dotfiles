@@ -101,12 +101,18 @@ local mapb = vim.api.nvim_buf_set_keymap
 local wk = require("which-key")
 
 wk.register({
-  ['<M-o>'] = { "<C-w>w", "other window" }
+  ['<M-o>'] = { "<C-w>w", "other window" },
+  ['<M-g>'] = {
+    name = 'my g',
+    ['<M-g>'] = { "<cmd>HopWord<CR>", 'ace jump' },
+    ['<M-r>'] = { "<cmd> lua require('neofs').open(require('telescope.utils').buffer_dir())<cr>", 'ace jump' }
+  }
 })
+
 -- map('n', '<M-o>', '<C-w>w', opts)
 map('v', '<S-r>', '"hy/<C-r>h<CR>:%s/<C-r>h//g<left><left>', opts)
 map('n', '<S-r>', ':noh<CR>', opts)
-map('n', '<M-g><M-g>', '<cmd>HopWord<CR>', opts)
+-- map('n', '<M-g><M-g>', '<cmd>HopWord<CR>', opts)
 
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -116,7 +122,7 @@ map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require('lsp-format').on_attach(client)
+  require("lsp-format").on_attach(client)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -141,7 +147,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 local enhance_server_opts = {
   -- Provide settings that should only apply to the "eslintls" server
-  ["eslintls"] = function(opts)
+  ["eslint"] = function(opts)
     opts.settings = {
       format = {
         enable = true,
@@ -150,7 +156,8 @@ local enhance_server_opts = {
   end,
 }
 
-local servers = {'volar', 'tsserver', 'graphql', 'prismals', 'eslintls'}
+local servers = {'volar', 'tsserver', 'graphql', 'prismals', 'eslint'}
+
 local lsp_installer = require("nvim-lsp-installer")
 
 for _, name in pairs(servers) do
@@ -161,9 +168,8 @@ for _, name in pairs(servers) do
   end
 end
 
-
 lsp_installer.on_server_ready(function(server)
-  -- Specify the default options which we'll use to setup all servers
+
   local opts = {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -177,8 +183,12 @@ lsp_installer.on_server_ready(function(server)
   server:setup(opts)
 end)
 
+require('lspconfig').tailwindcss.setup({
+  capabilities = capabilities,
+})
 
 local luadev = require("lua-dev").setup({})
 require('lspconfig').sumneko_lua.setup(luadev)
+
 
 require('keybindings')

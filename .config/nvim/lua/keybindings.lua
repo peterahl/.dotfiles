@@ -34,6 +34,10 @@ wk.register({
     b = { "<cmd>lua require('telescope.builtin').buffers({sort_lastused=true})<cr>", "List buffers" },
     d = { "<cmd>bp|bd #<cr>", "delete buffer" },
   },
+  o = {
+    name = "open",
+    t = { "<cmd>term<cr>", "open vterm" },
+  },
   h = {
     name = "help",
     t = { "<cmd>Telescope help_tags<cr>", "Help tags" },
@@ -43,6 +47,7 @@ wk.register({
     name = "git",
     g = { "<cmd>lua require('neogit').open()<cr>", "Neogit" },
     t = { "<cmd>Telescope git_status<cr>", "telescope Git status" },
+    b = { "<cmd>Telescope git_branches<cr>", "git branches" },
   },
   q = {
    name = "quit",

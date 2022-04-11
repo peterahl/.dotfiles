@@ -7,12 +7,24 @@ augroup end
 
 local use = require('packer').use
 
+local function copy_to_clipboard(lines)
+	local joined_lines = table.concat(lines, "\n")
+	vim.fn.setreg("+", joined_lines)
+end
+
 return require('packer').startup(function()
 	-- Packer can manage itself
 
 	use 'wbthomason/packer.nvim'
 
 	use 'williamboman/nvim-lsp-installer'
+
+  use {
+    "luukvbaal/nnn.nvim",
+    config = function()
+      require("nnn").setup {}
+    end
+  }
 
   use {
     "gaelph/logsitter.nvim",
@@ -77,13 +89,23 @@ return require('packer').startup(function()
 
   use { "nvim-telescope/telescope-file-browser.nvim" }
 
+  use {
+    'TimUntersberger/neofs',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function ()
+      require('neofs').setup {
+        devicons = true
+      }
+    end
+  }
+
   use { 'ibhagwan/fzf-lua',
-    -- optional for icon support
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function ()
       require('fzf-lua').setup {
         winopts = {
           preview = {
+            vertical = 'up:65%',
             layout = 'vertical'
           }
         }
@@ -146,7 +168,6 @@ return require('packer').startup(function()
           }
         },
 				extensions = {
-
 					fzf = {
 						fuzzy = true,                    -- false will only do exact matching
 						override_generic_sorter = true,  -- override the generic sorter
@@ -156,6 +177,12 @@ return require('packer').startup(function()
 					},
           file_browser = {
             theme = "ivy",
+            layout_config = {
+              height = 0.99,
+              -- width = 0.9,
+              -- anchor = 'CENTER',
+              preview_width = 0.6
+            }
           },
           project = {
             base_dirs = {
@@ -224,13 +251,15 @@ return require('packer').startup(function()
 		requires = {
 			'kyazdani42/nvim-web-devicons', -- optional, for file icon
 		},
-		config = function() require'nvim-tree'.setup {} end
+		config = function()
+      require'nvim-tree'.setup {}
+    end
 	}
 
   use {
     'windwp/nvim-autopairs',
     config = function ()
-      require('nvim-autopairs').setup{}
+      require('nvim-autopairs').setup {}
     end
   }
 

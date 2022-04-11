@@ -13,6 +13,9 @@ export DENO_INSTALL="/home/peter/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 export NVIM_RC=$HOME/.dotfiles/.config/nvim/init.lua
+export TERM=xterm-256color
+
+export NNN_FIFO=/tmp/nnn.fifo
 
 setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 /usr/bin/xmodmap $HOME/.Xmodmap
