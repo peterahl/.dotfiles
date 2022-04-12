@@ -92,12 +92,8 @@ cmp.setup.cmdline(':', {
     })
 })
 
-
-
--- Setup lspconfig.
 local opts = { noremap=true, silent=true }
 local map = vim.api.nvim_set_keymap
-local mapb = vim.api.nvim_buf_set_keymap
 local wk = require("which-key")
 
 wk.register({
@@ -119,76 +115,6 @@ map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  require("lsp-format").on_attach(client)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  mapb(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  mapb(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  mapb(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  mapb(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  mapb(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  mapb(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  mapb(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  mapb(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  mapb(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  mapb(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  mapb(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  mapb(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  mapb(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-end
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-local enhance_server_opts = {
-  -- Provide settings that should only apply to the "eslintls" server
-  ["eslint"] = function(opts)
-    opts.settings = {
-      format = {
-        enable = true,
-      },
-    }
-  end,
-}
-
-local servers = {'volar', 'tsserver', 'graphql', 'prismals', 'eslint'}
-
-local lsp_installer = require("nvim-lsp-installer")
-
-for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
-end
-
-lsp_installer.on_server_ready(function(server)
-
-  local opts = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-
-  if enhance_server_opts[server.name] then
-    -- Enhance the default opts with the server-specific ones
-    enhance_server_opts[server.name](opts)
-  end
-
-  server:setup(opts)
-end)
-
-require('lspconfig').tailwindcss.setup({
-  capabilities = capabilities,
-})
-
-local luadev = require("lua-dev").setup({})
-require('lspconfig').sumneko_lua.setup(luadev)
-
+require('private-lsp-config')
 
 require('keybindings')
