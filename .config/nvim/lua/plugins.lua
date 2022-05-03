@@ -7,30 +7,19 @@ augroup end
 
 local use = require('packer').use
 
-local function copy_to_clipboard(lines)
-	local joined_lines = table.concat(lines, "\n")
-	vim.fn.setreg("+", joined_lines)
-end
-
 return require('packer').startup(function()
-	-- Packer can manage itself
+  -- Packer can manage itself
 
-	use 'wbthomason/packer.nvim'
+  use 'wbthomason/packer.nvim'
 
-	use 'williamboman/nvim-lsp-installer'
+  use 'williamboman/nvim-lsp-installer'
+
+  use 'voldikss/vim-floaterm'
 
   use {
     "luukvbaal/nnn.nvim",
     config = function()
       require("nnn").setup {}
-    end
-  }
-
-  use {
-    "gaelph/logsitter.nvim",
-    requires = {"nvim-treesitter/nvim-treesitter"},
-    config = function ()
-      require("logsitter").log('javascript')
     end
   }
 
@@ -46,13 +35,9 @@ return require('packer').startup(function()
     requires = "nvim-lua/plenary.nvim"
   }
 
-	use 'ellisonleao/gruvbox.nvim'
-
-  use 'arcticicestudio/nord-vim'
-
   use {
     "lukas-reineke/lsp-format.nvim",
-    config = function ()
+    config = function()
       require("lsp-format").setup {}
     end
   }
@@ -63,14 +48,14 @@ return require('packer').startup(function()
 
   use {
     'numToStr/Comment.nvim',
-    config = function ()
+    config = function()
       require('Comment').setup()
     end
   }
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    config = function ()
+    config = function()
       require("indent_blankline").setup {
         -- for example, context is off by default, use this to turn it on
         show_current_context = true,
@@ -83,25 +68,11 @@ return require('packer').startup(function()
   }
 
 
-	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-	use { 'nvim-telescope/telescope-project.nvim' }
-
-  use { "nvim-telescope/telescope-file-browser.nvim" }
-
-  use {
-    'TimUntersberger/neofs',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function ()
-      require('neofs').setup {
-        devicons = true
-      }
-    end
-  }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   use { 'ibhagwan/fzf-lua',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function ()
+    config = function()
       require('fzf-lua').setup {
         winopts = {
           preview = {
@@ -118,14 +89,14 @@ return require('packer').startup(function()
     branch = 'v1', -- optional but strongly recommended
     config = function()
       -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
     end
   }
 
-	use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate',
-    config = function ()
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = "all",
         highlight = {
@@ -146,19 +117,25 @@ return require('packer').startup(function()
         }
       }
     end
-	}
+  }
 
-	use {
-		'nvim-telescope/telescope.nvim',
-		requires = { {'nvim-lua/plenary.nvim'} },
-		config = function()
-			require("telescope").setup {
+
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'ThePrimeagen/harpoon',
+      'nvim-telescope/telescope-project.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+    },
+    config = function()
+      require("telescope").setup {
         defaults = {
           sorting_strategy = "ascending",
           layout_strategy = 'vertical',
           path_display = function(opts, path)
             local tail = require("telescope.utils").path_tail(path)
-            return string.format("%s%s%s", tail, string.rep(" ", 60 -#tail), path)
+            return string.format("%s%s%s", tail, string.rep(" ", 60 - #tail), path)
           end,
           layout_config = {
             height = 0.9,
@@ -167,22 +144,20 @@ return require('packer').startup(function()
             width = 0.9
           }
         },
-				extensions = {
-					fzf = {
-						fuzzy = true,                    -- false will only do exact matching
-						override_generic_sorter = true,  -- override the generic sorter
-						override_file_sorter = true,     -- override the file sorter
-						case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
-					},
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
           file_browser = {
-            theme = "ivy",
+            sorting_strategy = "ascending",
+            layout_strategy = 'horizontal',
             layout_config = {
-              height = 0.99,
-              -- width = 0.9,
-              -- anchor = 'CENTER',
               preview_width = 0.6
-            }
+            },
           },
           project = {
             base_dirs = {
@@ -190,43 +165,51 @@ return require('packer').startup(function()
               '~/.dotfiles',
             }
           }
-				}
-			}
-		end
-	}
+        }
+      }
+      require('telescope').load_extension('fzf')
+      require("telescope").load_extension('harpoon')
+    end
+  }
 
-	use {
-		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup()
-		end
-	}
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end
+  }
 
   use {
     'TimUntersberger/neogit',
     requires = 'nvim-lua/plenary.nvim',
-    config = function ()
+    config = function()
       require('neogit').setup()
     end
   }
 
-	use 'neovim/nvim-lspconfig'
-	use 'hrsh7th/cmp-nvim-lsp'
-	use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-cmdline'
-	use 'hrsh7th/nvim-cmp'
-	use 'hrsh7th/cmp-vsnip'
-	use 'hrsh7th/vim-vsnip'
-
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/cmp-nvim-lsp'
   use {
-    'ray-x/lsp_signature.nvim',
-    config = function ()
-      require("lsp_signature").setup({
-        log_path = vim.fn.expand("$HOME") .. "/.cache/nvim/sig.log",
-      })
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
+    config = function()
     end
   }
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+
+  -- use {
+  --   'ray-x/lsp_signature.nvim',
+  --   config = function()
+  --     require("lsp_signature").setup({
+  --       log_path = vim.fn.expand("$HOME") .. "/.cache/nvim/sig.log",
+  --     })
+  --   end
+  -- }
 
   use {
     'lewis6991/gitsigns.nvim',
@@ -240,25 +223,25 @@ return require('packer').startup(function()
 
   use {
     'tami5/lspsaga.nvim',
-    config = function ()
+    config = function()
       require('lspsaga').setup()
     end
   }
 
 
-	use {
-		'kyazdani42/nvim-tree.lua',
-		requires = {
-			'kyazdani42/nvim-web-devicons', -- optional, for file icon
-		},
-		config = function()
-      require'nvim-tree'.setup {}
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    },
+    config = function()
+      require 'nvim-tree'.setup {}
     end
-	}
+  }
 
   use {
     'windwp/nvim-autopairs',
-    config = function ()
+    config = function()
       require('nvim-autopairs').setup {}
     end
   }
