@@ -10,6 +10,10 @@ local use = require('packer').use
 return require('packer').startup(function()
   -- Packer can manage itself
 
+  use 'Olical/aniseed'
+
+  use 'Olical/conjure'
+
   use 'wbthomason/packer.nvim'
 
   use 'williamboman/nvim-lsp-installer'
@@ -66,7 +70,6 @@ return require('packer').startup(function()
       }
     end
   }
-
 
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
@@ -150,9 +153,9 @@ return require('packer').startup(function()
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true, -- override the file sorter
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
           },
           file_browser = {
+            path_display = {},
             sorting_strategy = "ascending",
             layout_strategy = 'horizontal',
             layout_config = {

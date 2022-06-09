@@ -38,7 +38,7 @@ wk.register({
   ['<M-g>'] = {
     name = 'my g',
     ['<M-g>'] = { "<cmd>HopWord<CR>", 'ace jump' },
-    ['<M-r>'] = { ":lua require'telescope'.extensions.file_browser.file_browser{cwd=require('telescope.utils').buffer_dir()}<cr>", "File Browser" },
+    ['<M-r>'] = { ":lua require'telescope'.extensions.file_browser.file_browser{path=require('telescope.utils').buffer_dir()}<cr>", "File Browser" },
   }
 })
 

@@ -17,5 +17,5 @@ export TERM=xterm-256color
 
 export NNN_FIFO=/tmp/nnn.fifo
 
-setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
-/usr/bin/xmodmap $HOME/.Xmodmap
+# setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
+# /usr/bin/xmodmap $HOME/.Xmodmap
