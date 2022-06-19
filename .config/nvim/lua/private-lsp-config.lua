@@ -1,11 +1,16 @@
 local map_opts = { noremap = true, silent = true }
 local mapb = vim.api.nvim_buf_set_keymap
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local wk = require("which-key")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local lsp_installer = require("nvim-lsp-installer")
+-- local wk = require("which-key")
 
-local setup_key_bindings = function(bufnr)
+require("nvim-lsp-installer").setup {
+  automatic_installation = true
+}
+local lspconfig = require("lspconfig")
+
+local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -23,57 +28,58 @@ local setup_key_bindings = function(bufnr)
   mapb(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
   mapb(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', map_opts)
   mapb(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', map_opts)
-
 end
 
-local on_attach = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
-  setup_key_bindings(bufnr)
-end
 
-local on_attach_with_format = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = true
-  client.resolved_capabilities.document_range_formatting = true
-  require("lsp-format").on_attach(client)
-  setup_key_bindings(bufnr)
-end
-
-local servers = { 'vuels', 'tsserver', 'tailwindcss', 'graphql', 'prismals', 'eslint' }
-
-local enhance_server_opts = {
-  ["eslint"] = function(opts)
-    opts.on_attach = on_attach_with_format
-  end,
-  ["prismals"] = function(opts)
-    opts.on_attach = on_attach_with_format
-  end,
-  ["graphql"] = function(opts)
-    opts.on_attach = on_attach_with_format
-  end,
-  ["gopls"] = function(opts)
-    opts.on_attach = on_attach_with_format
-  end,
-  ["sumneko_lua"] = function(opts)
-    local luadev = require("lua-dev").setup()
-    opts.on_attach = on_attach_with_format
-    for key, value in pairs(luadev) do
-      opts[key] = value
-    end
-  end,
-}
-
-lsp_installer.on_server_ready(function(server)
-  -- Specify the default options which we'll use to setup all servers
-  local opts = {
-    on_attach = on_attach,
+local luadev = require("lua-dev").setup({
+  lspconfig = {
+    on_attach = function(client, bufnr)
+      require "lsp-format".on_attach(client)
+      on_attach(client, bufnr)
+    end,
     capabilities = capabilities,
   }
+})
+lspconfig.sumneko_lua.setup(luadev)
 
-  if enhance_server_opts[server.name] then
-    -- Enhance the default opts with the server-specific ones
-    enhance_server_opts[server.name](opts)
-  end
-
-  server:setup(opts)
-end)
+lspconfig.eslint.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.prismals.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.gopls.setup {
+  on_attach = function(client, bufnr)
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+}
+lspconfig.graphql.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.sqls.setup {
+  on_attach = function(client, bufnr)
+    require('sqls').on_attach(client, bufnr)
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  settings = {
+    sqls = {
+      connections = {
+        {
+          driver = 'mysql',
+          dataSourceName = 'root:my-secret-pw@tcp(localhost:3306)/latestprod?multipleStatements=true',
+        },
+        -- {
+        --   driver = 'postgresql',
+        --   dataSourceName = 'host=127.0.0.1 port=15432 user=postgres password=mysecretpassword1234 dbname=dvdrental sslmode=disable',
+        -- },
+      },
+    },
+  },
+}

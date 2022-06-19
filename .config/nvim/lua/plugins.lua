@@ -16,9 +16,9 @@ return require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
-  use 'williamboman/nvim-lsp-installer'
-
   use 'voldikss/vim-floaterm'
+
+  use 'nanotee/sqls.nvim'
 
   use {
     "luukvbaal/nnn.nvim",
@@ -190,6 +190,7 @@ return require('packer').startup(function()
     end
   }
 
+  use 'williamboman/nvim-lsp-installer'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
   use {
