@@ -18,6 +18,7 @@ map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
 wk.register({
   ['<M-w>'] = { "<C-w>w", "other window" },
+  ['<M-x>'] = { "<cmd>Telescope commands<CR>", "commands" },
   ['<M-a>'] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Harpoon 1" },
   ['<M-o>'] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Harpoon 2" },
   ['<M-e>'] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Harpoon 3" },
@@ -25,7 +26,7 @@ wk.register({
   ['<M-h>'] = {
     name = 'harpoon',
     ['<M-m>'] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add mark" },
-    ['<M-u>'] = { "<cmd>Telescope harpoon marks<CR>", "Telescope ui" },
+    ['<M-u>'] = { "<cmd>Telescope harpoon marks<CR>", "Telescope harpoon ui" },
     ['<M-h>'] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Harpoon ui" },
   },
   ['<M-t>'] = {
@@ -38,14 +39,16 @@ wk.register({
   ['<M-g>'] = {
     name = 'my g',
     ['<M-g>'] = { "<cmd>HopWord<CR>", 'ace jump' },
-    ['<M-r>'] = { ":lua require'telescope'.extensions.file_browser.file_browser{path=require('telescope.utils').buffer_dir()}<cr>", "File Browser" },
+    ['<M-r>'] = { ":lua require'telescope'.extensions.file_browser.file_browser{path=require('telescope.utils').buffer_dir()}<cr>",
+      "File Browser" },
   }
 })
 
 wk.register({
   f = {
     name = "files",
-    f = { "<cmd>lua require('telescope.builtin').find_files({cwd=require('telescope.utils').buffer_dir()})<cr>", "Find File" },
+    f = { "<cmd>lua require('telescope.builtin').find_files({cwd=require('telescope.utils').buffer_dir()})<cr>",
+      "Find File" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap = false },
     t = { "<cmd>NvimTreeOpen<cr>", "Open Nvim Tree", noremap = false },
     s = { "<cmd>w<cr>", "Save file", noremap = false },
@@ -57,19 +60,6 @@ wk.register({
     p = { ":lua require'telescope'.extensions.project.project{}<cr>", "Projects" },
     b = { ":lua require'telescope'.extensions.file_browser.file_browser{}<cr>", "File Browser" },
     t = { ":FloatermNew --cwd=<buffer><cr>", "project terminal" },
-  },
-  l = {
-    name = "lsp",
-    d = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "Definition" },
-    s = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", "Symbols" },
-    a = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>", "Actions" },
-    r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "References" },
-    i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Implementations" },
-    t = { "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", "Type Def" },
-    f = {
-      name = "formt",
-      b = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "buffer" },
-    },
   },
   b = {
     name = "buffers",
@@ -99,7 +89,8 @@ wk.register({
   },
   s = {
     name = "search",
-    d = { "<cmd>lua require('telescope.builtin').live_grep({cwd=require('telescope.utils').buffer_dir()})<cr>", "Search dir" },
+    d = { "<cmd>lua require('telescope.builtin').live_grep({cwd=require('telescope.utils').buffer_dir()})<cr>",
+      "Search dir" },
     f = { "<cmd>lua require('telescope.builtin').live_grep({grep_open_file=rue})<cr>", "Search open files" },
     p = { "<cmd>FzfLua grep_project<cr>", "Search project" },
     s = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search buffer" },
