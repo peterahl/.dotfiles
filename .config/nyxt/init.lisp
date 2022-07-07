@@ -9,3 +9,6 @@
 ;;                                    *my-search-engines*)
 ;;                            %slot-default%))))
 ;;
+
+(DEFINE-CONFIGURATION BUFFER
+  ((CURRENT-ZOOM-RATIO 0.75)))

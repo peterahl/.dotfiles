@@ -12,7 +12,7 @@ return require('packer').startup(function()
 
   use 'Olical/aniseed'
 
-  use 'Olical/conjure'
+  -- use 'Olical/conjure'
 
   use 'wbthomason/packer.nvim'
 
@@ -49,6 +49,29 @@ return require('packer').startup(function()
   use 'folke/tokyonight.nvim'
 
   use "folke/lua-dev.nvim"
+
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {}
+    end
+  }
+
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {}
+    end
+  }
+
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {}
+    end
+  }
 
   use {
     'numToStr/Comment.nvim',
@@ -172,13 +195,6 @@ return require('packer').startup(function()
       }
       require('telescope').load_extension('fzf')
       require("telescope").load_extension('harpoon')
-    end
-  }
-
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup()
     end
   }
 

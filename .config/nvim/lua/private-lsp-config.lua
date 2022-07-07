@@ -10,7 +10,6 @@ require("nvim-lsp-installer").setup {
 }
 local lspconfig = require("lspconfig")
 
-
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -102,7 +101,7 @@ lspconfig.gopls.setup {
   end,
   capabilities = capabilities,
 }
-lspconfig.tailwindcssg.setup {
+lspconfig.tailwindcss.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }

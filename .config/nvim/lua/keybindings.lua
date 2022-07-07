@@ -80,6 +80,7 @@ wk.register({
     g = { "<cmd>lua require('neogit').open()<cr>", "Neogit" },
     t = { "<cmd>Telescope git_status<cr>", "telescope Git status" },
     b = { "<cmd>Telescope git_branches<cr>", "git branches" },
+    s = { "<cmd>Telescope git_status<cr>", "git status" },
   },
   q = {
     name = "quit",

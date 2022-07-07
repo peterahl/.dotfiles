@@ -38,7 +38,7 @@ cmp.setup.filetype('gitcommit', {
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-require 'cmp'.setup.cmdline('/', {
+cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'nvim_lsp_document_symbol' }

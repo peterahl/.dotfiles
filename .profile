@@ -1,5 +1,5 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 # export GDK_SCALE=2
 # fix "xdg-open fork-bomb" export your preferred browser from here
@@ -16,6 +16,8 @@ export NVIM_RC=$HOME/.dotfiles/.config/nvim/init.lua
 export TERM=xterm-256color
 
 export NNN_FIFO=/tmp/nnn.fifo
+
+export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 # /usr/bin/xmodmap $HOME/.Xmodmap
