@@ -105,6 +105,13 @@ lspconfig.tailwindcss.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
+lspconfig.jsonls.setup {
+  on_attach = function(client, bufnr)
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+}
 lspconfig.graphql.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -123,18 +130,4 @@ lspconfig.sqls.setup {
     on_attach(client, bufnr)
   end,
   capabilities = capabilities,
-  settings = {
-    sqls = {
-      connections = {
-        {
-          driver = 'mysql',
-          dataSourceName = 'root:my-secret-pw@tcp(127.0.0.1:3306)/latestprod',
-        },
-        -- {
-        --   driver = 'postgresql',
-        --   dataSourceName = 'host=127.0.0.1 port=15432 user=postgres password=mysecretpassword1234 dbname=dvdrental sslmode=disable',
-        -- },
-      },
-    },
-  },
 }

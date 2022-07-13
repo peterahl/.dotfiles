@@ -23,6 +23,7 @@ wk.register({
   ['<M-o>'] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Harpoon 2" },
   ['<M-e>'] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Harpoon 3" },
   ['<M-u>'] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Harpoon 4" },
+  ['<M-i>'] = { "<cmd>lua require('harpoon.ui').nav_file(5)<CR>", "Harpoon 5" },
   ['<M-h>'] = {
     name = 'harpoon',
     ['<M-m>'] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add mark" },
