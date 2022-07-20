@@ -57,7 +57,7 @@ wk.register({
   ['*'] = { "<cmd>lua require('telescope.builtin').grep_string()<cr>", "Search string at point" },
   p = {
     name = "project",
-    f = { "<cmd>Telescope git_files<cr>", "Projec files" },
+    f = { "<cmd>Telescope git_files<cr>", "Project files" },
     p = { ":lua require'telescope'.extensions.project.project{}<cr>", "Projects" },
     b = { ":lua require'telescope'.extensions.file_browser.file_browser{}<cr>", "File Browser" },
     t = { ":FloatermNew --cwd=<buffer><cr>", "project terminal" },
@@ -81,6 +81,7 @@ wk.register({
     g = { "<cmd>lua require('neogit').open()<cr>", "Neogit" },
     t = { "<cmd>Telescope git_status<cr>", "telescope Git status" },
     b = { "<cmd>Telescope git_branches<cr>", "git branches" },
+    c = { "<cmd>GitBlameToggle<cr>", "git commit blame" },
     s = { "<cmd>Telescope git_status<cr>", "git status" },
   },
   q = {

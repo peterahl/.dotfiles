@@ -20,6 +20,8 @@ return require('packer').startup(function()
 
   use 'nanotee/sqls.nvim'
 
+  use 'f-person/git-blame.nvim'
+
   use {
     "luukvbaal/nnn.nvim",
     config = function()
@@ -153,6 +155,7 @@ return require('packer').startup(function()
       'ThePrimeagen/harpoon',
       'nvim-telescope/telescope-project.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
     },
     config = function()
       require("telescope").setup {
@@ -185,6 +188,10 @@ return require('packer').startup(function()
               preview_width = 0.6
             },
           },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+            }
+          },
           project = {
             base_dirs = {
               '~/git',
@@ -195,6 +202,7 @@ return require('packer').startup(function()
       }
       require('telescope').load_extension('fzf')
       require("telescope").load_extension('harpoon')
+      require("telescope").load_extension("ui-select")
     end
   }
 

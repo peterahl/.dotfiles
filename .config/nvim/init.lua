@@ -4,6 +4,7 @@ local g = vim.g
 g.indent_blankline_char = '┊'
 g.tokyonight_style = 'night'
 g.mapleader = ' '
+g.gitblame_enabled = 1
 
 local opt = vim.opt
 opt.termguicolors = true

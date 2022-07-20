@@ -115,6 +115,8 @@ lspconfig.jsonls.setup {
 lspconfig.graphql.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+
 }
 lspconfig.yamlls.setup {
   on_attach = function(client, bufnr)
@@ -125,9 +127,9 @@ lspconfig.yamlls.setup {
 }
 lspconfig.sqls.setup {
   on_attach = function(client, bufnr)
-    require('sqls').on_attach(client, bufnr)
-    -- require "lsp-format".on_attach(client)
+    require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
+    require('sqls').on_attach(client, bufnr)
   end,
   capabilities = capabilities,
 }
