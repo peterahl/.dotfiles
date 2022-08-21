@@ -46,7 +46,10 @@ git_current_branch () {
 }
 
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
-alias klogs='kubectl get pods --all-namespaces -o name | fzf | xargs kubectl logs -f | tee >(grep -v "^{") | grep "^{" | jq .'
+alias kjlogs='kubectl get pods --all-namespaces | fzf | tr -s " " | cut -d" " -f1,2 | xargs kubectl logs -f -n | tee >(grep -v "^{") | grep "^{" | jq .'
+alias klogs='kubectl get pods --all-namespaces | fzf | tr -s " " | cut -d" " -f1,2 | xargs kubectl logs -f -n'
+
+alias kns='kubectl get ns | fzf | cut -d" " -f1 | xargs kubectl config set-context --current --namespace'
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
