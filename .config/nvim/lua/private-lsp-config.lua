@@ -83,6 +83,13 @@ lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
+lspconfig.bashls.setup {
+  on_attach = function(client, bufnr)
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+}
 lspconfig.volar.setup {
   on_attach = on_attach,
   capabilities = capabilities,

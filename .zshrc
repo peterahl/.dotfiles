@@ -1,16 +1,20 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 source ~/.local/share/zsh-snap/znap.zsh
 
-zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:*' insert-unambiguous yes
+# zstyle ':autocomplete:*' fzf-completion yes
+# zstyle ':autocomplete:*' insert-unambiguous yes
 
-znap source marlonrichert/zsh-autocomplete
+# znap source marlonrichert/zsh-autocomplete
 znap source romkatv/powerlevel10k
 
 setopt appendhistory # Immediately append history instead of overwriting
@@ -21,8 +25,8 @@ SAVEHIST=10000
 
 KEYTIMEOUT=1
 
-bindkey '^P' up-line-or-search
-bindkey '^N' down-line-or-select
+# bindkey '^P' up-line-or-search
+# bindkey '^N' down-line-or-select
 
 # # Use powerline
 # USE_POWERLINE="true"
@@ -50,6 +54,10 @@ alias kjlogs='kubectl get pods --all-namespaces | fzf | tr -s " " | cut -d" " -f
 alias klogs='kubectl get pods --all-namespaces | fzf | tr -s " " | cut -d" " -f1,2 | xargs kubectl logs -f -n'
 
 alias kns='kubectl get ns | fzf | cut -d" " -f1 | xargs kubectl config set-context --current --namespace'
+alias kcluster='kubectl config get-contexts | fzf | tr -s " " | cut -d" " -f2 | xargs kubectl config use-context'
+
+alias gco="git fetch | git branch --remotes | fzf | sed 's/origin\///' | xargs git checkout"
+
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -60,6 +68,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.profile ] && source ~/.profile
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -67,3 +76,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export VISUAL=nvim
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"

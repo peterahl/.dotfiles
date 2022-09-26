@@ -256,6 +256,18 @@ return require('packer').startup(function()
     end
   }
 
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function()
+      require "octo".setup()
+    end
+  }
+
 
   use {
     'kyazdani42/nvim-tree.lua',

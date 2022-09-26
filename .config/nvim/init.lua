@@ -2,7 +2,7 @@ require('plugins')
 
 local g = vim.g
 g.indent_blankline_char = '┊'
-g.tokyonight_style = 'night'
+-- g.tokyonight_style = 'night'
 g.mapleader = ' '
 g.gitblame_enabled = 1
 
@@ -23,7 +23,7 @@ o.guifont = "Fira Code:h8"
 o.clipboard = "unnamedplus"
 o.timeoutlen = 300
 
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme tokyonight-night]])
 vim.cmd([[nnoremap j jzz]])
 vim.cmd([[nnoremap k kzz]])
 vim.cmd([[nnoremap <C-d> <C-d>zz]])

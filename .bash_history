@@ -1,7 +1,3 @@
-cd ..
-#1645090938
-rm -rf .local
-#1645091151
 htop
 #1645090964
 doom sync
@@ -985,3 +981,5 @@ nvim .bashrc
 exit
 which npm
 exit 
+fig doctor
+exit

@@ -36,6 +36,7 @@ wk.register({
     ['<M-o>'] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>", "Terminal 2" },
     ['<M-e>'] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<CR>", "Terminal 3" },
     ['<M-u>'] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<CR>", "Terminal 4" },
+    ['<M-i>'] = { "<cmd>lua require('harpoon.term').gotoTerminal(5)<CR>", "Terminal 5" },
   },
   ['<M-g>'] = {
     name = 'my g',
