@@ -29,16 +29,21 @@ return require('packer').startup(function()
     end
   }
 
+  -- use {
+  --   "nvim-neorg/neorg",
+  --   config = function()
+  --     require('neorg').setup {
+  --       load = {
+  --         ["core.defaults"] = {}
+  --       }
+  --     }
+  --   end,
+  --   requires = "nvim-lua/plenary.nvim"
+  -- }
+
   use {
-    "nvim-neorg/neorg",
-    config = function()
-      require('neorg').setup {
-        load = {
-          ["core.defaults"] = {}
-        }
-      }
-    end,
-    requires = "nvim-lua/plenary.nvim"
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
   use {
@@ -147,6 +152,12 @@ return require('packer').startup(function()
     end
   }
 
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require("treesitter-context").setup {}
+    end
+  }
 
   use {
     'nvim-telescope/telescope.nvim',

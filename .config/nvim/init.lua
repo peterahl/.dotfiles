@@ -26,6 +26,8 @@ o.timeoutlen = 300
 vim.cmd([[colorscheme tokyonight-night]])
 vim.cmd([[nnoremap j jzz]])
 vim.cmd([[nnoremap k kzz]])
+vim.cmd([[nnoremap n nzz]])
+vim.cmd([[nnoremap N Nzz]])
 vim.cmd([[nnoremap <C-d> <C-d>zz]])
 vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
@@ -35,3 +37,5 @@ require('cmp-config')
 require('private-lsp-config')
 
 require('keybindings')
+
+require('evil_lualine')
