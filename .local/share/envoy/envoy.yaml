@@ -1,0 +1,126 @@
+#   clusters:
+#
+#   - name: backoffice
+#     connect_timeout: 0.25s
+#     type: strict_dns
+#     lb_policy: round_robin
+#     http2_protocol_options: {}
+#     hosts:
+#     - socket_address:
+#         address: 127.0.0.1
+#         port_value: 8080
+#
+#   - name: api
+#     connect_timeout: 0.25s
+#     type: strict_dns
+#     lb_policy: round_robin
+#     http2_protocol_options: {}
+#     hosts:
+#     - socket_address:
+#         address: 127.0.0.1
+#         port_value: 4000
+#
+#
+
+static_resources:
+
+  listeners:
+  - name: http
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 80
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          access_log:
+          - name: envoy.access_loggers.stdout
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service
+              # domains: ["*"]
+              domains:
+              - "*.voady.dev"
+              - "voady.dev"
+              routes:
+              - match:
+                  prefix: "/"
+                redirect:
+                  path_redirect: "/"
+                  https_redirect: true
+
+  - name: https
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 443
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          access_log:
+          - name: envoy.access_loggers.stdout
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - name: local_service
+              # domains: ["*"]
+              domains:
+              - "*.voady.dev"
+              - "voady.dev"
+              routes:
+              - match:
+                  prefix: "/"
+                route:
+                  cluster: kafka-ui
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          common_tls_context:
+            tls_certificates:
+            - certificate_chain:
+                filename: "app.crt"
+              private_key:
+                filename: "app.key"
+
+  clusters:
+  - name: kafka-ui
+    type: strict_dns
+    # Comment out the following line to test on v6 networks
+    dns_lookup_family: V4_ONLY
+    lb_policy: round_robin
+    load_assignment:
+      cluster_name: kafka-ui
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: 127.0.0.1
+                port_value: 8888
+
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001

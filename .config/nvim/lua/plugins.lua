@@ -12,7 +12,12 @@ return require('packer').startup(function()
 
   use 'Olical/aniseed'
 
-  -- use 'Olical/conjure'
+  use 'Olical/conjure'
+
+  use {
+    "gaelph/logsitter.nvim",
+    requires = { "nvim-treesitter/nvim-treesitter" },
+  }
 
   use 'wbthomason/packer.nvim'
 
@@ -23,27 +28,18 @@ return require('packer').startup(function()
   use 'f-person/git-blame.nvim'
 
   use {
-    "luukvbaal/nnn.nvim",
-    config = function()
-      require("nnn").setup {}
-    end
-  }
-
-  -- use {
-  --   "nvim-neorg/neorg",
-  --   config = function()
-  --     require('neorg').setup {
-  --       load = {
-  --         ["core.defaults"] = {}
-  --       }
-  --     }
-  --   end,
-  --   requires = "nvim-lua/plenary.nvim"
-  -- }
-
-  use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    -- config = function()
+    --   require('lualine').setup {
+    --     options = { fmt = string.lower },
+    --     sections = {
+    --       lualine_b = {
+    --         { 'filename', path = 1 }
+    --       },
+    --     }
+    --   }
+    -- end
   }
 
   use {
@@ -55,7 +51,7 @@ return require('packer').startup(function()
 
   use 'folke/tokyonight.nvim'
 
-  use "folke/lua-dev.nvim"
+  use "folke/neodev.nvim"
 
   use {
     "folke/todo-comments.nvim",
@@ -79,6 +75,7 @@ return require('packer').startup(function()
       require("which-key").setup {}
     end
   }
+
 
   use {
     'numToStr/Comment.nvim',
@@ -158,6 +155,22 @@ return require('packer').startup(function()
       require("treesitter-context").setup {}
     end
   }
+
+  use {
+    'chrisbra/NrrwRgn'
+  }
+
+use {
+  "AckslD/nvim-neoclip.lua",
+  requires = {
+    -- you'll need at least one of these
+    -- {'nvim-telescope/telescope.nvim'},
+    -- {'ibhagwan/fzf-lua'},
+  },
+  config = function()
+    require('neoclip').setup()
+  end,
+}
 
   use {
     'nvim-telescope/telescope.nvim',
@@ -241,6 +254,7 @@ return require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 
+  use 'mfussenegger/nvim-dap'
   -- use {
   --   'ray-x/lsp_signature.nvim',
   --   config = function()
@@ -266,6 +280,8 @@ return require('packer').startup(function()
       require('lspsaga').setup()
     end
   }
+
+  use 'github/copilot.vim'
 
   use {
     'pwntester/octo.nvim',

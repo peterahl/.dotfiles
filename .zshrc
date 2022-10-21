@@ -70,6 +70,7 @@ alias kns='kubectl get ns | fzf | cut -d" " -f1 | xargs kubectl config set-conte
 alias kcluster='kubectl config get-contexts | fzf | tr -s " " | cut -d" " -f2 | xargs kubectl config use-context'
 
 alias gco="git branch --remotes --format '%(refname:lstrip=3)' | fzf | xargs git checkout"
+alias gcl="git branch | fzf | xargs git checkout"
 
 
 export NVM_DIR="$HOME/.config/nvm"

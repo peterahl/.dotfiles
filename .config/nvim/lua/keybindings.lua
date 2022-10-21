@@ -47,6 +47,27 @@ wk.register({
 })
 
 wk.register({
+  r = {
+    name = 'clip registers',
+    p = { "<cmd>Telescope neoclip<CR>", "Telescope neoclip" },
+  },
+  a = {
+    name = "actions",
+    l = { "<cmd>Logsitter log<cr>", "logsitter", noremap = false },
+    o = {
+      name = "octo",
+      c = { "<cmd>Octo pr create<cr>", "create pr" },
+      l = { "<cmd>Octo pr list<cr>", "list pr" },
+      r = { "<cmd>Octo reviewer add<cr>", "add reviewer" },
+    },
+  },
+  t = {
+    name = "TODO Comments",
+    t = { "<cmd>TodoTelescope<cr>", "Todo Telescope", noremap = false },
+    o = { "<cmd>TodoTrouble<cr>", "Todo Trouble", noremap = false },
+    q = { "<cmd>TodoQuickFix<cr>", "Todo Quickfix", noremap = false },
+    l = { "<cmd>TodoLocList<cr>", "Todo LocList", noremap = false },
+  },
   f = {
     name = "files",
     f = { "<cmd>lua require('telescope.builtin').find_files({cwd=require('telescope.utils').buffer_dir()})<cr>",

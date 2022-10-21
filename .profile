@@ -1,7 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/profile.pre.bash" ]] && . "$HOME/.fig/shell/profile.pre.bash"
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/profile.pre.bash"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=/usr/local/bin/nvim
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
@@ -26,10 +22,5 @@ export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
+# setxkbmap -option 'ctrl:rctrl_ralt'
 # /usr/bin/xmodmap $HOME/.Xmodmap
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/profile.post.bash" ]] && builtin source "$HOME/.fig/shell/profile.post.bash"
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/profile.post.bash" ]] && . "$HOME/.fig/shell/profile.post.bash"

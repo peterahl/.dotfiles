@@ -1,0 +1,7 @@
+!Swap right control and right alt
+remove Control = Control_R
+remove Mod1 = ISO_Level3_Shift
+keycode 108 = ISO_Level3_Shift
+keycode 105 = Control_R
+add Control = Control_R
+add Mod1 = ISO_Level3_Shift

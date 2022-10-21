@@ -1,14 +1,9 @@
-local map_opts = { noremap = true, silent = true }
-local mapb = vim.api.nvim_buf_set_keymap
+-- local map_opts = { noremap = true, silent = true }
+-- local mapb = vim.api.nvim_buf_set_keymap
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local wk = require("which-key")
-
-require("nvim-lsp-installer").setup {
-  automatic_installation = true
-}
-local lspconfig = require("lspconfig")
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -60,7 +55,11 @@ local on_attach = function(client, bufnr)
 
 end
 
-local luadev = require("lua-dev").setup({
+require("nvim-lsp-installer").setup {
+  automatic_installation = true
+}
+
+local luadev = require("neodev").setup({
   lspconfig = {
     on_attach = function(client, bufnr)
       require "lsp-format".on_attach(client)
@@ -69,14 +68,22 @@ local luadev = require("lua-dev").setup({
     capabilities = capabilities,
   }
 })
+
+
+local lspconfig = require("lspconfig")
+
 lspconfig.sumneko_lua.setup(luadev)
 
-lspconfig.eslint.setup {
+lspconfig.clojure_lsp.setup({
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = true
     require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
   end,
+  capabilities = capabilities,
+})
+
+lspconfig.eslint.setup {
   capabilities = capabilities,
 }
 lspconfig.tsserver.setup {
@@ -134,7 +141,7 @@ lspconfig.yamlls.setup {
 }
 lspconfig.sqls.setup {
   on_attach = function(client, bufnr)
-    require "lsp-format".on_attach(client)
+    -- require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
     require('sqls').on_attach(client, bufnr)
   end,
