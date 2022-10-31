@@ -38,12 +38,12 @@ local on_attach = function(client, bufnr)
       b = {
         name = 'buffer',
         r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'rename buffer' },
-        f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "format" },
+        f = { "<cmd>lua vim.lsp.buf.format({ async = true })<cr>", "format" },
       }
     }
   }, {
     buffer = bufnr,
-    prefix = "<leader>"
+    prefix = "<localleader>"
   })
 
   -- mapb(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
@@ -55,28 +55,41 @@ local on_attach = function(client, bufnr)
 
 end
 
+require("neodev").setup({
+})
+
 require("nvim-lsp-installer").setup {
   automatic_installation = true
 }
 
-local luadev = require("neodev").setup({
-  lspconfig = {
-    on_attach = function(client, bufnr)
-      require "lsp-format".on_attach(client)
-      on_attach(client, bufnr)
-    end,
-    capabilities = capabilities,
+local lspconfig = require("lspconfig")
+
+lspconfig.sumneko_lua.setup({
+  on_attach = function(client, bufnr)
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      format = {
+        enable = true,
+        -- Put format options here
+        -- NOTE: the value should be STRING!!
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2",
+        }
+      },
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
   }
 })
 
-
-local lspconfig = require("lspconfig")
-
-lspconfig.sumneko_lua.setup(luadev)
-
 lspconfig.clojure_lsp.setup({
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = true
     require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
   end,
@@ -84,6 +97,11 @@ lspconfig.clojure_lsp.setup({
 })
 
 lspconfig.eslint.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = true
+    require "lsp-format".on_attach(client)
+    on_attach(client, bufnr)
+  end,
   capabilities = capabilities,
 }
 lspconfig.tsserver.setup {
@@ -97,7 +115,11 @@ lspconfig.bashls.setup {
   end,
   capabilities = capabilities,
 }
-lspconfig.volar.setup {
+-- lspconfig.volar.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- }
+lspconfig.vuels.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }

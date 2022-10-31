@@ -15,6 +15,11 @@ map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+
+map('v', '<M-y>', '"+y', opts)
+map('n', '<M-p>', '"+p', opts)
+map('v', '<M-p>', '"+p', opts)
 
 wk.register({
   ['<M-w>'] = { "<C-w>w", "other window" },

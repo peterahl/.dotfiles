@@ -6,6 +6,8 @@ g.indent_blankline_char = '┊'
 g.mapleader = ' '
 g.maplocalleader = ','
 g.gitblame_enabled = 1
+-- g.neovide_fullscreen = 1
+-- g.neovide_transparency = 0.95
 
 local opt = vim.opt
 opt.termguicolors = true
