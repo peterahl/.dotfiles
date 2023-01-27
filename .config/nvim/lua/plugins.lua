@@ -21,6 +21,19 @@ return require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
+  use 'jose-elias-alvarez/null-ls.nvim'
+
+  -- use {
+  --   'tpope/vim-sexp-mappings-for-regular-people',
+  --   requires = {
+  --     'guns/vim-sexp',
+  --     'tpope/vim-repeat',
+  --     'tpope/vim-surround',
+  --   },
+  -- }
+
+  use 'gpanders/nvim-parinfer'
+
   use 'voldikss/vim-floaterm'
 
   use 'nanotee/sqls.nvim'
@@ -160,6 +173,18 @@ return require('packer').startup(function()
     'chrisbra/NrrwRgn'
   }
 
+  -- use {
+  --   "AckslD/nvim-neoclip.lua",
+  --   requires = {
+  --     -- you'll need at least one of these
+  --     { 'nvim-telescope/telescope.nvim' },
+  --     -- {'ibhagwan/fzf-lua'},
+  --   },
+  --   config = function()
+  --     require('neoclip').setup()
+  --   end,
+  -- }
+
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
@@ -168,6 +193,7 @@ return require('packer').startup(function()
       'nvim-telescope/telescope-project.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
+      'AckslD/nvim-neoclip.lua',
     },
     config = function()
       require("telescope").setup {
@@ -212,22 +238,22 @@ return require('packer').startup(function()
           }
         }
       }
+      require('neoclip').setup(
+        {
+          keys = {
+            telescope = {
+              i = {
+                paste = '<cr>',
+              },
+            }
+          },
+        }
+      )
       require('telescope').load_extension('fzf')
       require("telescope").load_extension('harpoon')
       require("telescope").load_extension("ui-select")
+      require("telescope").load_extension("neoclip")
     end
-  }
-
-  use {
-    "AckslD/nvim-neoclip.lua",
-    requires = {
-      -- you'll need at least one of these
-      { 'nvim-telescope/telescope.nvim' },
-      -- {'ibhagwan/fzf-lua'},
-    },
-    config = function()
-      require('neoclip').setup()
-    end,
   }
 
   use {
@@ -237,9 +263,12 @@ return require('packer').startup(function()
       require('neogit').setup()
     end
   }
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
 
-  use 'williamboman/nvim-lsp-installer'
-  use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
   use {
     'hrsh7th/cmp-nvim-lsp-document-symbol',
@@ -254,7 +283,51 @@ return require('packer').startup(function()
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 
-  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-jdtls'
+
+  use 'aklt/plantuml-syntax'
+
+  use {
+    'mfussenegger/nvim-dap',
+    requires = {
+      "mxsdev/nvim-dap-vscode-js",
+      "rcarriga/nvim-dap-ui"
+    },
+    config = function()
+      require("dap-vscode-js").setup({
+        -- node_path = "node", -- Path of node exectable. Defaults to $NODE_PATH, and then "node"
+        -- node_path = "node", -- Path of node exectable. Defaults to $NODE_PATH, and then "node"
+        -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
+        -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+        adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
+      })
+      for _, language in ipairs({ "typescript", "javascript" }) do
+        require("dap").configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require 'dap.utils'.pick_process,
+            cwd = "${workspaceFolder}",
+          }
+        }
+      end
+      require('dapui').setup()
+    end
+  }
+
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile"
+  }
   -- use {
   --   'ray-x/lsp_signature.nvim',
   --   config = function()

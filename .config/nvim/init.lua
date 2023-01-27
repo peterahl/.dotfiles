@@ -13,6 +13,7 @@ local opt = vim.opt
 opt.termguicolors = true
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.ignorecase = true
+opt.smartcase = true
 opt.cursorline = true
 opt.foldmethod = 'expr'
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -25,6 +26,9 @@ o.shiftwidth = 2
 o.guifont = "Fira Code:h8"
 -- o.clipboard = "unnamedplus"
 o.timeoutlen = 300
+
+vim.wo.number = true
+vim.wo.relativenumber = true
 
 vim.cmd([[colorscheme tokyonight-night]])
 vim.cmd([[nnoremap j jzz]])
@@ -44,3 +48,9 @@ require('private-lsp-config')
 require('keybindings')
 require('evil_lualine')
 require('auto-commands')
+
+local logsitter = require("logsitter")
+local javascript_logger = require("logsitter.lang.javascript")
+
+-- tell logsitter to use the javascript_logger when the filetype is svelte
+logsitter.register(javascript_logger, { "vue" })
