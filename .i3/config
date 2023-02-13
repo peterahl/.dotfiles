@@ -3,14 +3,16 @@
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
-# set $meh Control+Shift+Mod1
-set $meh Print
+set $meh Control+Shift+Mod1
+# set $meh <Super>
+
 
 # Run or raise a bunch of programs
 bindsym $meh+e exec --no-startup-id run-or-raise 'class = "Emacs"' emacs
 bindsym $meh+f exec --no-startup-id run-or-raise 'class = "firefox"' firefox
 bindsym $meh+c exec --no-startup-id run-or-raise 'class = "Google-chrome"' google-chrome-stable
 bindsym $meh+a exec --no-startup-id run-or-raise 'class = "Alacritty"' alacritty
+bindsym $meh+k exec --no-startup-id run-or-raise 'class = "Kitty"' kitty
 bindsym $meh+b exec --no-startup-id run-or-raise 'class = "Bitwarden"' bitwarden-desktop
 bindsym $meh+p exec --no-startup-id run-or-raise 'class = "Pavucontrol"' pavucontrol
 

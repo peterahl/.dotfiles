@@ -1,10 +1,16 @@
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+
 local workspace_dir = '/home/peter/.local/share/nvim/java-workspaces/' .. project_name
 
 local wk = require("which-key")
 
+local jdtls = require('jdtls')
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 -- -- UI
 local finders = require 'telescope.finders'
@@ -13,12 +19,12 @@ local actions = require 'telescope.actions'
 local pickers = require 'telescope.pickers'
 
 local on_attach = function(client, bufnr)
-  -- require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+  require('jdtls').setup_dap({ hotcodereplace = 'auto' })
   -- require('jdtls').setup_dap_main_class_configs()
-  -- require('jdtls.dap').setup_dap_main_class_configs()
+  require('jdtls.dap').setup_dap_main_class_configs()
   client.server_capabilities.documentFormattingProvider = false
-  require('jdtls.setup').add_commands()
-  require('jdtls.ui').pick_one_async = function(items, prompt, label_fn, cb)
+  jdtls.setup.add_commands()
+  jdtls.ui.pick_one_async = function(items, prompt, label_fn, cb)
     local opts = {}
     pickers.new(opts, {
       prompt_title    = prompt,
@@ -45,24 +51,12 @@ local on_attach = function(client, bufnr)
       end,
     }):find()
   end
-
-
 end
 
-
-local extendedClientCapabilities = require 'jdtls'.extendedClientCapabilities
-extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
---
 local config = {
-  -- The command that starts the language server
-  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
 
-    -- 💀
-    '/home/peter/.sdkman/candidates/java/current/bin/java', -- or '/path/to/java17_or_newer/bin/java'
-    -- depends on if `java` is in your $PATH env variable and if it points to the right version.
+    '/home/peter/.sdkman/candidates/java/current/bin/java',
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
@@ -74,29 +68,14 @@ local config = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-    -- 💀
     '-jar',
     '/home/peter/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
-    -- Must point to the                                                     Change this to
-    -- eclipse.jdt.ls installation                                           the actual version
 
-
-    -- 💀
     '-configuration', '/home/peter/.local/share/nvim/lsp_servers/jdtls/config_linux',
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
-    -- Must point to the                      Change to one of `linux`, `win` or `mac`
-    -- eclipse.jdt.ls installation            Depending on your system.
 
-
-    -- 💀
-    -- See `data directory configuration` section in the README
     '-data', workspace_dir,
   },
 
-  -- 💀
-  -- This is the default if not provided, you can remove it. Or adjust as needed.
-  -- One dedicated LSP server & client will be started per unique root_dir
   root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' }),
 
   -- Here you can configure eclipse.jdt.ls specific settings
@@ -130,16 +109,20 @@ local config = {
       codeGeneration = {
         toString = {
           template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
-        }
+        },
+        hashCodeEquals = {
+          useJava7Objects = true,
+        },
+        useBlocks = true,
       },
-      configuration = {
-        runtimes = {
-          {
-            name = "JavaSE-17",
-            path = "/home/peter/.sdkman/candidates/java/22.3.0.1.r17-mandrel"
-          }
-        }
-      },
+      -- configuration = {
+      --   runtimes = {
+      --     {
+      --       name = "JavaSE-17",
+      --       path = "/home/peter/.sdkman/candidates/java/22.3.0.1.r17-mandrel"
+      --     }
+      --   }
+      -- },
     }
   },
 
@@ -151,11 +134,17 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {},
+    bundles = {
+      vim.fn.glob("/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.44.0.jar"
+        , 1)
+    },
     extendedClientCapabilities = extendedClientCapabilities;
   },
   on_attach = on_attach,
   capabilities = capabilities,
+  handlers = {
+    ['$/progress'] = function() end,
+  }
 }
 
 
@@ -219,8 +208,28 @@ wk.register({
 })
 
 
+local dap = require('dap')
+
+-- dap.adapters.java = {
+--   type = 'executable';
+--   command = 'java';
+--   args = { '-jar',
+--     '/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.44.0.jar' };
+-- }
+
+
+dap.configurations.java = {
+  {
+    type = 'java';
+    request = 'attach';
+    name = "Debug (Attach) - Remote";
+    hostName = "127.0.0.1";
+    port = 5005;
+  },
+}
+
 -- mapb(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
 
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require('jdtls').start_or_attach(config)
+jdtls.start_or_attach(config)

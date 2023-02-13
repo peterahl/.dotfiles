@@ -1,5 +1,11 @@
 require('plugins')
 
+vim.filetype.add({
+  extension = {
+    cql = 'sql',
+  },
+})
+
 local g = vim.g
 g.indent_blankline_char = '┊'
 -- g.tokyonight_style = 'night'
