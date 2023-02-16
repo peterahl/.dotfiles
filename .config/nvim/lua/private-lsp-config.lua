@@ -75,7 +75,6 @@ local on_attach = function(client, bufnr)
     ['<C-k>'] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", 'Signature help' },
     K = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'lsp hover' },
   })
-
 end
 
 require("neodev").setup({
@@ -87,7 +86,7 @@ require("neodev").setup({
 
 local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   on_attach = function(client, bufnr)
     require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
@@ -106,6 +105,22 @@ lspconfig.sumneko_lua.setup({
       },
       completion = {
         callSnippet = "Replace"
+      },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
       }
     }
   }
