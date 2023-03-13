@@ -20,4 +20,4 @@ settings:
   #   - -c
   #   - normal {line}G{column0}l
   zoom.default:
-    global: 135%
+    global: 165%

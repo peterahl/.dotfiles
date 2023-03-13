@@ -988,3 +988,5 @@ exit
 echo "version=$([[ -z '${{ github.event.inputs.tag }}' ]] && echo dev-$(git rev-parse --short HEAD)-$(date +%s) || echo ${{ github.event.inputs.tag }})"
 echo "version=$([[ -z '' ]] && echo dev-$(git rev-parse --short HEAD)-$(date +%s) || echo )"
 echo "version=$([[ -z 'aoeu' ]] && echo dev-$(git rev-parse --short HEAD)-$(date +%s) || echo au)"
+pwd
+quarkus dev

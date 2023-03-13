@@ -23,8 +23,8 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 ;;(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
 ;;(setq doom-big-font (font-spec :family "FiraCode Nerd Font" :size 32))
-(setq doom-font (font-spec :family "Fira Code" :size 20 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 21))
+(setq doom-font (font-spec :family "Fira Code" :size 10 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 12))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and

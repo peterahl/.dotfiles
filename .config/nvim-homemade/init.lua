@@ -3,6 +3,7 @@ require('plugins')
 vim.filetype.add({
   extension = {
     cql = 'sql',
+    cljd = 'clojure',
   },
 })
 
@@ -29,8 +30,8 @@ o.background = "dark" -- or "light" for light mode
 o.expandtab = true
 o.tabstop = 2
 o.shiftwidth = 2
-o.guifont = "Fira Code:h8"
--- o.clipboard = "unnamedplus"
+o.guifont = "Fira Code SemiBold:h8"
+o.clipboard = "unnamedplus"
 o.timeoutlen = 300
 
 vim.wo.number = true
@@ -48,6 +49,7 @@ vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
 vim.g.copilot_node_command = "~/.config/nvm/versions/node/v16.13.1/bin/node"
+vim.g.copilot_filetypes = { ['*'] = true }
 
 require('cmp-config')
 require('private-lsp-config')
