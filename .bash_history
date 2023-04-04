@@ -1,18 +1,4 @@
 htop
-#1645090964
-doom sync
-#1645091893
-htop
-#1645100282
-ps aux | rg gnome
-#1645100760
-ps -o pid,user,%mem,command ax | sort -b -k3 -r
-#1645100799
-ps aux | rg gnome
-#1645100811
-sudo pmap 8887
-#1645100989
-htop
 #1645101156
 cd /
 #1645101163

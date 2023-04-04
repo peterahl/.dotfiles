@@ -7,7 +7,9 @@ export BROWSER=/usr/bin/google-chrome-stable
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.emacs.d/bin:$PATH
+# export PATH=$HOME/.emacs.d/bin:$PATH
+export PATH=$HOME/.config/emacs/bin:$PATH
+export PATH=$HOME/.config/nvim/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/Android/flutter/bin:$PATH
 export DENO_INSTALL="/home/peter/.deno"

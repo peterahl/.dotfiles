@@ -46,17 +46,16 @@ return require('packer').startup(function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    -- config = function()
-    --   require('lualine').setup {
-    --     options = { fmt = string.lower },
-    --     sections = {
-    --       lualine_b = {
-    --         { 'filename', path = 1 }
-    --       },
-    --     }
-    --   }
-    -- end
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'auto',
+        },
+      }
+    end
   }
+
+  use "ellisonleao/gruvbox.nvim"
 
   use {
     "lukas-reineke/lsp-format.nvim",
@@ -216,10 +215,10 @@ return require('packer').startup(function()
         },
         extensions = {
           fzf = {
-            fuzzy = true, -- false will only do exact matching
+            fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
           },
           file_browser = {
             path_display = {},
@@ -351,16 +350,33 @@ return require('packer').startup(function()
     end
   }
 
-  use {
-    'tami5/lspsaga.nvim',
+  -- use {
+  --   'tami5/lspsaga.nvim',
+  --   config = function()
+  --     require('lspsaga').setup({
+  --       -- lightbulb = {
+  --       --   enabled = false
+  --       -- }
+  --     })
+  --   end
+  -- }
+
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
     config = function()
-      require('lspsaga').setup({
-        -- lightbulb = {
-        --   enabled = false
-        -- }
+      require("lspsaga").setup({
+        lightbulb = {
+          enabled = false,
+        },
       })
-    end
-  }
+    end,
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+      --Please make sure you install markdown and markdown_inline parser
+      'nvim-treesitter/nvim-treesitter'
+    }
+  })
 
   use 'github/copilot.vim'
 
@@ -369,18 +385,19 @@ return require('packer').startup(function()
     requires = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
     },
     config = function()
       require "octo".setup()
     end
   }
 
+  use 'nvim-tree/nvim-web-devicons'
 
   use {
-    'kyazdani42/nvim-tree.lua',
+    'nvim-tree/nvim-tree.lua',
     requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      'nvim-tree/nvim-web-devicons', -- optional, for file icon
     },
     config = function()
       require 'nvim-tree'.setup {}

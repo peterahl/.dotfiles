@@ -3,35 +3,49 @@
 (require '[clojure.java.shell :as sh])
 
 (defn switch-nvim-config []
-  (let [xdg-config-home (or (System/getenv "XDG_CONFIG_HOME") (str (System/getenv "HOME") "/.config"))
-        xdg-data-home (or (System/getenv "XDG_DATA_HOME") (str (System/getenv "HOME") "/.local/share"))
-        config-dirs (->> xdg-data-home
-                          (java.io.File.)
-                          (.listFiles)
-                          (filter #(.isDirectory %))
-                          (filter #(re-find #"^nvim-.+$" (.getName %))))
+  (let [xdg-config-home (or
+                         (System/getenv "XDG_CONFIG_HOME")
+                         (str (System/getenv "HOME") "/.config"))
+        xdg-data-home (or
+                       (System/getenv "XDG_DATA_HOME")
+                       (str (System/getenv "HOME") "/.local/share"))
+        xdg-cache-home (or
+                        (System/getenv "XDG_CACHE_HOME")
+                        (str (System/getenv "HOME") "/.cache"))
+        config-dirs (->> xdg-config-home
+                         (java.io.File.)
+                         (.listFiles)
+                         (filter #(.isDirectory %))
+                         (filter #(re-find #"^nvim-.+$" (.getName %))))
         num-configs (count config-dirs)]
     (println "Available Neovim configurations:")
     (doseq [i (range num-configs)]
       (let [dir (.getName (nth config-dirs i))]
         (println (str "  [" i "] " dir))))
     (print "Choose a configuration [0-" (dec num-configs) "]: ")
-    (flush)))
-    ; (let [choice (read-line)
-    ;       config-index (Integer/parseInt choice)]
-    ;   (when (and (not (nil? config-index))
-    ;              (>= config-index 0)
-    ;              (< config-index num-configs))
-    ;     (let [config-name (.getName (nth config-dirs config-index))
-    ;           source-path (str xdg-data-home "/" config-name "/nvim")
-    ;           target-path (str xdg-config-home "/nvim")]
-    ;       (if (not (.exists (java.io.File. source-path)))
-    ;         (println (str "Error: Configuration '" config-name "' not found"))
-    ;         (do
-    ;           (sh/sh "rm" "-f" (str target-path "/init.vim") (str target-path "/ginit.vim"))
-    ;           (sh/sh "ln" "-sf" (str source-path "/init.vim") target-path)
-    ;           (sh/sh "ln" "-sf" (str source-path "/ginit.vim") target-path)
-    ;           (println (str "Switched to configuration '" config-name "'")))))))))
+    (flush)
+    (let [choice (read-line)
+          config-index (Integer/parseInt choice)]
+      (when (and (not (nil? config-index))
+                 (>= config-index 0)
+                 (< config-index num-configs))
+        (let [config-name (.getName (nth config-dirs config-index))]
+          (doseq [path [xdg-config-home xdg-data-home xdg-cache-home]]
+            (let [source-path (str path "/" config-name)
+                  target-path (str path "/nvim")]
+              (when (not (.exists (java.io.File. source-path)))
+                (println (str
+                          "Error: Configuration '"
+                          config-name "' 
+                                not found in "
+                          source-path))
+                (sh/sh "mkdir" "-p" source-path))
+
+              (sh/sh "rm" "-rf" target-path)
+              (sh/sh "ln" "-sf"
+                     source-path
+                     target-path)
+              (println (str "Switched to configuration '" config-name "'")))))))))
 
 (switch-nvim-config)
 

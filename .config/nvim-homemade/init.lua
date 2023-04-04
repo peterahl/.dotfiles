@@ -37,7 +37,8 @@ o.timeoutlen = 300
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.cmd([[colorscheme tokyonight-night]])
+vim.cmd([[colorscheme gruvbox]])
+-- vim.cmd([[colorscheme tokyonight-night]])
 vim.cmd([[nnoremap j jzz]])
 vim.cmd([[nnoremap k kzz]])
 vim.cmd([[nnoremap n nzz]])
@@ -61,4 +62,5 @@ local logsitter = require("logsitter")
 local javascript_logger = require("logsitter.lang.javascript")
 
 -- tell logsitter to use the javascript_logger when the filetype is svelte
+logsitter.register(javascript_logger, { "vue" })
 logsitter.register(javascript_logger, { "vue" })

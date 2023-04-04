@@ -62,7 +62,6 @@ local on_attach = function(client, bufnr)
         w = { "<cmd>lua require('dapui').float_element('watches')<cr>", "Open Dap UI Watches" },
         r = { "<cmd>lua require('dapui').float_element('repl')<cr>", "Open Dap UI Repl" },
       }
-
     }
   }, {
     buffer = bufnr,
@@ -204,7 +203,16 @@ lspconfig.yamlls.setup {
     require "lsp-format".on_attach(client)
     on_attach(client, bufnr)
   end,
-  capabilities = capabilities,
+  capabilities = capabilities
+  -- settings = {
+  --   yaml = {
+  --     format = {
+  --       enable = true,
+  --       singleQuote = true,
+  --       proseWrap = "always",
+  --     },
+  --   }
+  -- }
 }
 lspconfig.sqls.setup {
   on_attach = function(client, bufnr)
