@@ -1,29 +1,29 @@
-require('plugins')
+require("plugins")
 
 vim.filetype.add({
-  extension = {
-    cql = 'sql',
-    cljd = 'clojure',
-  },
+	extension = {
+		cql = "sql",
+		cljd = "clojure",
+	},
 })
 
 local g = vim.g
-g.indent_blankline_char = '┊'
+g.indent_blankline_char = "┊"
 -- g.tokyonight_style = 'night'
-g.mapleader = ' '
-g.maplocalleader = ','
+g.mapleader = " "
+g.maplocalleader = ","
 g.gitblame_enabled = 1
 -- g.neovide_fullscreen = 1
 -- g.neovide_transparency = 0.95
 
 local opt = vim.opt
 opt.termguicolors = true
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
+opt.completeopt = { "menu", "menuone", "noselect" }
 opt.ignorecase = true
 opt.smartcase = true
 opt.cursorline = true
-opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 local o = vim.o
 o.background = "dark" -- or "light" for light mode
@@ -50,13 +50,13 @@ vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
 vim.g.copilot_node_command = "~/.config/nvm/versions/node/v16.13.1/bin/node"
-vim.g.copilot_filetypes = { ['*'] = true }
+vim.g.copilot_filetypes = { ["*"] = true }
 
-require('cmp-config')
-require('private-lsp-config')
-require('keybindings')
-require('evil_lualine')
-require('auto-commands')
+require("cmp-config")
+require("private-lsp-config")
+require("keybindings")
+require("evil_lualine")
+require("auto-commands")
 
 local logsitter = require("logsitter")
 local javascript_logger = require("logsitter.lang.javascript")
