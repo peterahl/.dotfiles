@@ -48,3 +48,4 @@ vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
 map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
+map("n", "<leader>al", "<cmd>Logsitter<cr>", { desc = "Logsitter" })

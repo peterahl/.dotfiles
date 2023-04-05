@@ -1,9 +1,13 @@
-return { {
-	"nvim-treesitter/nvim-treesitter",
-	opts = function(_, opts)
-		opts.ignore_install = { "help" }
-	end,
-} }
+return {
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = function(_, opts)
+			opts.ignore_install = { "help" }
+		end,
+	},
+	{ "gaelph/logsitter.nvim" },
+	{ "nvim-treesitter/nvim-treesitter-context" },
+}
 
 -- return {
 -- 	-- add more treesitter parsers
