@@ -13,7 +13,7 @@ o.guifont = "Fira Code SemiBold:h8"
 
 g.neovide_cursor_animation_length = 0
 
--- copilot_filetypes
-g.copilot_filetypes = { ["*"] = true }
+-- -- copilot_filetypes
+-- g.copilot_filetypes = { ["*"] = true }
 
 g.maplocalleader = ","
