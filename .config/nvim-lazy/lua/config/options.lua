@@ -17,3 +17,5 @@ g.neovide_cursor_animation_length = 0
 -- g.copilot_filetypes = { ["*"] = true }
 
 g.maplocalleader = ","
+
+g.gitblame_enabled = 1
