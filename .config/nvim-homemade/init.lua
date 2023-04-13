@@ -1,10 +1,10 @@
 require("plugins")
 
 vim.filetype.add({
-	extension = {
-		cql = "sql",
-		cljd = "clojure",
-	},
+  extension = {
+    cql = "sql",
+    cljd = "clojure",
+  },
 })
 
 local g = vim.g
@@ -62,5 +62,4 @@ local logsitter = require("logsitter")
 local javascript_logger = require("logsitter.lang.javascript")
 
 -- tell logsitter to use the javascript_logger when the filetype is svelte
-logsitter.register(javascript_logger, { "vue" })
 logsitter.register(javascript_logger, { "vue" })
