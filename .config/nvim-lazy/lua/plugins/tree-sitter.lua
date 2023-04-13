@@ -5,15 +5,6 @@ return {
       opts.ignore_install = { "help" }
     end,
   },
-  {
-    "gaelph/logsitter.nvim",
-    config = function()
-      local logsitter = require("logsitter")
-      local javascript_logger = require("logsitter.lang.javascript")
-      -- tell logsitter to use the javascript_logger when the filetype is vue
-      logsitter.register(javascript_logger, { "vue" })
-    end
-  },
   { "nvim-treesitter/nvim-treesitter-context" },
 }
 

@@ -17,7 +17,7 @@ vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
 map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
-map("n", "<leader>al", "<cmd>Logsitter<cr>", { desc = "Logsitter" })
+-- map("n", "<leader>al", "<cmd>Logsitter<cr>", { desc = "Logsitter" })
 
 map("i", "<Tab>", '<cmd>lua require("copilot.suggestion").accept()<cr>', { desc = "copilot accept" })
 

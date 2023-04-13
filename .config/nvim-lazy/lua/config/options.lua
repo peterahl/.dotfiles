@@ -5,6 +5,13 @@
 local o = vim.o
 local g = vim.g
 
+vim.filetype.add({
+  extension = {
+    cql = "sql",
+    cljd = "clojure",
+  },
+})
+
 -- o.background = "dark" -- or "light" for light mode
 -- o.expandtab = true
 -- o.tabstop = 2
