@@ -3,7 +3,17 @@
 -- Add any additional keymaps here
 
 local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
+-- local map = vim.keymap.set
+local function map(mode, lhs, rhs, opts)
+  local keys = require("lazy.core.handler").handlers.keys
+  ---@cast keys LazyKeysHandler
+  -- do not create the keymap if a lazy keys handler exists
+  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
+end
 
 --vim
 vim.cmd([[nnoremap j jzz]])
@@ -19,7 +29,12 @@ vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
 -- map("n", "<leader>al", "<cmd>Logsitter<cr>", { desc = "Logsitter" })
 
-map("i", "<Tab>", '<cmd>lua require("copilot.suggestion").accept()<cr>', { desc = "copilot accept" })
-
 --Telescope
 map("n", "<M-x>", '<cmd>Telescope commands<cr>', { desc = "commands" })
+
+--Tmux
+map("n", "<c-h>", ":TmuxNavigateLeft<cr>", { desc = "TmuxNavigateLeft", remap = true, silent = true })
+map("n", "<c-j>", ":TmuxNavigateDown<cr>", { desc = "TmuxNavigateDown", remap = true, silent = true })
+map("n", "<c-k>", ":TmuxNavigateUp<cr>", { desc = "TmuxNavigateUp", remap = true, silent = true })
+map("n", "<c-l>", ":TmuxNavigateRight<cr>", { desc = "TmuxNavigateRight", remap = true, silent = true })
+map("n", "<c-\\>", ":TmuxNavigatePrevious<cr>", { desc = "TmuxNavigatePrevious", remap = true, silent = true })

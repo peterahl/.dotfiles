@@ -27,3 +27,4 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 # setxkbmap -option 'ctrl:rctrl_ralt'
 # /usr/bin/xmodmap $HOME/.Xmodmap
+
