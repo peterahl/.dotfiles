@@ -1,0 +1,13 @@
+session_name: infra
+start_directory: ~/git/infra/
+windows:
+  - window_name: editor
+    focus: true
+    panes:
+      - nvim
+  - window_name: k9s
+    panes:
+      - k9s
+  - window_name: shell
+    panes:
+      - ""

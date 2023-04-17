@@ -1,0 +1,10 @@
+session_name: voady-api
+start_directory: ~/git/voady-api/
+windows:
+  - window_name: editor
+    focus: true
+    panes:
+      - nvim
+  - window_name: shell
+    panes:
+      - ""
