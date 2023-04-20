@@ -1,18 +1,22 @@
 return {
 
-  { "Olical/aniseed" },
-
-  { "Olical/conjure" },
-
-  { "gpanders/nvim-parinfer" },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
+      -- add tsx and treesitter
       vim.list_extend(opts.ensure_installed, {
-        "clojure",
+        "prisma",
       })
     end,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "prisma-language-server",
+      },
+    },
   },
 
   {
@@ -21,8 +25,7 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        -- ["clj-kondo"] = {},
-        clojure_lsp = {},
+        prismals = {},
       },
     },
   },

@@ -36,7 +36,7 @@
               (when (not (.exists (java.io.File. source-path)))
                 (println (str
                           "Error: Configuration '"
-                          config-name "' 
+                          config-name "'
                                 not found in "
                           source-path))
                 (sh/sh "mkdir" "-p" source-path))
@@ -48,4 +48,3 @@
               (println (str "Switched to configuration '" config-name "'")))))))))
 
 (switch-nvim-config)
-
