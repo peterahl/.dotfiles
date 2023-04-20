@@ -5,7 +5,8 @@ vim.g.maplocalleader = " "
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
-
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 
 local o = vim.o
