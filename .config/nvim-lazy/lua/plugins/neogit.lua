@@ -6,7 +6,20 @@ return {
       'sindrets/diffview.nvim',
     },
     keys = {
-      { '<leader>gg', ':Neogit<CR>', { noremap = true, silent = true, desc = "neoGit" } },
+      {
+        '<leader>gg',
+        ':Neogit<CR>',
+        noremap = true,
+        silent = true,
+        desc = "neoGit"
+      },
+      {
+        '<leader>gb',
+        function() require('telescope.builtin').git_branches() end,
+        noremap = true,
+        silent = true,
+        desc = "git branches"
+      },
     },
     opts = {
       integrations = {
