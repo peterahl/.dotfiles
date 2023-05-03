@@ -25,6 +25,9 @@ local autoCommands = {
   open_folds = {
     { "BufEnter,BufReadPost,FileReadPost", "*", "normal zR" },
     { "BufEnter",                          "*", "normal zx" }
+  },
+  plant_uml = {
+    { "BufWritePost", "*.puml", "silent !plantuml % > /dev/null 2>&1 &" }
   }
 }
 

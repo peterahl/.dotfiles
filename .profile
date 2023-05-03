@@ -28,3 +28,4 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 # setxkbmap -option 'ctrl:rctrl_ralt'
 # /usr/bin/xmodmap $HOME/.Xmodmap
 
+. "$HOME/.cargo/env"

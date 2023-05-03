@@ -21,6 +21,70 @@ return {
   --     },
   --   },
   -- },
+  --
+  {
+    "nvim-telescope/telescope.nvim",
+    -- change some options
+    keys = {
+      -- add a keymap to browse plugin files
+      -- stylua: ignore
+      {
+        "<leader>ff",
+        function() require("telescope.builtin").find_files({ cwd = require('telescope.utils').buffer_dir() }) end,
+        desc = "Find Files",
+      },
+      {
+        "<leader>pf",
+        function() require("telescope.builtin").git_files() end,
+        desc = "Project Files",
+      },
+      {
+        "<leader>*",
+        "<cmd>lua require('telescope.builtin').grep_string()<cr>",
+        desc = "Search string at point"
+      }
+    },
+    opts = {
+      defaults = {
+        layout_strategy = "vertical",
+        path_display = function(opts, path)
+          local tail = require("telescope.utils").path_tail(path)
+          return string.format("%s%s%s", tail, string.rep(" ", 60 - #tail), path)
+        end,
+        layout_config = {
+          prompt_position = "top",
+          preview_cutoff = 40,
+        },
+        sorting_strategy = "ascending",
+        winblend = 0,
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        },
+        file_browser = {
+          path_display = {},
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          layout_config = {
+            preview_width = 0.6,
+          },
+        },
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown({}),
+        },
+        project = {
+          base_dirs = {
+            "~/git",
+            "~/.dotfiles",
+          },
+        },
+      }
+    },
+  },
 
   -- add telescope-fzf-native
   {

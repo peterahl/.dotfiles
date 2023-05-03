@@ -11,5 +11,4 @@ return {
       { "<leader>ad", function() require("debugprint").deleteprints() end, desc = "DebugPrint deleteprints" },
     }
   }
-
 }

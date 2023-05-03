@@ -3,6 +3,8 @@
 -- Add any additional keymaps here
 
 local opts = { noremap = true, silent = true }
+local Util = require("lazyvim.util")
+
 -- local map = vim.keymap.set
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -26,8 +28,15 @@ vim.cmd([[nnoremap <C-d> <C-d>zz]])
 vim.cmd([[nnoremap <C-u>  <C-u>zz]])
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
+map("n", "<Esc>", "<Esc>", { desc = "Esc" })
+
 map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
--- map("n", "<leader>al", "<cmd>Logsitter<cr>", { desc = "Logsitter" })
+map("n", "<leader>*", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Search string at point" })
+
+--float term
+map("n", "<leader>ft", function() Util.float_term(nil, { cwd = require('telescope.utils').buffer_dir() }) end,
+  { desc = "Terminal" })
+map("n", "<leader>pt", function() Util.float_term() end, { desc = "Project terminal" })
 
 --Telescope
 map("n", "<M-x>", '<cmd>Telescope commands<cr>', { desc = "commands" })
