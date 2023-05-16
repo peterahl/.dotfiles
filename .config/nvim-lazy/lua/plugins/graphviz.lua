@@ -1,0 +1,5 @@
+return {
+  {
+    "liuchengxu/graphviz.vim",
+  }
+}

@@ -31,7 +31,6 @@ vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 map("n", "<Esc>", "<Esc>", { desc = "Esc" })
 
 map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
-map("n", "<leader>*", "<cmd>lua require('telescope.builtin').grep_string()<cr>", { desc = "Search string at point" })
 
 --float term
 map("n", "<leader>ft", function() Util.float_term(nil, { cwd = require('telescope.utils').buffer_dir() }) end,

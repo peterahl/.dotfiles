@@ -1,0 +1,6 @@
+session_name: tmp
+start_directory: /tmp
+windows:
+  - window_name: shell
+    panes:
+      - ""

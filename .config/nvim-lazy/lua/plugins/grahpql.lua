@@ -15,6 +15,7 @@ return {
       ---@type lspconfig.options
       servers = {
         graphql = {
+          filetypes = { "graphql", "javascript", "typescript" },
         },
       },
     },

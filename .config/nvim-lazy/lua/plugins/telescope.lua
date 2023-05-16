@@ -40,8 +40,18 @@ return {
       },
       {
         "<leader>*",
-        "<cmd>lua require('telescope.builtin').grep_string()<cr>",
+        function() require('telescope.builtin').grep_string() end,
         desc = "Search string at point"
+      },
+      {
+        "<leader>sf",
+        function() require("telescope.builtin").live_grep({ grep_open_files = true }) end,
+        desc = "Search string in files",
+      },
+      {
+        "<leader>sF",
+        function() require("telescope.builtin").live_grep({ cwd = require('telescope.utils').buffer_dir() }) end,
+        desc = "Search string in current dir",
       }
     },
     opts = {

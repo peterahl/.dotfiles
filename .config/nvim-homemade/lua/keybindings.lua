@@ -125,7 +125,7 @@ wk.register({
     name = "search",
     d = { "<cmd>lua require('telescope.builtin').live_grep({cwd=require('telescope.utils').buffer_dir()})<cr>",
       "Search dir" },
-    f = { "<cmd>lua require('telescope.builtin').live_grep({grep_open_file=rue})<cr>", "Search open files" },
+    f = { "<cmd>lua require('telescope.builtin').live_grep({grep_open_file=true})<cr>", "Search open files" },
     p = { "<cmd>FzfLua grep_project<cr>", "Search project" },
     s = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search buffer" },
   },
