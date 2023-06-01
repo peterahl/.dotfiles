@@ -28,6 +28,10 @@ local autoCommands = {
   },
   plant_uml = {
     { "BufWritePost", "*.puml", "silent !plantuml % > /dev/null 2>&1 &" }
+  },
+  graphviz = {
+    { "BufWritePost", "*.dot", "silent !dot -Tsvg % > %:r.svg" }
+    -- { "BufWritePost", "*.dot", "silent Graphviz! png" }
   }
 }
 

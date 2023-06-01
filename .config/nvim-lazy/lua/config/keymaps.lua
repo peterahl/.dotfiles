@@ -18,14 +18,15 @@ local function map(mode, lhs, rhs, opts)
 end
 
 --vim
-vim.cmd([[nnoremap j jzz]])
-vim.cmd([[nnoremap k kzz]])
-vim.cmd([[nnoremap n nzz]])
-vim.cmd([[nnoremap N Nzz]])
-vim.cmd([[nnoremap { {zz]])
-vim.cmd([[nnoremap } }zz]])
-vim.cmd([[nnoremap <C-d> <C-d>zz]])
-vim.cmd([[nnoremap <C-u>  <C-u>zz]])
+-- vim.cmd([[nnoremap j jzz]])
+-- vim.cmd([[nnoremap k kzz]])
+-- vim.cmd([[nnoremap n nzz]])
+-- vim.cmd([[nnoremap N Nzz]])
+-- vim.cmd([[nnoremap { {zz]])
+-- vim.cmd([[nnoremap } }zz]])
+-- vim.cmd([[nnoremap <C-d> <C-d>zz]])
+-- vim.cmd([[nnoremap <C-u>  <C-u>zz]])
+
 vim.cmd([[:tnoremap <Esc> <C-\><C-n>]])
 
 map("n", "<Esc>", "<Esc>", { desc = "Esc" })

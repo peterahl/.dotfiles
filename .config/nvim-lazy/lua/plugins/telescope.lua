@@ -128,7 +128,10 @@ return {
       {
         "<M-g><M-r>",
         function()
-          require('telescope').extensions.file_browser.file_browser({ path = require('telescope.utils').buffer_dir() })
+          require('telescope').extensions.file_browser.file_browser({
+            path = require('telescope.utils').buffer_dir(),
+            display_stat = false,
+          })
         end,
         desc = "open file browser",
       },
@@ -137,17 +140,20 @@ return {
 
   {
     "AckslD/nvim-neoclip.lua",
+    keys = {
+      {
+        "<C-p>",
+        function()
+          require('telescope').extensions.neoclip.neoclip()
+        end,
+        desc = "open clipboard",
+      },
+    },
     config = function()
-      require("neoclip").setup({
-        keys = {
-          telescope = {
-            i = {
-              paste = "<cr>",
-            },
-          },
-        },
-      })
       require("telescope").load_extension("neoclip")
     end,
+    opts = {
+      default_register = { '"', '+', '*' },
+    }
   }
 }
