@@ -8,7 +8,8 @@ return {
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "java",
             callback = function()
-              require("lazyvim.util").on_attach(function(_, buffer)
+              require("lazyvim.util").on_attach(function(client, buffer)
+                client.server_capabilities.documentFormattingProvider = false
                 vim.keymap.set(
                   "n",
                   "<leader>di",
@@ -48,7 +49,7 @@ return {
                 vim.keymap.set(
                   "n",
                   "<leader>cf",
-                  "<cmd>lua vim.lsp.buf.formatting()<CR>",
+                  "<cmd>lua vim.lsp.buf.format()<CR>",
                   { buffer = buffer, desc = "Format" }
                 )
               end)
