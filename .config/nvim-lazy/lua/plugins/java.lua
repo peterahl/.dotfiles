@@ -9,49 +9,46 @@ return {
             pattern = "java",
             callback = function()
               require("lazyvim.util").on_attach(function(client, buffer)
-                client.server_capabilities.documentFormattingProvider = false
-                vim.keymap.set(
-                  "n",
-                  "<leader>di",
-                  "<Cmd>lua require'jdtls'.organize_imports()<CR>",
-                  { buffer = buffer, desc = "Organize Imports" }
-                )
-                vim.keymap.set(
-                  "n",
-                  "<leader>dt",
-                  "<Cmd>lua require'jdtls'.test_class()<CR>",
-                  { buffer = buffer, desc = "Test Class" }
-                )
-                vim.keymap.set(
-                  "n",
-                  "<leader>dn",
-                  "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
-                  { buffer = buffer, desc = "Test Nearest Method" }
-                )
-                vim.keymap.set(
-                  "v",
-                  "<leader>de",
-                  "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-                  { buffer = buffer, desc = "Extract Variable" }
-                )
-                vim.keymap.set(
-                  "n",
-                  "<leader>de",
-                  "<Cmd>lua require('jdtls').extract_variable()<CR>",
-                  { buffer = buffer, desc = "Extract Variable" }
-                )
-                vim.keymap.set(
-                  "v",
-                  "<leader>dm",
-                  "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-                  { buffer = buffer, desc = "Extract Method" }
-                )
-                vim.keymap.set(
-                  "n",
-                  "<leader>cf",
-                  "<cmd>lua vim.lsp.buf.format()<CR>",
-                  { buffer = buffer, desc = "Format" }
-                )
+                -- check if the client in jdtls and set the server_capabilities
+                if client.name == "jdtls" then
+                  client.server_capabilities.documentFormattingProvider = false
+                  vim.keymap.set(
+                    "n",
+                    "<leader>di",
+                    "<Cmd>lua require'jdtls'.organize_imports()<CR>",
+                    { buffer = buffer, desc = "Organize Imports" }
+                  )
+                  vim.keymap.set(
+                    "n",
+                    "<leader>dt",
+                    "<Cmd>lua require'jdtls'.test_class()<CR>",
+                    { buffer = buffer, desc = "Test Class" }
+                  )
+                  vim.keymap.set(
+                    "n",
+                    "<leader>dn",
+                    "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
+                    { buffer = buffer, desc = "Test Nearest Method" }
+                  )
+                  vim.keymap.set(
+                    "v",
+                    "<leader>de",
+                    "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
+                    { buffer = buffer, desc = "Extract Variable" }
+                  )
+                  vim.keymap.set(
+                    "n",
+                    "<leader>de",
+                    "<Cmd>lua require('jdtls').extract_variable()<CR>",
+                    { buffer = buffer, desc = "Extract Variable" }
+                  )
+                  vim.keymap.set(
+                    "v",
+                    "<leader>dm",
+                    "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
+                    { buffer = buffer, desc = "Extract Method" }
+                  )
+                end
               end)
 
               local jdtls                                                  = require("jdtls")

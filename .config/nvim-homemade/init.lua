@@ -1,10 +1,10 @@
 require("plugins")
 
 vim.filetype.add({
-  extension = {
-    cql = "sql",
-    cljd = "clojure",
-  },
+	extension = {
+		cql = "sql",
+		cljd = "clojure",
+	},
 })
 
 local g = vim.g

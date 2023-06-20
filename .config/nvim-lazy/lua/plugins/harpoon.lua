@@ -7,6 +7,11 @@ return {
         require("telescope").load_extension("harpoon")
       end,
     },
+    opts = {
+      menu = {
+        width = 120,
+      },
+    },
     keys = {
       { "<M-a>",      function() require('harpoon.ui').nav_file(1) end,            desc = "harpoon 1", },
       { "<M-o>",      function() require('harpoon.ui').nav_file(2) end,            desc = "harpoon 2", },
