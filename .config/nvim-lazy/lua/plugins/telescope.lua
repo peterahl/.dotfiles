@@ -171,23 +171,4 @@ return {
 			},
 		},
 	},
-
-	{
-		"AckslD/nvim-neoclip.lua",
-		keys = {
-			{
-				"<C-p>",
-				function()
-					require("telescope").extensions.neoclip.neoclip()
-				end,
-				desc = "open clipboard",
-			},
-		},
-		config = function()
-			require("telescope").load_extension("neoclip")
-		end,
-		opts = {
-			default_register = { '"', "+", "*" },
-		},
-	},
 }
