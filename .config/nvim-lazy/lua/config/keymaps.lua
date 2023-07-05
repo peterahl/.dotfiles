@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local opts = { noremap = true, silent = true }
+-- local opts = { noremap = true, silent = true }
 local Util = require("lazyvim.util")
 
 -- local map = vim.keymap.set
@@ -52,3 +52,7 @@ map("n", "<c-l>", ":TmuxNavigateRight<cr>", { desc = "TmuxNavigateRight", remap 
 map("n", "<c-\\>", ":TmuxNavigatePrevious<cr>", { desc = "TmuxNavigatePrevious", remap = true, silent = true })
 
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+map("n", "<leader>cd", function()
+	require("telescope.builtin").diagnostics({ bufnr = vim.api.nvim_get_current_buf() })
+end, { desc = "Buffer diagnostics", noremap = true })

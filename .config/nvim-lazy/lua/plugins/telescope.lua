@@ -42,7 +42,7 @@ return {
 				desc = "Search string in current dir",
 			},
 			{
-				"<leader>sD",
+				"<leader>cD",
 				function()
 					require("telescope.builtin").diagnostics()
 				end,
@@ -50,7 +50,7 @@ return {
 			},
 			{ "<leader>ss", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
 			{
-				"<leader>cs",
+				"gs",
 				Util.telescope("lsp_document_symbols", {
 					symbols = {
 						"Class",
@@ -68,7 +68,7 @@ return {
 				desc = "Goto Symbol",
 			},
 			{
-				"<leader>cS",
+				"gS",
 				Util.telescope("lsp_dynamic_workspace_symbols", {
 					symbols = {
 						"Class",

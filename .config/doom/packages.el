@@ -54,10 +54,12 @@
 
 (package! evil-cleverparens)
 
+(package! centered-cursor-mode)
+
 (package! protobuf-mode
   :recipe (:host github :repo "protocolbuffers/protobuf"
            :files ("editors/protobuf-mode.el")))
 
-(package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
+;; (package! lsp-volar :recipe (:host github :repo "jadestrong/lsp-volar"))
 
 (package! turbo-log :recipe (:host github :repo "artawower/turbo-log"))

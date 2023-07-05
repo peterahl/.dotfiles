@@ -79,18 +79,22 @@
 
 (setq doom-localleader-key ",")
 
+(use-package! centered-cursor-mode
+  :config
+  (global-centered-cursor-mode +1))
+
 ;; (require 'treesit)
 
-(defun peter/center-line (&rest _)
-  (evil-scroll-line-to-center nil))
+;; (defun peter/center-line (&rest _)
+;;   (evil-scroll-line-to-center nil))
 
-(advice-add 'evil-next-line :after #'peter/center-line)
-(advice-add 'evil-previous-line :after #'peter/center-line)
-(advice-add 'evil-goto-line :after #'peter/center-line)
-(advice-add 'evil-scroll-up :after #'peter/center-line)
-(advice-add 'evil-scroll-down :after #'peter/center-line)
-(advice-add 'better-jumper-jump-backward :after #'peter/center-line)
-(advice-add 'better-jumper-jump-forward :after #'peter/center-line)
+;; (advice-add 'evil-next-line :after #'peter/center-line)
+;; (advice-add 'evil-previous-line :after #'peter/center-line)
+;; (advice-add 'evil-goto-line :after #'peter/center-line)
+;; (advice-add 'evil-scroll-up :after #'peter/center-line)
+;; (advice-add 'evil-scroll-down :after #'peter/center-line)
+;; (advice-add 'better-jumper-jump-backward :after #'peter/center-line)
+;; (advice-add 'better-jumper-jump-forward :after #'peter/center-line)
 
 (setq gc-cons-threshold 167772160)
 
@@ -135,7 +139,7 @@
                                 (auto-fill-mode 1)))
 
 
-(use-package! lsp-volar)
+;; (use-package! lsp-volar)
 
 (setq highlight-indent-guides-method 'bitmap)
 
