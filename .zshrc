@@ -91,6 +91,8 @@ export VISUAL=nvim
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+
 # # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 #
