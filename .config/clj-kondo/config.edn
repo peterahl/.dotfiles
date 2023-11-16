@@ -1,1 +1,14 @@
-{:lint-as {mount.core/defstate clojure.core/def}}
+{:lint-as {mount.core/defstate clojure.core/def
+           ctmx.core/make-routes clj-kondo.lint-as/fn-catch-all
+           ctmx.core/defcomponent clojure.core/defn
+           ctmx.core/with-req clojure.core/let
+           ctmx.core/metas clojure.core/list
+           ctmx.core/defn-parse clojure.core/defn
+           ctmx.core/defn-assets clojure.core/defn}
+ :linters {:unused-binding {:exclude [ui-routes]}}}
+
+ ; :args {make-routes {:arity-2 {:args [[:sym _] [:fn {:params [[:sym _]]}]]}}}}
+
+ ; :linters {:unresolved-symbol {:exclude [(ctmx.core/defcomponent [path id value self])
+ ;                                         (ctmx.core/with-req [post? put? patch? delete?])]}}}
+;

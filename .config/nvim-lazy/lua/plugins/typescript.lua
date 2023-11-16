@@ -29,7 +29,7 @@ return {
 			},
 			setup = {
 				tsserver = function(_, opts)
-					Util.on_attach(function(client, buffer)
+					Util.lsp.on_attach(function(client, buffer)
 						if client.name == "tsserver" then
 							client.server_capabilities.documentFormattingProvider = false
               -- stylua: ignore

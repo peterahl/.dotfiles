@@ -3,12 +3,14 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "mfussenegger/nvim-jdtls" },
     opts = {
+      inlay_hints = { enabled = true },
       setup = {
         jdtls = function(_, opts)
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "java",
             callback = function()
-              require("lazyvim.util").on_attach(function(client, buffer)
+              require("lazyvim.util").lsp.on_attach(function(client, buffer)
+                vim.lsp.inlay_hint.enable(buffer, true)
                 -- check if the client in jdtls and set the server_capabilities
                 if client.name == "jdtls" then
                   client.server_capabilities.documentFormattingProvider = false
@@ -51,35 +53,41 @@ return {
                 end
               end)
 
-              local jdtls                                                  = require("jdtls")
+              local jdtls = require("jdtls")
 
-              local extendedClientCapabilities                             = jdtls.extendedClientCapabilities
+              local extendedClientCapabilities = jdtls.extendedClientCapabilities
               extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-              local bundles                                                = {
+              local bundles = {
                 vim.fn.glob(
-                  "/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
+                  "/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
+                ),
               }
-              vim.list_extend(bundles,
+              vim.list_extend(
+                bundles,
                 vim.split(
-                  vim.fn.glob("/home/peter/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1),
-                  "\n"))
+                  vim.fn.glob(
+                    "/home/peter/.local/share/nvim/mason/packages/java-test/extension/server/*.jar",
+                    1
+                  ),
+                  "\n"
+                )
+              )
 
-              local project_name  = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+              local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
               -- vim.lsp.set_log_level('DEBUG')
               local workspace_dir = "/home/peter/.local/share/nvim/java-workspaces/" ..
                   project_name -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
-              local config        = {
+              local config = {
                 cmd = {
                   "/home/peter/.sdkman/candidates/java/current/bin/java",
                   "-javaagent:/home/peter/.local/share/nvim/mason/packages/jdtls/lombok.jar",
-                  '-Xbootclasspath/a:/home/peter/.local/share/nvim/mason/packages/jdtls/lombok.jar',
+                  "-Xbootclasspath/a:/home/peter/.local/share/nvim/mason/packages/jdtls/lombok.jar",
                   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
                   "-Dosgi.bundles.defaultStartLevel=4",
                   "-Declipse.product=org.eclipse.jdt.ls.core.product",
                   "-Dlog.protocol=true",
                   "-Dlog.level=ALL",
-                  '-noverify',
                   "-Xms1g",
                   "--add-modules=ALL-SYSTEM",
                   "--add-opens",
@@ -104,6 +112,16 @@ return {
                   java = {
                     signatureHelp = { enabled = true },
                     contentProvider = { preferred = "fernflower" },
+                    -- hints = { enabled = true },
+                    inlayHints = {
+                      parameterNames = { enabled = "all" },
+                      propertyValues = { enabled = true },
+                      typeHints = { enabled = true },
+                      methodChains = { enabled = true },
+                      controlFlow = { enabled = true },
+                      variableTypes = { enabled = true },
+                      casts = { enabled = true },
+                    },
                     completion = {
                       favoriteStaticMembers = {
                         "org.hamcrest.MatcherAssert.assertThat",
@@ -145,7 +163,7 @@ return {
                   },
                 },
                 init_options = {
-                  bundles = bundles,
+                  -- bundles = bundles,
                   extendedClientCapabilities = extendedClientCapabilities,
                 },
                 handlers = {
@@ -164,5 +182,41 @@ return {
         end,
       },
     },
+
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "java-debug-adapter",
+      })
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    opts = function()
+      local dap = require('dap')
+
+      -- dap.adapters.java = function(callback, config)
+      --   local command =
+      --   'java'                                                                                                                       -- Path to Java executable
+      --   local args = { '-jar',
+      --     '/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar' } -- Path to Java debug adapter jar
+      --   local port = 5005                                                                                                            -- Example port number, can be any free port
+      --
+      --   callback({ type = 'server', host = config.host, port = port, command = command, args = args })
+      -- end
+
+      dap.configurations.java = {
+        {
+          type = 'java',
+          request = 'attach',
+          name = "Debug (Attach) - Remote",
+          hostName = "127.0.0.1",
+          port = 5005,
+        },
+      }
+    end,
   },
 }

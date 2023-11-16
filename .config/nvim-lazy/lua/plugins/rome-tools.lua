@@ -6,7 +6,7 @@ return {
 				return function() end
 			end
 			vim.list_extend(opts.ensure_installed, {
-				"rome",
+				"biome",
 			})
 		end,
 	},
@@ -16,7 +16,7 @@ return {
 		opts = {
 			---@type lspconfig.options
 			servers = {
-				rome = {},
+				biome = {},
 			},
 		},
 	},

@@ -25,7 +25,7 @@ return {
 				---@type lspconfig.options
 				servers = {
 					sqlls = {
-						root_dir = require("null-ls.utils").root_pattern(".git", "package.json", ".gitignore"),
+						root_dir = require("lspconfig.util").root_pattern(".git", "package.json", ".gitignore"),
 					},
 				},
 			},

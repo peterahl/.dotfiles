@@ -1,0 +1,9 @@
+{:macro-specs {defcomponent [[:def :sym] :ignore]}}
+
+{:linters {:clj-kondo {:lint-as
+                       {make-routes clojure.core/defn
+                        with-req clojure.core/let
+                        metas clojure.core/list
+                        defn-parse clojure.core/defn
+                        defcomponent clojure.core/def
+                        defn-assets clojure.core/defn}}}}

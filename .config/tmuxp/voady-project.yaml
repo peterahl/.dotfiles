@@ -3,8 +3,12 @@ start_directory: ~/git/voady-project/
 windows:
   - window_name: editor
     focus: true
+    layout: main-horizontal
+    panes:
+      - nvim
+  - window_name: voady-cash
+    start_directory: ~/git/voady-project/packages/backend/payments/voady-cash/
     panes:
       - nvim
   - window_name: shell
-    panes:
-      - ""
+    start_directory: ~/git/voady-project/packages/backend/payments/voady-cash/

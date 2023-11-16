@@ -16,7 +16,7 @@ return {
 			servers = {
 				graphql = {
 					filetypes = { "graphql", "javascript", "typescript" },
-					root_dir = require("null-ls.utils").root_pattern(".git", "package.json", ".gitignore"),
+					root_dir = require("lspconfig.util").root_pattern(".git", "package.json", ".gitignore"),
 				},
 			},
 		},
