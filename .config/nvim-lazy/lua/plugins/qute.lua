@@ -1,0 +1,22 @@
+return {}
+--   {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--       servers = {
+--         -- Add your Qute LSP configuration here
+--         qute = {
+--           cmd = { "path_to_your_qute_lsp_server" }, -- Replace with the path to your Qute LSP server
+--           filetypes = { "html" },                   -- Adjust according to the file types you're working with
+--           settings = {
+--             -- Any additional settings for Qute LSP
+--           },
+--           on_attach = function(client, bufnr)
+--             -- Any additional configurations when the LSP server attaches to a buffer
+--           end,
+--         },
+--       },
+--     },
+--   },
+--
+--   -- ... any other plugin configurations ...
+-- }

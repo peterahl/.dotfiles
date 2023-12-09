@@ -152,14 +152,25 @@ return {
                       },
                       useBlocks = true,
                     },
-                    -- configuration = {
-                    --   runtimes = {
-                    --     {
-                    --       name = "JavaSE-17",
-                    --       path = "/home/peter/.sdkman/candidates/java/22.3.0.1.r17-mandrel"
-                    --     }
-                    --   }
-                    -- },
+                    configuration = {
+                      updateBuildConfiguration = "automatic",
+                      -- runtimes = {
+                      --   {
+                      --     name = "JavaSE-17",
+                      --     path = "/home/peter/.sdkman/candidates/java/22.3.0.1.r17-mandrel"
+                      --   }
+                      -- }
+                      resources = {
+                        filters = {
+                          {
+                            type = "location",
+                            matches = {
+                              "target/generated/**"
+                            }
+                          }
+                        }
+                      }
+                    },
                   },
                 },
                 init_options = {

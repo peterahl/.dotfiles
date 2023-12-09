@@ -12,10 +12,10 @@ local o = vim.o
 local g = vim.g
 
 vim.filetype.add({
-	extension = {
-		cql = "sql",
-		cljd = "clojure",
-	},
+  extension = {
+    cql = "sql",
+    cljd = "clojure",
+  },
 })
 
 -- o.background = "dark" -- or "light" for light mode
@@ -36,3 +36,6 @@ g.sexp_enable_insert_mode_mappings = 0
 g.maplocalleader = ","
 
 g.gitblame_enabled = 1
+
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_us' }

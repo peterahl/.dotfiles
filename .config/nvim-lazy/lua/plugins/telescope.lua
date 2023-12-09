@@ -48,11 +48,11 @@ return {
       --   desc = "Search string in current dir",
       -- },
       {
-        "<leader>cD",
+        "<leader>sE",
         function()
-          require("telescope.builtin").diagnostics()
+          require("telescope.builtin").diagnostics({ severity = vim.diagnostic.severity.ERROR })
         end,
-        desc = "Workspace diagnostics",
+        desc = "Workspace errors",
       },
       { "<leader>ss", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
       {
