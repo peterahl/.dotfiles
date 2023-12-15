@@ -4,7 +4,7 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "buf",
-        "eslint_d"
+        -- "eslint_d"
       })
     end,
   },
@@ -17,7 +17,7 @@ return {
         events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         linters_by_ft = {
           proto = { "buf_lint" },
-          vue = { "eslint_d" },
+          -- vue = { "eslint_d" },
           -- Use the "*" filetype to run linters on all filetypes.
           -- ['*'] = { 'global linter' },
           -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.

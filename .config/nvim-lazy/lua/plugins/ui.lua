@@ -1,14 +1,27 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "folke/noice.nvim",
+    },
     event = "VeryLazy",
     opts = function()
       local icons = require("lazyvim.config").icons
 
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "󰦕"
+        end
+        return "󱉶 " .. table.concat(linters, ", ")
+      end
+
       local function fg(name)
         return function()
           ---@type {foreground?:number}?
-          local hl = vim.api.nvim_get_hl_by_name(name, true)
+          -- local hl = vim.api.nvim_get_hl_by_name(name, true)
+          local hl = vim.api.nvim_get_hl(0, { name = name })
           return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
         end
       end
@@ -68,6 +81,14 @@ return {
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
+              color = fg("Special"),
+            },
+            { "linters", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            {
+              lint_progress,
+              -- cond = function()
+              --   return #require("lint").get_running() > 0
+              -- end,
               color = fg("Special"),
             },
             {
