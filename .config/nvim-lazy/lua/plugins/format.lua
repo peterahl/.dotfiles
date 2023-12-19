@@ -4,7 +4,7 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "buf",
-        -- "eslint_d",
+        "eslint_d",
       })
     end,
   },
@@ -17,7 +17,7 @@ return {
           javascript = { "biome" },
           typescript = { "biome" },
           xml = { "xmlformat" },
-          -- vue = { "eslint_d" },
+          vue = { "eslint_d" },
           sql = { "sql_format" },
           proto = { "buf" },
         },
