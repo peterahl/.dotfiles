@@ -7,7 +7,12 @@ return {
     },
     config = function()
       local harpoon = require("harpoon"):setup()
-      harpoon:setup()
+      harpoon:setup({
+        settings = {
+          save_on_toggle = true,
+        },
+      })
+
 
       vim.keymap.set("n", "<leader>hm", function() harpoon:list():append() end,
         { silent = true, desc = "harpoon add mark" })
@@ -18,7 +23,10 @@ return {
       vim.keymap.set("n", "<M-o>", function() harpoon:list():select(2) end, { silent = true, desc = "harpoon 2" })
       vim.keymap.set("n", "<M-e>", function() harpoon:list():select(3) end, { silent = true, desc = "harpoon 3" })
       vim.keymap.set("n", "<M-u>", function() harpoon:list():select(4) end, { silent = true, desc = "harpoon 4" })
-      vim.keymap.set("n", "<M-i>", function() harpoon:list():select(5) end, { silent = true, desc = "harpoon 5" })
+      vim.keymap.set("n", "<M-h>", function() harpoon:list():select(5) end, { silent = true, desc = "harpoon 5" })
+      vim.keymap.set("n", "<M-t>", function() harpoon:list():select(6) end, { silent = true, desc = "harpoon 6" })
+      vim.keymap.set("n", "<M-n>", function() harpoon:list():select(7) end, { silent = true, desc = "harpoon 7" })
+      vim.keymap.set("n", "<M-s>", function() harpoon:list():select(8) end, { silent = true, desc = "harpoon 8" })
     end,
   },
 }
