@@ -89,6 +89,7 @@ return {
             "Field",
             "Property",
           },
+          symbol_width = 60,
         }),
         desc = "Goto Symbol (Workspace)",
       },

@@ -35,8 +35,8 @@ znap source Aloxaf/fzf-tab
 setopt appendhistory # Immediately append history instead of overwriting
 setopt histignorealldups # If a new command is a duplicate, remove the older one
 HISTFILE=~/.zhistory
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=20000
+SAVEHIST=20000
 
 KEYTIMEOUT=1
 
@@ -72,6 +72,8 @@ alias kcluster='kubectl config get-contexts | fzf | tr -s " " | cut -d" " -f2 | 
 alias gco="git branch --remotes --format '%(refname:lstrip=3)' | fzf | xargs git checkout"
 alias gcl="git branch | fzf | xargs git checkout"
 
+alias yd="yarn dev"
+alias qd="quarkus dev"
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

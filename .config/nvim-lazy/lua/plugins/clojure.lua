@@ -1,36 +1,36 @@
 return {
 
-	{ "Olical/aniseed" },
+  { "Olical/aniseed" },
 
-	{ "Olical/conjure" },
+  { "Olical/conjure" },
 
-	-- { "gpanders/nvim-parinfer" },
-	--
-	{
-		"guns/vim-sexp",
-		requires = {
-			"tpope/vim-repeat",
-		},
-	},
+  { "gpanders/nvim-parinfer" },
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, opts)
-			vim.list_extend(opts.ensure_installed, {
-				"clojure",
-			})
-		end,
-	},
+  {
+    "guns/vim-sexp",
+    requires = {
+      "tpope/vim-repeat",
+    },
+  },
 
-	{
-		"neovim/nvim-lspconfig",
-		---@class PluginLspOpts
-		opts = {
-			---@type lspconfig.options
-			servers = {
-				-- ["clj-kondo"] = {},
-				clojure_lsp = {},
-			},
-		},
-	},
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "clojure",
+      })
+    end,
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    ---@class PluginLspOpts
+    opts = {
+      ---@type lspconfig.options
+      servers = {
+        -- ["clj-kondo"] = {},
+        clojure_lsp = {},
+      },
+    },
+  },
 }

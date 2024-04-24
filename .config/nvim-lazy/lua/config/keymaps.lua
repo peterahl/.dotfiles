@@ -7,14 +7,14 @@ local Util = require("lazyvim.util")
 
 -- local map = vim.keymap.set
 local function map(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  -- do not create the keymap if a lazy keys handler exists
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
+	local keys = require("lazy.core.handler").handlers.keys
+	---@cast keys LazyKeysHandler
+	-- do not create the keymap if a lazy keys handler exists
+	if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+		opts = opts or {}
+		opts.silent = opts.silent ~= false
+		vim.keymap.set(mode, lhs, rhs, opts)
+	end
 end
 
 --vim
@@ -35,10 +35,10 @@ map("n", "<leader>fs", "<cmd>w<cr>", { desc = "save file" })
 
 --float term
 map("n", "<leader>ft", function()
-  Util.float_term(nil, { cwd = require("telescope.utils").buffer_dir() })
+	Util.float_term(nil, { cwd = require("telescope.utils").buffer_dir() })
 end, { desc = "Terminal" })
 map("n", "<leader>pt", function()
-  Util.float_term()
+	Util.float_term()
 end, { desc = "Project terminal" })
 
 --Telescope
@@ -54,17 +54,17 @@ map("n", "<c-\\>", ":TmuxNavigatePrevious<cr>", { desc = "TmuxNavigatePrevious",
 map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 map("n", "<leader>cd", function()
-  require("telescope.builtin").diagnostics({ bufnr = vim.api.nvim_get_current_buf() })
+	require("telescope.builtin").diagnostics({ bufnr = vim.api.nvim_get_current_buf() })
 end, { desc = "Buffer diagnostics", noremap = true })
 
-if vim.lsp.inlay_hint then
-  map("n", "<leader>uh",
-    function()
-      if vim.lsp.inlay_hint.is_enabled() then
-        vim.lsp.inlay_hint.enable(0, false)
-      else
-        vim.lsp.inlay_hint
-            .enable(0, true)
-      end
-    end, { desc = "Toggle Inlay Hints" })
-end
+-- if vim.lsp.inlay_hint then
+--   map("n", "<leader>uh",
+--     function()
+--       if vim.lsp.inlay_hint.is_enabled() then
+--         vim.lsp.inlay_hint.enable(0, false)
+--       else
+--         vim.lsp.inlay_hint
+--             .enable(0, true)
+--       end
+--     end, { desc = "Toggle Inlay Hints" })
+-- end

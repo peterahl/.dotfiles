@@ -4,7 +4,7 @@ windows:
   - window_name: editor
     focus: true
     panes:
-      - nvim
+      - helix
   - window_name: k9s
     panes:
       - k9s
