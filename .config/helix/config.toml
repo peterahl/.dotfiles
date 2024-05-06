@@ -1,4 +1,4 @@
-# theme = "catppuccin_mocha"
+theme = "catppuccin_mocha"
 
 [editor]
 scrolloff = 999
@@ -6,6 +6,7 @@ line-number = "relative"
 mouse = false
 color-modes = true
 cursorline = true
+auto-format = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -18,3 +19,31 @@ render = true
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
+
+[keys.normal]
+A-x = "command_palette"
+G = "goto_file_end"
+C-g = ':sh tmux popup -E "lazygit"'
+A-g = ':sh tmux popup -E "nnn"'
+
+
+[keys.normal."space"]
+q.q = ":qa"
+p.f = "file_picker"
+"," = "buffer_picker"
+
+[keys.normal."space".f] # files
+d = "file_picker_in_current_buffer_directory"
+f = "file_picker_in_current_directory"
+s = ":w"
+
+[keys.normal."space".c] # code
+a = "code_action"
+f = ":format"
+
+[keys.normal."space".u] # user
+r = ":config-reload"
+
+[keys.normal."space".b] # buffer
+b = "buffer_picker"
+d = ":buffer-close"

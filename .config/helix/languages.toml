@@ -1,6 +1,14 @@
 [language-server.biome]
 command = "biome"
-args = ["lsp-proxy"]
+args = ["lsp-proxy"] 
+
+# [language-server.qute]
+# command = "qute-ls"
+# args = ["--stdio"]
+
+[language-server.tailwind]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
 
 [language-server.volar]
 command = "vue-language-server"
@@ -16,6 +24,7 @@ auto-format = true
 
 [[language]]
 name = "typescript"
+formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
 language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
 auto-format = true
 
@@ -34,14 +43,24 @@ name = "json"
 language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
 
 [[language]]
-name = "json"
-language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
-
-[[language]]
 name = "vue"
 auto-format = true
 language-servers = [ { name = "volar", except-features = [ "format" ] }, "biome" ]
 
+[[language]]
+name = "prisma"
+auto-format = true
 
+[[language]]
+name = "java"
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "google-java-format", args = [ "-" ] }
+
+# [[language]]
+# name = "html"
+# indent =  { tab-width = 4, unit = "    " }
+# auto-format = true
+# language-servers = [ "qute", "tailwind", "vscode-html-language-server" ]
 
 

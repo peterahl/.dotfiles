@@ -9,6 +9,7 @@ return {
 				"yamlfmt",
 				"stylua",
 				"biome",
+				"sqlfmt",
 			})
 		end,
 	},
@@ -25,6 +26,7 @@ return {
 					proto = { "buf" },
 					yaml = { "yamlfmt" },
 					lua = { "stylua" },
+					sql = { "sqlfmt" },
 				},
 				formatters = {
 					injected = { options = { ignore_errors = true } },
