@@ -45,6 +45,7 @@ language-servers = [ { name = "vscode-json-language-server", except-features = [
 [[language]]
 name = "vue"
 auto-format = true
+formatter = {command = "eslint", args = [ "--stdin" ] }
 language-servers = [ { name = "volar", except-features = [ "format" ] }, "biome" ]
 
 [[language]]

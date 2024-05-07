@@ -71,6 +71,7 @@ alias kcluster='kubectl config get-contexts | fzf | tr -s " " | cut -d" " -f2 | 
 
 alias gco="git branch --remotes --format '%(refname:lstrip=3)' | fzf | xargs git checkout"
 alias gcl="git branch | fzf | xargs git checkout"
+alias gr="git branch --remotes --format '%(refname:lstrip=2)' | fzf | xargs git rebase"
 
 alias yd="yarn dev"
 alias qd="quarkus dev"

@@ -23,8 +23,10 @@ display-inlay-hints = true
 [keys.normal]
 A-x = "command_palette"
 G = "goto_file_end"
-C-g = ':sh tmux popup -E "lazygit"'
-A-g = ':sh tmux popup -E "nnn"'
+C-g = ':sh tmux popup -h 75% -w 75% -E "lazygit"'
+A-g = ':sh tmux popup -E "mc"'
+C-l = "jump_view_right"
+C-h = "jump_view_left"
 
 
 [keys.normal."space"]
