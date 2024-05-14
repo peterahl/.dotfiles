@@ -259,7 +259,7 @@ local jdtls_settings = {
 }
 
 local on_attach = function(client, buffer)
-	vim.lsp.inlay_hint.enable(buffer, true)
+	vim.lsp.inlay_hint.enable(true, { buffer })
 	-- check if the client in jdtls and set the server_capabilities
 	if client.name == "jdtls" then
 		client.server_capabilities.documentFormattingProvider = false
