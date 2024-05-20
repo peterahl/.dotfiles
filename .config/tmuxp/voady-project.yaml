@@ -5,10 +5,10 @@ windows:
     focus: true
     layout: main-horizontal
     panes:
-      - hx
+      - nvim
   - window_name: voady-cash
     start_directory: ~/git/voady-project/packages/backend/payments/voady-cash/
     panes:
-      - hx
+      - nvim
   - window_name: shell
     start_directory: ~/git/voady-project/packages/backend/payments/voady-cash/

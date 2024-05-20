@@ -265,37 +265,37 @@ local on_attach = function(client, buffer)
 		client.server_capabilities.documentFormattingProvider = false
 		vim.keymap.set(
 			"n",
-			"<leader>di",
+			"<leader>ci",
 			"<Cmd>lua require'jdtls'.organize_imports()<CR>",
 			{ buffer = buffer, desc = "Organize Imports" }
 		)
 		vim.keymap.set(
 			"n",
-			"<leader>dt",
+			"<leader>ct",
 			"<Cmd>lua require'jdtls'.test_class()<CR>",
 			{ buffer = buffer, desc = "Test Class" }
 		)
 		vim.keymap.set(
 			"n",
-			"<leader>dn",
+			"<leader>cn",
 			"<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
 			{ buffer = buffer, desc = "Test Nearest Method" }
 		)
 		vim.keymap.set(
 			"v",
-			"<leader>de",
+			"<leader>ce",
 			"<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
 			{ buffer = buffer, desc = "Extract Variable" }
 		)
 		vim.keymap.set(
 			"n",
-			"<leader>de",
+			"<leader>ce",
 			"<Cmd>lua require('jdtls').extract_variable()<CR>",
 			{ buffer = buffer, desc = "Extract Variable" }
 		)
 		vim.keymap.set(
 			"v",
-			"<leader>dm",
+			"<leader>cm",
 			"<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
 			{ buffer = buffer, desc = "Extract Method" }
 		)
