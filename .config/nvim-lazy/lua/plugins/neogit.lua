@@ -30,12 +30,6 @@ return {
 			},
 			disable_commit_confirmation = true,
 			disable_insert_on_commit = false,
-			preview_buffer = {
-				kind = "vsplit",
-			},
-			popup = {
-				kind = "vsplit",
-			},
 		},
 	},
 }

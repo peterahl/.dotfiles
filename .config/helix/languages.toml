@@ -2,6 +2,9 @@
 command = "biome"
 args = ["lsp-proxy"] 
 
+[language-server.lemminx]
+command = "lemminx"
+
 # [language-server.qute]
 # command = "qute-ls"
 # args = ["--stdio"]
@@ -57,6 +60,13 @@ name = "java"
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "google-java-format", args = [ "-" ] }
+
+[[language]]
+name = "xml"
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "xmllint", args = [ "--format", "-" ] }
+language-servers = [ "lemminx" ]
 
 # [[language]]
 # name = "html"

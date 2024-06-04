@@ -78,6 +78,8 @@ alias qd="quarkus dev"
 
 alias ls="exa"
 
+alias sd="cd \$(fd -u --type d | fzf --height 40% --reverse || echo "$PWD")"
+
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -103,3 +105,5 @@ eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 #
 # # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+# cd $(fd --type d | fzf --height 40% --reverse)

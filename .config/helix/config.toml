@@ -24,7 +24,7 @@ display-inlay-hints = true
 A-x = "command_palette"
 G = "goto_file_end"
 C-g = ':sh tmux popup -h 75% -w 75% -E "lazygit"'
-A-g = ':sh tmux popup -h 75% -w 75% -E "mc"'
+A-g = ':sh tmux popup -h 75% -w 75% -d "#{pane_current_path}" -E "yazi"'
 C-l = "jump_view_right"
 C-h = "jump_view_left" 
 
@@ -32,7 +32,8 @@ C-h = "jump_view_left"
 q.q = ":qa"
 p.f = "file_picker"
 "," = "buffer_picker"
-B = ":pipe-to tmux split-window -v helix-git-blame"
+B = ":pipe-to helix-git-blame"
+#   = ":pipe-to helix-git-blame"
 
 [keys.normal."space".f] # files
 d = "file_picker_in_current_buffer_directory"

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# if [ $(tmux list-panes | wc -l) -eq 1 ]; then
+#     tmux split-window -v
+#     tmux resize-pane -Z
+#     tmux select-pane -D
+# else
+#     if [ $(tmux list-panes -F '#{pane_active}' | grep -c '1') -eq 1 ]; then
+#         tmux resize-pane -Z
+#     else
+#         tmux select-pane -D
+#         tmux resize-pane -Z
+#     fi
+# fi
+
+
+# Get the number of panes and the active pane index
+pane_count=$(tmux list-panes | wc -l)
+active_pane=$(tmux display-message -p '#{pane_index}')
+
+# If only one pane exists, create a new bottom pane and focus it
+if [ $pane_count -eq 1 ]; then
+    tmux split-window -v
+    tmux select-pane -D
+    # tmux resize-pane -Z
+else
+    # If the top pane (index 0) is active, unzoom and focus the bottom pane (index 1)
+    if [ $active_pane -eq 0 ]; then
+        tmux resize-pane -Z
+        tmux select-pane -D
+    else
+        # If the bottom pane (index 1) is active, focus the top pane (index 0) and zoom
+        tmux select-pane -U
+        tmux resize-pane -Z
+    fi
+fi
