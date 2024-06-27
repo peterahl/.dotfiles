@@ -1,0 +1,40 @@
+# This is your rocks.nvim plugins declaration file.
+# Here is a small yet pretty detailed example on how to use it:
+#
+# [plugins]
+# nvim-treesitter = "semver_version"  # e.g. "1.0.0"
+
+# List of non-Neovim rocks.
+# This includes things like `toml` or other lua packages.
+[rocks]
+
+# List of Neovim plugins to install alongside their versions.
+# If the plugin name contains a dot then you must add quotes to the key name!
+[plugins]
+"rocks.nvim" = "2.32.0"
+"rocks-config.nvim" = "2.1.1"
+"rocks-treesitter.nvim" = "scm"
+tree-sitter-toml = "scm"
+tree-sitter-lua = "scm"
+tree-sitter-json = "scm"
+"telescope.nvim" = "scm"
+tree-sitter-clojure = "scm"
+tree-sitter-prisma = "scm"
+tree-sitter-typescript = "scm"
+"telescope-file-browser.nvim" = "scm"
+"mason.nvim" = "scm"
+"mason-lspconfig.nvim" = "scm"
+"gruvbox.nvim" = "scm"
+neogit = "scm"
+"which-key.nvim" = "scm"
+"copilot.lua" = "scm"
+cmp-nvim-lsp = "scm"
+cmp-buffer = "scm"
+cmp-path = "scm"
+cmp-cmdline = "scm"
+nvim-cmp = "scm"
+
+[treesitter]
+auto_highlight = "all"
+# NOTE: These are parsers, not filetypes.
+auto_install = "true" # promt | false
