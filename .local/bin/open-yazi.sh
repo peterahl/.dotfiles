@@ -9,7 +9,7 @@ LINE=$(echo $RES | choose 1)
 
 
 # Open a floating Tmux window and start Yazi in the current directory
-tmux popup -h 75% -w 75% -E "yazi '$FILE'"
+tmux popup -h 90% -w 90% -E "yazi '$FILE'"
 
 
 

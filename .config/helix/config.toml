@@ -23,9 +23,8 @@ display-inlay-hints = true
 [keys.normal]
 A-x = "command_palette"
 G = "goto_file_end"
-C-g = ':sh tmux popup -h 75% -w 75% -E "lazygit"'
+C-g = ':sh tmux popup -h 85% -w 85% -E "lazygit"'
 A-g = ':sh open-yazi.sh'
-# A-g = ':sh tmux popup -h 75% -w 75% -d "#{pane_current_path}" -E "yazi"'
 C-l = "jump_view_right"
 C-h = "jump_view_left" 
 
@@ -55,3 +54,7 @@ r = ":config-reload"
 [keys.normal."space".b] # buffer
 b = "buffer_picker"
 d = ":buffer-close"
+
+[keys.normal."space".g] # buffer
+g = "changed_file_picker"
+b = ":sh git-blame.sh"
