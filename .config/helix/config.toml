@@ -24,9 +24,14 @@ display-inlay-hints = true
 A-x = "command_palette"
 G = "goto_file_end"
 C-g = ':sh tmux popup -h 75% -w 75% -E "lazygit"'
-A-g = ':sh tmux popup -h 75% -w 75% -d "#{pane_current_path}" -E "yazi"'
+A-g = ':sh open-yazi.sh'
+# A-g = ':sh tmux popup -h 75% -w 75% -d "#{pane_current_path}" -E "yazi"'
 C-l = "jump_view_right"
 C-h = "jump_view_left" 
+
+[keys.normal.g]
+u = "switch_to_lowercase"
+U = "switch_to_uppercase"
 
 [keys.normal."space"]
 q.q = ":qa"

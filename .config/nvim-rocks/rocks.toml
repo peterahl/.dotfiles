@@ -2,6 +2,7 @@
 # Here is a small yet pretty detailed example on how to use it:
 #
 # [plugins]
+
 # nvim-treesitter = "semver_version"  # e.g. "1.0.0"
 
 # List of non-Neovim rocks.
@@ -11,16 +12,18 @@
 # List of Neovim plugins to install alongside their versions.
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.32.0"
-"rocks-config.nvim" = "2.1.1"
-"rocks-treesitter.nvim" = "scm"
-tree-sitter-toml = "scm"
-tree-sitter-lua = "scm"
-tree-sitter-json = "scm"
+"rocks.nvim" = "2.34.0"
+"rocks-config.nvim" = "2.1.2"
+# "rocks-treesitter.nvim" = "scm"
+# tree-sitter-toml = "scm"
+# tree-sitter-lua = "scm"
+# tree-sitter-json = "scm"
+# tree-sitter-html = "scm"
+# tree-sitter-vue = "scm"
+# tree-sitter-clojure = "scm"
+# tree-sitter-prisma = "scm"
+# tree-sitter-typescript = "scm"
 "telescope.nvim" = "scm"
-tree-sitter-clojure = "scm"
-tree-sitter-prisma = "scm"
-tree-sitter-typescript = "scm"
 "telescope-file-browser.nvim" = "scm"
 "mason.nvim" = "scm"
 "mason-lspconfig.nvim" = "scm"
@@ -32,9 +35,39 @@ cmp-nvim-lsp = "scm"
 cmp-buffer = "scm"
 cmp-path = "scm"
 cmp-cmdline = "scm"
-nvim-cmp = "scm"
+nvim-lspconfig = "0.1.8"
+"git-blame.nvim" = "scm"
+"telescope-zf-native.nvim" = "1.0.0"
+"conform.nvim" = "6.0.0"
+"mason-tool-installer.nvim" = "scm"
+"fidget.nvim" = "1.4.1"
+"neodev.nvim" = "scm"
+luasnip = "2.3.0"
+cmp_luasnip = "scm"
+"telescope-ui-select.nvim" = "scm"
+"rocks-git.nvim" = "1.5.1"
+conjure = "4.52.1"
+nvim-cmp= "scm"
 
-[treesitter]
-auto_highlight = "all"
-# NOTE: These are parsers, not filetypes.
-auto_install = "true" # promt | false
+[plugins."gitsigns.nvim"]
+git = "lewis6991/gitsigns.nvim"
+rev = "v0.9.0"
+
+[plugins.catppuccin]
+name = "catppuccin"
+git = "catppuccin/nvim"
+
+[plugins.nvim-treesitter]
+git = "nvim-treesitter/nvim-treesitter"
+rev = "v0.9.2^{}"
+
+# [treesitter]
+# auto_highlight = "all"
+# # NOTE: These are parsers, not filetypes.
+# # auto_highlight = [
+# #   "haskell",
+# #   "dhall",
+# #   "rust",
+# #   "toml"
+# # ]
+# auto_install = "true" # prompt | false

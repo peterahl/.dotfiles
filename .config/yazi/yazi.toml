@@ -1,0 +1,9 @@
+[opener]
+helix = [
+  { run =  'tmux select-pane -L && tmux send-keys ":open $0" C-m' , desc = "Use yazi as file picker within helix" },
+]
+
+[open]
+rules = [
+  { name = "**/*", use = "helix" },
+]
