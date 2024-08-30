@@ -1,79 +1,105 @@
+[language-server.typescript-language-server.config]
+hostInfo = "helix"
+plugins = [
+  { name = "@vue/typescript-plugin", location = "/usr/local/lib/node_modules/@vue/typescript-plugin", languages = [
+    "javascript",
+    "typescript",
+    "vue",
+  ] },
+]
+
+[language-server.vscode-eslint-language-server.config]
+codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+format = { enable = true }
+
+[language-server.qute-ls]
+command = "qute-ls"
+
+[language-server.qute-ls.config.qute]
+validation = { enabled = true }
+
+[language-server.gpt]
+command = "helix-gpt"
+args = ["--handler", "copilot"]
+
 [language-server.biome]
 command = "biome"
-args = ["lsp-proxy"] 
+args = ["lsp-proxy"]
 
 [language-server.lemminx]
 command = "lemminx"
 
-# [language-server.qute]
-# command = "qute-ls"
-# args = ["--stdio"]
 
-[language-server.tailwind]
-command = "tailwindcss-language-server"
-args = ["--stdio"]
-
-[language-server.volar]
-command = "vue-language-server"
-args = ["--stdio"]
-
-[language-server.volar.config]
-typescript = { tsdk = "./node_modules/typescript/lib" }
+[[language]]
+name = "toml"
+auto-format = true
+language-servers = ["taplo", "gpt"]
 
 [[language]]
 name = "javascript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 auto-format = true
 
 [[language]]
 name = "typescript"
-formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 auto-format = true
-
-[[language]]
-name = "tsx"
-auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
-
-[[language]]
-name = "jsx"
-auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
 
 [[language]]
 name = "json"
-auto-format = true
-# formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
-language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [
+  { name = "vscode-json-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+]
 
 [[language]]
 name = "vue"
+language-servers = [
+  { name = "vuels", except-features = [
+    "format",
+  ] },
+  "tailwindcss-ls",
+  "typescript-language-server",
+  "vscode-eslint-language-server",
+]
 auto-format = true
-formatter = {command = "eslint", args = [ "--stdin" ] }
-language-servers = [ { name = "volar", except-features = [ "format" ] }, "biome" ]
 
 [[language]]
 name = "prisma"
 auto-format = true
 
 [[language]]
-name = "java"
+name = "lua"
 auto-format = true
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "google-java-format", args = [ "-" ] }
 
 [[language]]
 name = "xml"
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
-formatter = { command = "xmllint", args = [ "--format", "-" ] }
-language-servers = [ "lemminx" ]
+formatter = { command = "xmllint", args = ["--format", "-"] }
+language-servers = ["lemminx"]
 
-# [[language]]
-# name = "html"
-# indent =  { tab-width = 4, unit = "    " }
-# auto-format = true
-# language-servers = [ "qute", "tailwind", "vscode-html-language-server" ]
+[[language]]
+name = "java"
+auto-format = true
+formatter = { command = "google-java-format", args = ["-"] }
+# language-servers = ["jdtls", "gpt"]
+language-servers = ["qute-ls", "gpt"]
 
 
+[[language]]
+name = "html"
+language-servers = ["qute-ls", "tailwindcss-ls", "vscode-html-language-server"]
+roots = ["pom.xml", "build.gradle", "build.gradle.kts"]

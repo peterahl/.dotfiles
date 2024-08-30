@@ -23,6 +23,8 @@ export NNN_FIFO=/tmp/nnn.fifo
 
 export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 
+export COPILOT_API_KEY=ghu_kKsFE4OUwB9d041KNCHDt3wbOZ0Qr91WqJ6B
+
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape

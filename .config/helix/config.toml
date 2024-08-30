@@ -23,7 +23,7 @@ display-inlay-hints = true
 [keys.normal]
 A-x = "command_palette"
 G = "goto_file_end"
-C-g = ':sh tmux popup -h 85% -w 85% -E "lazygit"'
+C-g = ':sh tmux popup -h 90% -w 90% -E "lazygit"'
 A-g = ':sh open-yazi.sh'
 C-l = "jump_view_right"
 C-h = "jump_view_left" 
