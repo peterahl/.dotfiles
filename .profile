@@ -1,6 +1,8 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export EDITOR=/usr/local/bin/nvim
 export EDITOR=/home/peter/.cargo/bin/hx
+export SUDO_EDITOR="/home/peter/.cargo/bin/hx"
+
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 # export GDK_SCALE=2
 # fix "xdg-open fork-bomb" export your preferred browser from here
@@ -23,8 +25,6 @@ export NNN_FIFO=/tmp/nnn.fifo
 
 export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 
-export COPILOT_API_KEY=ghu_kKsFE4OUwB9d041KNCHDt3wbOZ0Qr91WqJ6B
-
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
@@ -32,3 +32,5 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 # /usr/bin/xmodmap $HOME/.Xmodmap
 
 . "$HOME/.cargo/env"
+
+[ -f ~/.tokens ] && source ~/.tokens

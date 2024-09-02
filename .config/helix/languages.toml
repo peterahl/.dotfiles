@@ -95,8 +95,8 @@ language-servers = ["lemminx"]
 name = "java"
 auto-format = true
 formatter = { command = "google-java-format", args = ["-"] }
-# language-servers = ["jdtls", "gpt"]
-language-servers = ["qute-ls", "gpt"]
+language-servers = ["jdtls", "gpt"]
+# language-servers = ["qute-ls", "gpt"]
 
 
 [[language]]
