@@ -1,4 +1,25 @@
-[language-server.typescript-language-server.config]
+# ESLint ----------------------------------------------------------------------
+[language-server.eslint]
+args = ["--stdio"]
+command = "vscode-eslint-language-server"
+
+[language-server.eslint.config]
+format = true
+nodePath = ""
+onIgnoredFiles = "off"
+packageManager = "yarn"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+useESLintClass = false
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+codeActionOnSave = { mode = "all" }
+experimental = {}
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
+# -------------------------------------------------------------------------------[language-server.typescript-language-server.config]
+
 hostInfo = "helix"
 plugins = [
   { name = "@vue/typescript-plugin", location = "/usr/local/lib/node_modules/@vue/typescript-plugin", languages = [
@@ -19,9 +40,14 @@ command = "qute-ls"
 validation = { enabled = true }
 
 [language-server.gpt]
-command = "helix-gpt"
-args = ["--handler", "copilot"]
+args = [
+  "--handler",
+  "codeium",
+  "--logFile",
+  "/home/peter/.cache/helix/helig-gpt.log",
+]
 
+command = "helix-gpt"
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
@@ -72,7 +98,7 @@ language-servers = [
   ] },
   "tailwindcss-ls",
   "typescript-language-server",
-  "vscode-eslint-language-server",
+  "eslint",
 ]
 auto-format = true
 
@@ -98,8 +124,34 @@ formatter = { command = "google-java-format", args = ["-"] }
 language-servers = ["jdtls", "gpt"]
 # language-servers = ["qute-ls", "gpt"]
 
+[language.debugger]
+name = "java-debug"
+transport = "tcp"
+command = "qute-ls"
+args = ["--command", "vscode.java.startDebugSession"]
+port-arg = "--port {}"
+
+[[language.debugger.templates]]
+name = "attach"
+request = "attach"
+completion = [
+  { name = "host", default = "localhost" },
+  { name = "port", default = "5005" },
+]
+args = { hostName = "{0}", port = "{1}" }
 
 [[language]]
 name = "html"
 language-servers = ["qute-ls", "tailwindcss-ls", "vscode-html-language-server"]
 roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
+
+[[language]]
+name = "scheme"
+formatter = { command = "raco", args = ["fmt", "-i"] }
+auto-format = true
+language-servers = ["steel-language-server"]
+
+# For development
+[language-server.steel-language-server]
+command = "steel-language-server"
+args = []

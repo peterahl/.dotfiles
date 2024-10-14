@@ -27,6 +27,7 @@ return {
 					yaml = { "yamlfmt" },
 					lua = { "stylua" },
 					sql = { "sqlfmt" },
+					clojure = { "zprint" },
 				},
 				formatters = {
 					injected = { options = { ignore_errors = true } },
