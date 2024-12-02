@@ -1,24 +1,9 @@
 session_name: voady-project
 start_directory: ~/git/voady-project/
 windows:
-  - window_name: voady-cash
+  - window_name: java
     focus: true
-    start_directory: ~/git/voady-project/packages/backend/payments/voady-cash/
-    panes:
-      - hx
-      - ""
-  - window_name: voady-admin
-    start_directory: ~/git/voady-project/packages/backend/voady-admin/
-    panes:
-      - hx
-      - ""
-  - window_name: partnerplatform
-    start_directory: ~/git/voady-project/packages/backend/partnerplatform/
-    panes:
-      - hx
-      - ""
-  - window_name: producthub
-    start_directory: ~/git/voady-project/packages/backend/producthub/
+    start_directory: ~/git/voady-project/packages/backend/
     panes:
       - hx
       - ""

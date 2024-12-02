@@ -1,0 +1,47 @@
+{
+    "window.commandCenter": 1,
+    "redhat.telemetry.enabled": true,
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "editor.formatOnSave": true,
+    "editor.cursorSurroundingLines": 9999,
+    "editor.cursorSurroundingLinesStyle": "default",
+    "editor.fontFamily": "Fira Code Semibold, VictorMono NFM SemiBold Italic, monospace",
+    "editor.fontWeight": "600",
+    "editor.fontSize": 11,
+    "editor.fontLigatures": true,
+    "[java]": {
+        "editor.defaultFormatter": "ilkka.google-java-format",
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "emphasis",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "strong",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": "markup.italic",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "markup.bold",
+                "settings": {
+                    "fontStyle": "bold"
+                }
+            }
+        ]
+    },
+    "git.autofetch": true,
+    "google-java-format.executable-path": "/usr/bin/google-java-format",
+    "editor.lineNumbers": "relative",
+    "qute.validation.enabled": true,
+}
