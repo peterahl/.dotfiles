@@ -1,23 +1,23 @@
 return {
 
 	-- extend auto completion
-	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			{
-				"Saecki/crates.nvim",
-				event = { "BufRead Cargo.toml" },
-				config = true,
-			},
-		},
-		---@param opts cmp.ConfigSchema
-		opts = function(_, opts)
-			local cmp = require("cmp")
-			opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-				{ name = "crates" },
-			}))
-		end,
-	},
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	dependencies = {
+	-- 		{
+	-- 			"Saecki/crates.nvim",
+	-- 			event = { "BufRead Cargo.toml" },
+	-- 			config = true,
+	-- 		},
+	-- 	},
+	-- 	---@param opts cmp.ConfigSchema
+	-- 	opts = function(_, opts)
+	-- 		local cmp = require("cmp")
+	-- 		opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+	-- 			{ name = "crates" },
+	-- 		}))
+	-- 	end,
+	-- },
 
 	-- add rust to treesitter
 	{
@@ -52,11 +52,11 @@ return {
 			setup = {
 				rust_analyzer = function(_, opts)
 					require("lazyvim.util").lsp.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "rust_analyzer" then
-              vim.keymap.set("n", "K", "<CMD>RustHoverActions<CR>", { buffer = buffer })
-              vim.keymap.set("n", "<leader>ct", "<CMD>RustDebuggables<CR>", { buffer = buffer, desc = "Run Test" })
-            end
+						-- stylua: ignore
+						if client.name == "rust_analyzer" then
+							vim.keymap.set("n", "K", "<CMD>RustHoverActions<CR>", { buffer = buffer })
+							vim.keymap.set("n", "<leader>ct", "<CMD>RustDebuggables<CR>", { buffer = buffer, desc = "Run Test" })
+						end
 					end)
 					local mason_registry = require("mason-registry")
 					local rust_tools_opts = vim.tbl_deep_extend("force", opts, {
@@ -95,7 +95,7 @@ return {
 						local extension_path = codelldb:get_install_path() .. "/extension/"
 						local codelldb_path = extension_path .. "adapter/codelldb"
 						local liblldb_path = vim.fn.has("mac") == 1 and extension_path .. "lldb/lib/liblldb.dylib"
-							or extension_path .. "lldb/lib/liblldb.so"
+								or extension_path .. "lldb/lib/liblldb.so"
 
 						rust_tools_opts = vim.tbl_deep_extend("force", rust_tools_opts, {
 							dap = {
@@ -107,19 +107,19 @@ return {
 					return true
 				end,
 				taplo = function(_, _)
-					local crates = require("crates")
+					-- local crates = require("crates")
 					local function show_documentation()
-						if vim.fn.expand("%:t") == "Cargo.toml" and crates.popup_available() then
-							crates.show_popup()
-						else
-							vim.lsp.buf.hover()
-						end
+						-- if vim.fn.expand("%:t") == "Cargo.toml" and crates.popup_available() then
+						-- 	crates.show_popup()
+						-- else
+						vim.lsp.buf.hover()
+						-- end
 					end
 					require("lazyvim.util").lsp.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "taplo" then
-              vim.keymap.set("n", "K", show_documentation, { buffer = buffer })
-            end
+						-- stylua: ignore
+						if client.name == "taplo" then
+							vim.keymap.set("n", "K", show_documentation, { buffer = buffer })
+						end
 					end)
 					return false -- make sure the base implementation calls taplo.setup
 				end,

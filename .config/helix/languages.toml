@@ -29,6 +29,50 @@ plugins = [
   ] },
 ]
 
+# JAVA -------
+
+# [language.debugger]
+# name = "java-debug"
+# transport = "tcp"
+# command = "jdtls"
+# args = ["--command", "vscode.java.startDebugSession"]
+# port-arg = "--port {}"
+
+# [[language.debugger.templates]]
+# name = "attach"
+# request = "attach"
+# completion = [
+#   { name = "host", default = "localhost" },
+#   { name = "port", default = "5005" },
+# ]
+# args = { hostName = "{0}", port = "{1}" }
+
+[language-server.jdtls]
+command = "jdtls"
+args = []
+
+[language-server.jdtls.config.java]
+"jdt.ls.vmargs" = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx8G -Xms1G -XX:+UseG1GC -XX:+UseStringDeduplication"
+"contentProvider.preferred" = "fernflower"
+"signatureHelp.enabled" = true
+"completion.favoriteStaticMembers" = [
+  "org.junit.Assert.*",
+  "org.junit.Assume.*",
+  "org.junit.jupiter.api.Assertions.*",
+  "org.junit.jupiter.api.Assumptions.*",
+  "org.junit.jupiter.api.DynamicContainer.*",
+  "org.junit.jupiter.api.DynamicTest.*",
+]
+"completion.importOrder" = ["java", "javax", "com", "org"]
+"sources.organizeImports.starThreshold" = 9999
+"sources.organizeImports.staticStarThreshold" = 9999
+"codeGeneration.useBlocks" = true
+"codeGeneration.generateComments" = false
+"server.launchMode" = "Standard"
+
+# /JAVA -------
+
+
 [language-server.vscode-eslint-language-server.config]
 codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
 format = { enable = true }
@@ -40,14 +84,9 @@ command = "qute-ls"
 validation = { enabled = true }
 
 [language-server.gpt]
-args = [
-  "--handler",
-  "codeium",
-  "--logFile",
-  "/home/peter/.cache/helix/helig-gpt.log",
-]
-
+args = ["--logFile", "/home/peter/.cache/helix/helig-gpt.log"]
 command = "helix-gpt"
+
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
@@ -68,6 +107,7 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "gpt",
 ]
 auto-format = true
 
@@ -78,6 +118,7 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "gpt",
 ]
 auto-format = true
 
@@ -88,6 +129,7 @@ language-servers = [
     "format",
   ] },
   "biome",
+  "gpt",
 ]
 
 [[language]]
@@ -96,15 +138,26 @@ language-servers = [
   { name = "vuels", except-features = [
     "format",
   ] },
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
   "tailwindcss-ls",
-  "typescript-language-server",
   "eslint",
+  "gpt",
 ]
 auto-format = true
 
 [[language]]
 name = "prisma"
 auto-format = true
+language-servers = ["prisma-language-server", "gpt"]
+
+
+[[language]]
+name = "go"
+auto-format = true
+language-servers = ["gopls", "golangci-lint-lsp", "gpt"]
+
 
 [[language]]
 name = "lua"
@@ -142,14 +195,19 @@ args = { hostName = "{0}", port = "{1}" }
 
 [[language]]
 name = "html"
-language-servers = ["qute-ls", "tailwindcss-ls", "vscode-html-language-server"]
+language-servers = [
+  "qute-ls",
+  "tailwindcss-ls",
+  "vscode-html-language-server",
+  "gpt",
+]
 roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
 
 [[language]]
 name = "scheme"
 formatter = { command = "raco", args = ["fmt", "-i"] }
 auto-format = true
-language-servers = ["steel-language-server"]
+language-servers = ["steel-language-server", "gpt"]
 
 # For development
 [language-server.steel-language-server]

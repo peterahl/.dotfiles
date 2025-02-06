@@ -26,7 +26,7 @@ G = "goto_file_end"
 C-g = ':sh tmux popup -h 90% -w 90% -E "lazygit"'
 A-g = ':sh open-yazi.sh'
 C-l = "jump_view_right"
-C-h = "jump_view_left" 
+C-h = "jump_view_left"
 
 [keys.normal.g]
 u = "switch_to_lowercase"
@@ -61,4 +61,3 @@ b = ":sh git-blame.sh"
 
 [keys.normal."space".t] # toggle
 i = ":toggle-option lsp.display-inlay-hints"
-

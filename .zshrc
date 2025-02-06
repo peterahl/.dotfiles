@@ -23,9 +23,8 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
+# preview directorys content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-# switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # znap source marlonrichert/zsh-autocomplete
@@ -78,8 +77,6 @@ alias qd="quarkus dev"
 
 alias ls="exa"
 
-alias sd="cd \$(fd -u --type d | fzf --height 40% --reverse || echo "$PWD")"
-
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -107,3 +104,33 @@ eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
 # cd $(fd --type d | fzf --height 40% --reverse)
+
+if [[ -n $ZSH_VERSION ]]; then
+    autoload -U +X bashcompinit && bashcompinit
+fi
+
+_run_script_completion() {
+    local cur prev words cword
+    _get_comp_words_by_ref -n : cur prev words cword
+
+    case $cword in
+        1)
+            COMPREPLY=($(compgen -W "dev demo prod -h --help" -- "$cur"))
+            ;;
+        2)
+            COMPREPLY=($(compgen -W "seed scripts databasescripts migrate" -- "$cur"))
+            ;;
+        3)
+            case ${words[2]} in
+                seed|scripts|databasescripts)
+                    COMPREPLY=($(compgen -f -X '!*.ts' -- "$cur"))
+                    ;;
+                migrate)
+                    COMPREPLY=($(compgen -W "up down create" -- "$cur"))
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+complete -F _run_script_completion run-script.sh

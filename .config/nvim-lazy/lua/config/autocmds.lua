@@ -23,8 +23,7 @@ end
 local autoCommands = {
   -- other autocommands
   open_folds = {
-    { "BufEnter,BufReadPost,FileReadPost", "*", "normal zR" },
-    { "BufEnter",                          "*", "normal zx" }
+    { "BufEnter", "*", "set nofoldenable foldmethod=manual foldlevelstart=99" },
   },
   plant_uml = {
     { "BufWritePost", "*.puml", "silent !plantuml % > /dev/null 2>&1 &" }
