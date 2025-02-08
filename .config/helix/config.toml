@@ -25,8 +25,11 @@ A-x = "command_palette"
 G = "goto_file_end"
 C-g = ':sh tmux popup -h 90% -w 90% -E "lazygit"'
 A-g = ':sh open-yazi.sh'
-C-l = "jump_view_right"
 C-h = "jump_view_left"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+C-l = "jump_view_right"
+A-r = ':rla'
 
 [keys.normal.g]
 u = "switch_to_lowercase"

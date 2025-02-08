@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# PANE_OUTPUT=$(tmux capture-pane -p)
-# RES=$(echo "$PANE_OUTPUT" | rg -e "(?:NOR|INS|SEL)\s+(\S*)\s[^│]* (\d+):*.*" -o --replace '$1 $2')
-
 PANE_OUTPUT=$(tmux capture-pane -p)
 RES=$(echo "$PANE_OUTPUT" | rg -e "(?:NOR|INS|SEL)\s*[⡀-⣿]?\s*(\S*)\s[^│]* (\d+):*.*" -o --replace '$1 $2')
 

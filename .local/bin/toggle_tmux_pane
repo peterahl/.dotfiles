@@ -1,36 +1,23 @@
 #!/bin/bash
 
-# if [ $(tmux list-panes | wc -l) -eq 1 ]; then
-#     tmux split-window -v
-#     tmux resize-pane -Z
-#     tmux select-pane -D
-# else
-#     if [ $(tmux list-panes -F '#{pane_active}' | grep -c '1') -eq 1 ]; then
-#         tmux resize-pane -Z
-#     else
-#         tmux select-pane -D
-#         tmux resize-pane -Z
-#     fi
-# fi
+# Get the number of panes in the current window
+pane_count=$(tmux list-panes -t "$(tmux display-message -p '#{window_id}')" | wc -l)
 
-
-# Get the number of panes and the active pane index
-pane_count=$(tmux list-panes | wc -l)
-active_pane=$(tmux display-message -p '#{pane_index}')
-
-# If only one pane exists, create a new bottom pane and focus it
-if [ $pane_count -eq 1 ]; then
-    tmux split-window -v
+# Check if more than one pane exists in the current window
+if [ "$pane_count" -gt 1 ]; then
+  # Bottom pane exists
+  if tmux display-message -p '#{window_zoomed_flag}' | grep -q '^1'; then
+    # Pane is zoomed, unzoom it and focus bottom pane
+    tmux resize-pane -Z -t top
     tmux select-pane -D
-    # tmux resize-pane -Z
+  else
+    # Pane is not zoomed, zoom it
+    tmux resize-pane -Z -t top
+  fi
 else
-    # If the top pane (index 0) is active, unzoom and focus the bottom pane (index 1)
-    if [ $active_pane -eq 0 ]; then
-        tmux resize-pane -Z
-        tmux select-pane -D
-    else
-        # If the bottom pane (index 1) is active, focus the top pane (index 0) and zoom
-        tmux select-pane -U
-        tmux resize-pane -Z
-    fi
+  # Bottom pane does not exist, create it
+  tmux split-window -v -c "#{pane_current_path}"
+  sleep 0.1 # Add a short delay (0.1 seconds)
+  tmux select-pane -D
+  tmux select-pane -D # Focus again to override default behavior
 fi
