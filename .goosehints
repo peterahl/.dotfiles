@@ -1,0 +1,15 @@
+This is a Git-based dotfiles project used to manage your development environment configuration, including shell settings (zsh), tmux, and various other tools.
+
+GNU Stow is used to manage symlinks. Running `stow .` is only necessary when a *new* file or directory has been added to the project. Symlinks for existing files are automatically updated when the files themselves are modified.
+
+Key Files & Directories:
+- .zshrc (shell configuration)
+- .tmux.conf (tmux configuration)
+- .aliases (optional: shell aliases - create if needed)
+- .local/bin/ (location for custom scripts)
+
+If you choose to use shell aliases, create a file named `.aliases` in the project. This file will be sourced by your `.zshrc`.
+
+Workflow: Edit files, then run `stow .` to update symlinks (only when adding new files or directories).
+
+The project is managed with Git, and you may ask me to use Git commands for diffing, committing, and other version control tasks.
