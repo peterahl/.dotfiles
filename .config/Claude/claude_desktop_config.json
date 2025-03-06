@@ -1,0 +1,38 @@
+{
+	"mcpServers": {
+		"filesystem": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-filesystem",
+				"/home/peter/git/voady-project",
+				"/home/peter/git/voady-project/docs",
+				"/home/peter/git/voady-project/packages/backend",
+				"/home/peter/git/infra",
+				"/home/peter/git/voady-company",
+				"/home/peter/git/voady-api",
+				"/home/peter/.dotfiles"
+			]
+		}
+	},
+	"github": {
+		"command": "npx",
+		"args": ["-y", "@modelcontextprotocol/server-github"],
+		"env": {
+			"GITHUB_PERSONAL_ACCESS_TOKEN": "&#x3C;YOUR_TOKEN>"
+		}
+	},
+	"git": {
+		"command": "python",
+		"args": [
+			"-m",
+			"mcp_server_git",
+			"--repository",
+			"/home/peter/git/voady-project"
+		]
+	},
+	"fetch": {
+		"command": "uvx",
+		"args": ["mcp-server-fetch"]
+	}
+}

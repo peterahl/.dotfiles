@@ -1,51 +1,24 @@
-# ESLint ----------------------------------------------------------------------
-[language-server.eslint]
-args = ["--stdio"]
-command = "vscode-eslint-language-server"
+# --------- AI ---------
 
-[language-server.eslint.config]
-format = true
-nodePath = ""
-onIgnoredFiles = "off"
-packageManager = "yarn"
-quiet = false
-rulesCustomizations = []
-run = "onType"
-useESLintClass = false
-validate = "on"
-codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-codeActionOnSave = { mode = "all" }
-experimental = {}
-problems = { shortenToSingleLine = false }
-workingDirectory = { mode = "auto" }
-# -------------------------------------------------------------------------------[language-server.typescript-language-server.config]
+[language-server.gpt]
+args = ["--logFile", "/home/peter/.cache/helix/helig-gpt.log"]
+command = "helix-gpt"
 
-hostInfo = "helix"
-plugins = [
-  { name = "@vue/typescript-plugin", location = "/usr/local/lib/node_modules/@vue/typescript-plugin", languages = [
-    "javascript",
-    "typescript",
-    "vue",
-  ] },
-]
+# --------- BIOME ---------
 
-# JAVA -------
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
 
-# [language.debugger]
-# name = "java-debug"
-# transport = "tcp"
-# command = "jdtls"
-# args = ["--command", "vscode.java.startDebugSession"]
-# port-arg = "--port {}"
+# --------- QUTE ---------
 
-# [[language.debugger.templates]]
-# name = "attach"
-# request = "attach"
-# completion = [
-#   { name = "host", default = "localhost" },
-#   { name = "port", default = "5005" },
-# ]
-# args = { hostName = "{0}", port = "{1}" }
+[language-server.qute-ls]
+command = "qute-ls"
+
+[language-server.qute-ls.config.qute]
+validation = { enabled = true }
+
+# --------- JAVA ---------
 
 [language-server.jdtls]
 command = "jdtls"
@@ -70,106 +43,6 @@ args = []
 "codeGeneration.generateComments" = false
 "server.launchMode" = "Standard"
 
-# /JAVA -------
-
-
-[language-server.vscode-eslint-language-server.config]
-codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
-format = { enable = true }
-
-[language-server.qute-ls]
-command = "qute-ls"
-
-[language-server.qute-ls.config.qute]
-validation = { enabled = true }
-
-[language-server.gpt]
-args = ["--logFile", "/home/peter/.cache/helix/helig-gpt.log"]
-command = "helix-gpt"
-
-[language-server.biome]
-command = "biome"
-args = ["lsp-proxy"]
-
-[language-server.lemminx]
-command = "lemminx"
-
-
-[[language]]
-name = "toml"
-auto-format = true
-language-servers = ["taplo", "gpt"]
-
-[[language]]
-name = "javascript"
-language-servers = [
-  { name = "typescript-language-server", except-features = [
-    "format",
-  ] },
-  "biome",
-  "gpt",
-]
-auto-format = true
-
-[[language]]
-name = "typescript"
-language-servers = [
-  { name = "typescript-language-server", except-features = [
-    "format",
-  ] },
-  "biome",
-  "gpt",
-]
-auto-format = true
-
-[[language]]
-name = "json"
-language-servers = [
-  { name = "vscode-json-language-server", except-features = [
-    "format",
-  ] },
-  "biome",
-  "gpt",
-]
-
-[[language]]
-name = "vue"
-language-servers = [
-  { name = "vuels", except-features = [
-    "format",
-  ] },
-  { name = "typescript-language-server", except-features = [
-    "format",
-  ] },
-  "tailwindcss-ls",
-  "eslint",
-  "gpt",
-]
-auto-format = true
-
-[[language]]
-name = "prisma"
-auto-format = true
-language-servers = ["prisma-language-server", "gpt"]
-
-
-[[language]]
-name = "go"
-auto-format = true
-language-servers = ["gopls", "golangci-lint-lsp", "gpt"]
-
-
-[[language]]
-name = "lua"
-auto-format = true
-
-[[language]]
-name = "xml"
-auto-format = true
-indent = { tab-width = 2, unit = "  " }
-formatter = { command = "xmllint", args = ["--format", "-"] }
-language-servers = ["lemminx"]
-
 [[language]]
 name = "java"
 auto-format = true
@@ -193,6 +66,103 @@ completion = [
 ]
 args = { hostName = "{0}", port = "{1}" }
 
+# --------- XML ---------
+
+[language-server.lemminx]
+command = "lemminx"
+
+[[language]]
+name = "xml"
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "xmllint", args = ["--format", "-"] }
+language-servers = ["lemminx"]
+
+# --------- TOML ---------
+
+[[language]]
+name = "toml"
+auto-format = true
+language-servers = ["taplo", "gpt"]
+
+# --------- Javascript/Typescript ---------
+
+[[language]]
+name = "javascript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "gpt",
+]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "gpt",
+]
+auto-format = true
+
+# --------- JSON ---------
+
+[[language]]
+name = "json"
+language-servers = [
+  { name = "vscode-json-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "gpt",
+]
+
+# --------- VUE ---------
+[[language]]
+name = "vue"
+auto-format = true
+scope = "source.vue"
+injection-regex = "vue"
+file-types = ["vue"]
+language-servers = [
+  { name = "vuels", except-features = [
+    "format",
+  ] },
+  { name = "vscode-eslint-language-server", except-features = [
+    "format",
+  ] },
+  "gpt",
+  "tailwindcss-ls",
+]
+formatter = { command = "eslint_d", args = ["--stdin", "--fix-to-stdout"] }
+roots = ["package.json"]
+
+# --------- Prisma ---------
+
+[[language]]
+name = "prisma"
+auto-format = true
+language-servers = ["prisma-language-server", "gpt"]
+
+# --------- Go ---------
+
+[[language]]
+name = "go"
+auto-format = true
+language-servers = ["gopls", "golangci-lint-lsp", "gpt"]
+
+# --------- Lua ---------
+
+[[language]]
+name = "lua"
+auto-format = true
+
+# --------- HTML ---------
+
 [[language]]
 name = "html"
 language-servers = [
@@ -202,6 +172,8 @@ language-servers = [
   "gpt",
 ]
 roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
+
+# --------- STEEL ---------
 
 [[language]]
 name = "scheme"
@@ -213,3 +185,15 @@ language-servers = ["steel-language-server", "gpt"]
 [language-server.steel-language-server]
 command = "steel-language-server"
 args = []
+
+# --------- CLOJURE ---------
+
+[language-server.clojure-lsp]
+command = "clojure-lsp"
+args = []
+
+[[language]]
+name = "clojure"
+auto-format = true
+formatter = { command = "zprint", args = ["{:style :community}"] }
+language-servers = ["clojure-lsp", "gpt"]

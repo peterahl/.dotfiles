@@ -37,7 +37,6 @@ U = "switch_to_uppercase"
 
 [keys.normal."space"]
 q.q = ":qa"
-p.f = "file_picker"
 "," = "buffer_picker"
 B = ":pipe-to helix-git-blame"
 #   = ":pipe-to helix-git-blame"
@@ -61,6 +60,7 @@ d = ":buffer-close"
 [keys.normal."space".g] # buffer
 g = "changed_file_picker"
 b = ":sh git-blame.sh"
+f = "file_picker"
 
 [keys.normal."space".t] # toggle
 i = ":toggle-option lsp.display-inlay-hints"
