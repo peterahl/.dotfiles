@@ -122,6 +122,12 @@ language-servers = [
 ]
 
 # --------- VUE ---------
+
+[language-server.vuels]
+command = "vue-language-server"
+args = ["--stdio"]
+config = { vue = { hybridMode = false } }
+
 [[language]]
 name = "vue"
 auto-format = true

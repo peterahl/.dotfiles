@@ -9,11 +9,16 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
-        volar = {},
+        volar = {
+          init_options = {
+            vue = {
+              -- disable hybrid mode
+              hybridMode = false,
+            },
+          },
+        },
       },
       setup = {
         volar = function(_, opts)

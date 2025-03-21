@@ -5,6 +5,12 @@ RES=$(echo "$PANE_OUTPUT" | rg -e "(?:NOR|INS|SEL)\s*[⡀-⣿]?\s*(\S*)\s[^│]*
 
 FILE=$(echo $RES | choose 0)
 LINE=$(echo $RES | choose 1)
+
+# Handle tilde expansion before passing to realpath
+if [[ "$FILE" == "~"* ]]; then
+  FILE="${FILE/#\~/$HOME}"
+fi
+
 ABSOLUTE_FILE_PATH=$(realpath "$FILE")
 
 # Open a floating Tmux window and start Yazi in the current directory
