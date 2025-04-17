@@ -53,18 +53,27 @@ language-servers = ["jdtls", "gpt"]
 [language.debugger]
 name = "java-debug"
 transport = "tcp"
-command = "qute-ls"
-args = ["--command", "vscode.java.startDebugSession"]
-port-arg = "--port {}"
+command = "jdb"
+args = ["-attach", "localhost:5005"]
+#   "-jar",
+#   "/home/peter/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar",
+# ]
+# port-arg = "--port=5005"
+
+# [[language.debugger.templates]]
+# name = "launch"
+# request = "launch"
+# completion = [{ name = "main class" }]
+# args = { type = "java", name = "Launch Java Program", request = "launch", mainClass = "{0}", projectName = "${workspaceFolder}" }
 
 [[language.debugger.templates]]
 name = "attach"
 request = "attach"
-completion = [
-  { name = "host", default = "localhost" },
-  { name = "port", default = "5005" },
-]
-args = { hostName = "{0}", port = "{1}" }
+# completion = ["port"]
+# hostname = "localhost"
+# port = 5005
+args = { type = "java", name = "Attach to Java Process", request = "attach", hostName = "localhost", port = "5005" }
+
 
 # --------- XML ---------
 

@@ -7,6 +7,10 @@ mouse = false
 color-modes = true
 cursorline = true
 auto-format = true
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
 
 [editor.cursor-shape]
 insert = "bar"
@@ -23,7 +27,7 @@ display-inlay-hints = true
 [keys.normal]
 A-x = "command_palette"
 G = "goto_file_end"
-C-g = ':sh tmux popup -h 90% -w 90% -E "lazygit"'
+C-g = ':sh open-lazygit.sh'
 A-g = ':sh open-yazi.sh'
 C-h = "jump_view_left"
 C-j = "jump_view_down"
