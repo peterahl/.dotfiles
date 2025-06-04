@@ -1,3 +1,23 @@
+# --------- snippets ---------
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 100           # set max completion results len for each group: words, snippets, unicode-input
+feature_words = true                 # enable completion by word
+feature_snippets = true              # enable snippets
+snippets_first = true                # completions will return before snippets by default
+snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
+feature_unicode_input = false        # enable "unicode input"
+feature_paths = false                # enable path completion
+feature_citations = false            # enable citation completion (only on `citation` feature enabled)
+
+
+# write logs to /tmp/completion.log
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
+
 # --------- AI ---------
 
 [language-server.gpt]
@@ -25,7 +45,7 @@ command = "jdtls"
 args = []
 
 [language-server.jdtls.config.java]
-"jdt.ls.vmargs" = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx8G -Xms1G -XX:+UseG1GC -XX:+UseStringDeduplication"
+"jdt.ls.vmargs" = "-Xms4G -Xmx12G -XX:+UseG1GC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping=true"
 "contentProvider.preferred" = "fernflower"
 "signatureHelp.enabled" = true
 "completion.favoriteStaticMembers" = [
@@ -132,10 +152,17 @@ language-servers = [
 
 # --------- VUE ---------
 
-[language-server.vuels]
+[language-server.volar]
 command = "vue-language-server"
 args = ["--stdio"]
-config = { vue = { hybridMode = false } }
+
+[language-server.volar.config.vue]
+hybridMode = false
+server = {}
+clientInfo = { name = "helix" }
+
+[language-server.volar.config]
+typescript = { tsdk = "" }
 
 [[language]]
 name = "vue"
@@ -144,7 +171,7 @@ scope = "source.vue"
 injection-regex = "vue"
 file-types = ["vue"]
 language-servers = [
-  { name = "vuels", except-features = [
+  { name = "volar", except-features = [
     "format",
   ] },
   { name = "vscode-eslint-language-server", except-features = [
@@ -180,12 +207,15 @@ auto-format = true
 
 [[language]]
 name = "html"
+indent = { tab-width = 4, unit = "  " }
 language-servers = [
-  "qute-ls",
+  # "qute-ls",
+  "scls",
   "tailwindcss-ls",
-  "vscode-html-language-server",
+  "vscode-html-languageserver",
   "gpt",
 ]
+auto-format = false
 roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
 
 # --------- STEEL ---------
@@ -212,3 +242,24 @@ name = "clojure"
 auto-format = true
 formatter = { command = "zprint", args = ["{:style :community}"] }
 language-servers = ["clojure-lsp", "gpt"]
+
+
+# --------- CSS ---------
+[[language]]
+name = "css"
+indent = { tab-width = 4, unit = " " }
+
+[[language]]
+name = "env"
+scope = "source.env"
+file-types = [
+  { glob = "*.env" },
+  { glob = ".env" },
+  { glob = ".env.*" },
+  { glob = ".envrc" },
+  { glob = ".envrc.*" },
+]
+injection-regex = "env"
+comment-token = "#"
+indent = { tab-width = 4, unit = "\t" }
+grammar = "bash"

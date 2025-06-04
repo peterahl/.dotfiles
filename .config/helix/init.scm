@@ -1,31 +1,23 @@
 (require-builtin steel/random as rand::)
 
 (require "cogs/keymaps.scm")
-(require (only-in "cogs/file-tree.scm" FILE-TREE-KEYBINDINGS FILE-TREE))
-(require (only-in "cogs/recentf.scm" recentf-open-files get-recent-files recentf-snapshot))
-
 (require (prefix-in helix. "helix/commands.scm"))
 (require (prefix-in helix.static. "helix/static.scm"))
-
 (require "helix/configuration.scm")
-
-;; (require (only-in "test.scm" show-welcome-message))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define rng (rand::thread-rng!))
-
 ;; Picking one from the possible themes is _fine_
-(define possible-themes '("tokyonight_storm" "catppuccin_macchiato" "solarized_dark"))
+(define possible-themes '("tokyonight_moon"))
 
 (define (select-random lst)
-  (let ([index (rand::rng->gen-range rng 0 (length lst))]) (list-ref lst index)))
+  (let ([index (rand::rng->gen-range 0 (length lst))]) (list-ref lst index)))
 
 (define (randomly-pick-theme options)
   ;; Randomly select the theme from the possible themes list
   (helix.theme (select-random options)))
 
-(randomly-pick-theme possible-themes)
+; (randomly-pick-theme possible-themes)
 
 ;;;;;;;;;;;;;;;;;;;;;;;; Default modes ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,15 +34,8 @@
 ;; Set the global keybinding for now
 (add-global-keybinding
  (hash
-  ; "insert"
-  ; (hash "C-r" (hash "f" ":dummy"))
   "normal"
-  (hash
-   "C-r"
-   (hash "f" ":recentf-open-files")
-   ; "c"
-   ; ":dummy") ;; "space" (hash "/" ":search-in-directory") ;; Uncomment if you'd like to make this keybinding
-   )))
+  (hash "C-r" (hash "f" ":recentf-open-files") "space" (hash "l" ":load-buffer" "o" ":eval-sexpr"))))
 
 (define scm-keybindings (hash "insert" (hash "ret" ':scheme-indent "C-l" ':insert-lambda)))
 
@@ -71,7 +56,9 @@
 (cursorline #t)
 (soft-wrap (sw-enable #t))
 
-(randomly-pick-theme possible-themes)
+; (randomly-pick-theme possible-themes)
+
+; (open-term)
 
 ;; (show-welcome-message)
 

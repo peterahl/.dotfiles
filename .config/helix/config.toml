@@ -29,6 +29,7 @@ A-x = "command_palette"
 G = "goto_file_end"
 C-g = ':sh open-lazygit.sh'
 A-g = ':sh open-yazi.sh'
+# A-g = 'file_explorer_in_current_buffer_directory'
 C-h = "jump_view_left"
 C-j = "jump_view_down"
 C-k = "jump_view_up"
@@ -48,6 +49,7 @@ B = ":pipe-to helix-git-blame"
 [keys.normal."space".f] # files
 d = "file_picker_in_current_buffer_directory"
 f = "file_picker_in_current_directory"
+r = ":recentf-open-files"
 s = ":w"
 
 [keys.normal."space".c] # code
@@ -68,3 +70,4 @@ f = "file_picker"
 
 [keys.normal."space".t] # toggle
 i = ":toggle-option lsp.display-inlay-hints"
+w = ":toggle-option soft-wrap.enable"

@@ -20,6 +20,8 @@ export PATH=$HOME/Android/flutter/bin:$PATH
 export DENO_INSTALL="/home/peter/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+export MAVEN_OPTS="-Daether.dependencyCollector.impl=bf -Dmaven.artifact.threads=10"
+
 export NVIM_RC=$HOME/.dotfiles/.config/nvim/init.lua
 export TERM=xterm-256color
 
@@ -28,6 +30,8 @@ export NNN_FIFO=/tmp/nnn.fifo
 export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+
+export STEEL_LSP_HOME=/home/peter/.config/steel-lsp
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 # setxkbmap -option 'ctrl:rctrl_ralt'
