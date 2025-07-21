@@ -44,6 +44,11 @@ validation = { enabled = true }
 command = "jdtls"
 args = []
 
+[language-server.jdtls.config]
+bundles = [
+  "/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.1.jar",
+]
+
 [language-server.jdtls.config.java]
 "jdt.ls.vmargs" = "-Xms4G -Xmx12G -XX:+UseG1GC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping=true"
 "contentProvider.preferred" = "fernflower"
@@ -73,8 +78,8 @@ language-servers = ["jdtls", "gpt"]
 [language.debugger]
 name = "java-debug"
 transport = "tcp"
-command = "jdb"
-args = ["-attach", "localhost:5005"]
+# command = "jdb"
+# args = ["-attach", "localhost:5005"]
 #   "-jar",
 #   "/home/peter/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar",
 # ]
