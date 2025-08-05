@@ -1,9 +1,9 @@
 session_name: voady-project
-start_directory: ~/git/voady-project/
+start_directory: ~/voady/voady-project/
 windows:
   - window_name: java
     focus: true
-    start_directory: ~/git/voady-project/packages/backend/
+    start_directory: ~/voady/voady-project/packages/backend/
     panes:
       - hx
       - ""

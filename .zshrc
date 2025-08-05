@@ -74,6 +74,7 @@ alias gr="git branch --remotes --format '%(refname:lstrip=2)' | fzf | xargs git 
 
 alias yd="yarn dev"
 alias qd="quarkus dev"
+alias hx="helix"
 
 alias ls="exa"
 
@@ -85,13 +86,14 @@ export NVM_DIR="$HOME/.config/nvm"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 [ -f ~/.profile ] && source ~/.profile
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export VISUAL=nvim
+export VISUAL=helix
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
@@ -134,3 +136,12 @@ _run_script_completion() {
 }
 
 complete -F _run_script_completion run-script.sh
+
+# # Source manjaro-zsh-configuration
+# if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+#   source /usr/share/zsh/manjaro-zsh-config
+# fi
+# # Use manjaro zsh prompt
+# if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+#   source /usr/share/zsh/manjaro-zsh-prompt
+# fi

@@ -1,7 +1,7 @@
 # /home/peter/.config/tmuxinator/test.yml
 
 name: voady-api
-root: ~/git/voady-api
+root: ~/voady/voady-api
 
 # Optional tmux socket
 # socket_name: foo

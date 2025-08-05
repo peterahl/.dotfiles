@@ -2,5 +2,5 @@ reporting: "off"
 startupPopupVersion: 1
 disableStartupPopups: false
 os:
-  edit: 'tmux select-pane -L && tmux send-keys ":open {{filename}}" C-m'
-  editInTerminal: true
+  edit: "~/.dotfiles/.local/bin/helix-select.sh {{filename}}"
+  editInTerminal: false

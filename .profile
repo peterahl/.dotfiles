@@ -1,7 +1,9 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export EDITOR=/usr/local/bin/nvim
-export EDITOR=/home/peter/.cargo/bin/hx
-export SUDO_EDITOR="/home/peter/.cargo/bin/hx"
+# export EDITOR=/home/peter/.cargo/bin/hx
+export EDITOR=helix
+# export SUDO_EDITOR="/home/peter/.cargo/bin/hx"
+export SUDO_EDITOR="helix"
 
 export YDOTOOL_SOCKET=/tmp/.ydotool_socket
 
@@ -37,6 +39,6 @@ export STEEL_LSP_HOME=/home/peter/.config/steel-lsp
 # setxkbmap -option 'ctrl:rctrl_ralt'
 # /usr/bin/xmodmap $HOME/.Xmodmap
 
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 [ -f ~/.tokens ] && source ~/.tokens

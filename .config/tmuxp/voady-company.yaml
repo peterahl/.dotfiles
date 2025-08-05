@@ -1,5 +1,5 @@
 session_name: voady-company
-start_directory: ~/git/voady-company/
+start_directory: ~/voady/voady-company/
 windows:
   - window_name: editor
     focus: true

@@ -1,5 +1,5 @@
 session_name: voady-boka
-start_directory: ~/git/boka-voady/
+start_directory: ~/voady/boka-voady/
 windows:
   - window_name: editor
     focus: true

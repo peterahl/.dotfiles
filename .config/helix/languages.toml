@@ -27,8 +27,8 @@ command = "helix-gpt"
 # --------- BIOME ---------
 
 [language-server.biome]
-command = "biome"
-args = ["lsp-proxy"]
+command = "npx"
+args = ["biome", "lsp-proxy"]
 
 # --------- QUTE ---------
 
@@ -161,13 +161,24 @@ language-servers = [
 command = "vue-language-server"
 args = ["--stdio"]
 
-[language-server.volar.config.vue]
-hybridMode = false
-server = {}
-clientInfo = { name = "helix" }
-
 [language-server.volar.config]
-typescript = { tsdk = "" }
+typescript = { tsdk = "/home/lejon/node_modules/typescript/lib" }
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-eslint-language-server]
+command = "eslint-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-eslint-language-server.config]
+validate = ["javascript", "typescript", "javascriptreact", "typescriptreact"]
+experimental = { useFlatConfig = false }                                      # Set to true if using ESLint Flat Config (eslint.config.js)
+run = "onType"
+problems = { shortenToSingleLine = false }                                    # Optional: adjust diagnostic display
+nodePath = ""                                                                 # Optional: specify absolute path to Node.js if resolution issues occur
+
 
 [[language]]
 name = "vue"
@@ -176,16 +187,12 @@ scope = "source.vue"
 injection-regex = "vue"
 file-types = ["vue"]
 language-servers = [
-  { name = "volar", except-features = [
-    "format",
-  ] },
-  { name = "vscode-eslint-language-server", except-features = [
-    "format",
-  ] },
-  "gpt",
+  "volar",
   "tailwindcss-ls",
+  "vscode-eslint-language-server",
+  "gpt",
 ]
-formatter = { command = "eslint_d", args = ["--stdin", "--fix-to-stdout"] }
+# formatter = { command = "eslint_d", args = ["--stdin", "--fix-to-stdout"] }
 roots = ["package.json"]
 
 # --------- Prisma ---------

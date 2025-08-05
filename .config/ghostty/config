@@ -1,7 +1,18 @@
-# ghostty configuration
 
+# --- Font Configuration ---
+# Use 'ghostty +list-fonts' to get a list of available fonts and their exact names.
+
+# Normal font (Semibold)
+font-family = "FiraCode Nerd Font Semibold"
+
+# Bold font
+font-family-bold = "FiraCode Nerd Font Bold"
+
+# Italic font (Victor Mono)
+font-family-italic = "VictorMono Nerd Font Mono SemiBold Italic"
+
+# Bold Italic font (Victor Mono)
+font-family-bold-italic = "VictorMono Nerd Font Mono Bold Italic"
+
+# Font size
 font-size = 10
-font-style = Fira Code Semibold
-font-style-bold = Fira Code Bold
-font-style-italic = VictorMono NFM SemiBold Italic
-font-style-bold-italic = VictorMono NFM Bold Italic

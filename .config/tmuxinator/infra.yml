@@ -1,7 +1,7 @@
 # /home/peter/.config/tmuxinator/infra.yml
 
 name: infra
-root: ~/git/infra/
+root: ~/voady/infra/
 
 # Optional tmux socket
 # socket_name: foo

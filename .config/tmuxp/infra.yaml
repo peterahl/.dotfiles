@@ -1,5 +1,5 @@
 session_name: infra
-start_directory: ~/git/infra/
+start_directory: ~/voady/infra/
 windows:
   - window_name: editor
     focus: true
