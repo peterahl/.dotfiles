@@ -21,7 +21,7 @@ LOG_FILE = "/tmp/completion.log"
 # --------- AI ---------
 
 [language-server.gpt]
-args = ["--logFile", "/home/peter/.cache/helix/helig-gpt.log"]
+args = ["--logFile", "/home/lejon/.cache/helix/helig-gpt.log"]
 command = "helix-gpt"
 
 # --------- BIOME ---------
@@ -155,45 +155,77 @@ language-servers = [
   "gpt",
 ]
 
-# --------- VUE ---------
 
-[language-server.volar]
-command = "vue-language-server"
+# ESLint ----------------------------------------------------------------------
+[language-server.eslint]
+command = "vscode-eslint-language-server"
 args = ["--stdio"]
 
-[language-server.volar.config]
-typescript = { tsdk = "/home/lejon/node_modules/typescript/lib" }
+[language-server.eslint.config]
+format = true
+nodePath = ""
+onIgnoredFiles = "off"
+packageManager = "yarn"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+useESLintClass = false
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+codeActionOnSave = { mode = "all" }
+experimental = { useFlatConfig = true }
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
+# -------------------------------------------------------------------------------
 
+# --------- VUE ---------
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
 
-[language-server.vscode-eslint-language-server]
-command = "eslint-language-server"
-args = ["--stdio"]
 
-[language-server.vscode-eslint-language-server.config]
-validate = ["javascript", "typescript", "javascriptreact", "typescriptreact"]
-experimental = { useFlatConfig = false }                                      # Set to true if using ESLint Flat Config (eslint.config.js)
-run = "onType"
-problems = { shortenToSingleLine = false }                                    # Optional: adjust diagnostic display
-nodePath = ""                                                                 # Optional: specify absolute path to Node.js if resolution issues occur
+[language-server.typescript-language-server.config]
+plugins = [
+  { name = "@vue/typescript-plugin", location = "/usr/bin/vue-language-server", languages = [
+    "vue",
+  ] },
+]
 
+[language-server.typescript-language-server.config.vue.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
 
 [[language]]
 name = "vue"
-auto-format = true
-scope = "source.vue"
-injection-regex = "vue"
-file-types = ["vue"]
 language-servers = [
-  "volar",
+  { name = "vuels", except-features = [
+    "format",
+  ] },
   "tailwindcss-ls",
-  "vscode-eslint-language-server",
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  { name = "eslint", except-features = [
+    "format",
+  ] },
   "gpt",
+  { name = "vscode-html-language-server", except-features = [
+    "format",
+  ] },
 ]
-# formatter = { command = "eslint_d", args = ["--stdin", "--fix-to-stdout"] }
-roots = ["package.json"]
+auto-format = true
+formatter = { command = "eslint_d", args = [
+  "--stdin",
+  "--fix-to-stdout",
+  "--stdin-filename",
+  "tmp.vue",
+] }
+
 
 # --------- Prisma ---------
 
@@ -224,7 +256,7 @@ language-servers = [
   # "qute-ls",
   "scls",
   "tailwindcss-ls",
-  "vscode-html-languageserver",
+  "vscode-html-language-server",
   "gpt",
 ]
 auto-format = false
