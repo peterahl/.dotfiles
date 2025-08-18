@@ -4,3 +4,8 @@ disableStartupPopups: false
 os:
   edit: "~/.dotfiles/.local/bin/helix-select.sh {{filename}}"
   editInTerminal: false
+git:
+  mainBranches:
+    - 'development'
+    - 'master'
+    - 'main'

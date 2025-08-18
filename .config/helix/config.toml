@@ -37,6 +37,7 @@ C-g = [
   ':open %sh{cat /tmp/lazygit-selected-file}',
   ':sh rm -f /tmp/lazygit-selected-file',
   ':redraw',
+  ':reload-all',
 ]
 # A-g = 'file_explorer_in_current_buffer_directory'
 C-h = "jump_view_left"

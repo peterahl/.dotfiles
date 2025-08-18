@@ -45,9 +45,8 @@ command = "jdtls"
 args = []
 
 [language-server.jdtls.config]
-bundles = [
-  "/home/peter/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.1.jar",
-]
+bundles = ["/usr/share/java-debug/com.microsoft.java.debug.plugin.jar"]
+extendedClientCapabilities.classFileContentsSupport = true
 
 [language-server.jdtls.config.java]
 "jdt.ls.vmargs" = "-Xms4G -Xmx12G -XX:+UseG1GC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping=true"
@@ -73,32 +72,27 @@ name = "java"
 auto-format = true
 formatter = { command = "google-java-format", args = ["-"] }
 language-servers = ["jdtls", "gpt"]
-# language-servers = ["qute-ls", "gpt"]
 
 [language.debugger]
 name = "java-debug"
 transport = "tcp"
-# command = "jdb"
-# args = ["-attach", "localhost:5005"]
-#   "-jar",
-#   "/home/peter/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.1/com.microsoft.java.debug.plugin-0.53.1.jar",
-# ]
-# port-arg = "--port=5005"
+command = "java"
+args = [
+  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005",
+  "-jar",
+  "/usr/share/java-debug/com.microsoft.java.debug.server.jar",
+]
 
-# [[language.debugger.templates]]
-# name = "launch"
-# request = "launch"
-# completion = [{ name = "main class" }]
-# args = { type = "java", name = "Launch Java Program", request = "launch", mainClass = "{0}", projectName = "${workspaceFolder}" }
+[[language.debugger.templates]]
+name = "launch"
+request = "launch"
+completion = [{ name = "main class" }]
+args = { type = "java", name = "Launch Java Program", request = "launch", mainClass = "{0}", projectName = "${workspaceFolder}" }
 
 [[language.debugger.templates]]
 name = "attach"
 request = "attach"
-# completion = ["port"]
-# hostname = "localhost"
-# port = 5005
 args = { type = "java", name = "Attach to Java Process", request = "attach", hostName = "localhost", port = "5005" }
-
 
 # --------- XML ---------
 

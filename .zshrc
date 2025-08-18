@@ -10,6 +10,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+[[ -r ~/.local/share/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.local/share/zsh-snap/
 source ~/.local/share/zsh-snap/znap.zsh
 
 # zstyle ':autocomplete:*' fzf-completion yes
