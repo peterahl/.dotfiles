@@ -96,9 +96,11 @@ source <(fzf --zsh)
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export VISUAL=helix
-autoload edit-command-line; zle -N edit-command-line
+set -o vi
+autoload edit-command-line
+zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
+FCEDIT=$EDITOR
 
 eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 
