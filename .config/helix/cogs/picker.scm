@@ -32,7 +32,10 @@
 (define (pop-character field)
   (define text (MutableTextField-text field))
   (set-MutableTextField-text! field '())
-  (set-MutableTextField-text! field (if (empty? text) text (cdr text))))
+  (set-MutableTextField-text! field
+                              (if (empty? text)
+                                  text
+                                  (cdr text))))
 
 (define (text-field->string field)
   (~> (MutableTextField-text field) reverse list->string))

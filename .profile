@@ -1,8 +1,8 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export EDITOR=/usr/local/bin/nvim
-# export EDITOR=/home/peter/.cargo/bin/hx
+# export EDITOR=$HOME/.cargo/bin/hx
 export EDITOR=helix
-# export SUDO_EDITOR="/home/peter/.cargo/bin/hx"
+# export SUDO_EDITOR="$HOME/.cargo/bin/hx"
 export SUDO_EDITOR="helix"
 
 export YDOTOOL_SOCKET=/tmp/.ydotool_socket
@@ -19,7 +19,7 @@ export PATH=$HOME/.config/emacs/bin:$PATH
 export PATH=$HOME/.config/nvim/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/Android/flutter/bin:$PATH
-export DENO_INSTALL="/home/peter/.deno"
+export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 export MAVEN_OPTS="-Daether.dependencyCollector.impl=bf -Dmaven.artifact.threads=10"
@@ -33,7 +33,9 @@ export SOPS_PGP_FP=3E2B70479F03FA0AD2080659D75D5B506E2080AD
 
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
-export STEEL_LSP_HOME=/home/peter/.config/steel-lsp
+export STEEL_LSP_HOME=$HOME/.config/steel-lsp
+export STEEL_HOME=$HOME/.steel
+export HELIX_RUNTIME=$HOME/github/helix-steel/runtime
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 # setxkbmap -option 'ctrl:rctrl_ralt'

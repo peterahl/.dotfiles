@@ -2,14 +2,12 @@
 
 (require "helix/configuration.scm")
 
-(provide *keybinding-map-set!*
-         *keybinding-map-insert*
-         *get-buffer-or-extension-keybindings*
-         *reverse-buffer-map-insert*
+(provide *reverse-buffer-map-insert*
          merge-keybindings
          set-global-buffer-or-extension-keymap
          add-global-keybinding
-         deep-copy-global-keybindings)
+         deep-copy-global-keybindings
+         keymap)
 
 (define (get-doc name)
   ;; Do our best - if the identifier doesn't exist (for example, if we're checking)
@@ -41,27 +39,9 @@
   (transduce doc-map (filtering (lambda (p) (string? (cdr p)))) (into-hashmap)))
 
 ;;@doc
-;; Set the keybinding map to the specified map
-(define (*keybinding-map-set!* map)
-  (set-strong-box! helix.keymaps.*buffer-or-extension-keybindings* map))
-
-;;@doc
-;; Insert a key value pair representing a binding to the keybinding map
-(define (*keybinding-map-insert* key value)
-  (set-strong-box!
-   helix.keymaps.*buffer-or-extension-keybindings*
-   (hash-insert (unbox-strong helix.keymaps.*buffer-or-extension-keybindings*) key value)))
-
-;;@doc
-;; Returns the buffer or extension keybinding map
-(define (*get-buffer-or-extension-keybindings*)
-  (unbox-strong helix.keymaps.*buffer-or-extension-keybindings*))
-
-;;@doc
 ;; Insert a value into the reverse buffer map
 (define (*reverse-buffer-map-insert* key value)
-  (set-strong-box! helix.keymaps.*reverse-buffer-map*
-                   (hash-insert (unbox-strong helix.keymaps.*reverse-buffer-map*) key value)))
+  (helix.keymaps.#%add-reverse-mapping key value))
 
 ;; Marshall values in and out of keybindings, referencing the associated values
 ;; within steel
@@ -75,7 +55,10 @@
 ;;@doc
 ;; Check that the types on this map check out, otherwise we don't need to consistently do these checks
 (define (set-global-buffer-or-extension-keymap map)
-  (*keybinding-map-set!* map))
+  (transduce map
+             (into-for-each (lambda (p)
+                              (helix.keymaps.#%add-extension-or-labeled-keymap (list-ref p 0)
+                                                                               (list-ref p 1))))))
 
 ;;@doc
 ;; Add keybinding to the global default
@@ -89,13 +72,7 @@
 
   (helix.keymaps.keymap-update-documentation! global-bindings (keybindings->docs map))
 
-  (keybindings global-bindings)
-
-  ;; Merge keybindings
-  ; (helix.keymaps.helix-merge-keybindings
-  ;  helix.keymaps.*global-keybinding-map*
-  ;  (~> map (value->jsexpr-string) (helix.keymaps.helix-string->keymap)))
-  )
+  (keybindings global-bindings))
 
 ;;@doc
 ;; Deep copy the global keymap
@@ -104,3 +81,50 @@
   ;; Copy the global keybindings directly
   ;; off of the configuration object
   (get-keybindings))
+
+(define-syntax #%keybindings
+  (syntax-rules ()
+    [(_ conf (key (value ...) rest ...))
+     (hash-insert conf
+                  (if (string? (quote key)) (quote key) (symbol->string (quote key)))
+                  (#%keybindings (hash) (value ...) rest ...))]
+
+    [(_ conf (key (value ...)))
+     (hash (dbg! (if (string? (quote key) (symbol->string (quote key)))))
+           (#%keybindings (hash) (value ...)))]
+
+    [(_ conf (key value))
+
+     (hash-insert conf
+                  (if (string? (quote key)) (quote key) (symbol->string (quote key)))
+                  (if (string? value) value (~>> (quote value) symbol->string (string-append ":"))))]
+
+    [(_ conf (key (value ...)) rest ...)
+
+     (#%keybindings (hash-insert conf
+                                 (if (string? (quote key)) (quote key) (symbol->string (quote key)))
+                                 (#%keybindings (hash) (value ...)))
+                    rest ...)]
+
+    [(_ conf (key value) rest ...)
+
+     (#%keybindings
+      (hash-insert conf
+                   (if (string? (quote key)) (quote key) (symbol->string (quote key)))
+                   (if (string? value) value (~>> (quote value) symbol->string (string-append ":"))))
+      rest ...)]))
+
+(define-syntax keymap
+  (syntax-rules (global insert normal select)
+    [(_ (global) args ...) (add-global-keybinding (keymap args ...))]
+
+    [(_) (hash)]
+
+    [(_ (insert args ...) rest ...)
+     (hash-union (#%keybindings (hash) ("insert" args ...)) (keymap rest ...))]
+
+    [(_ (normal args ...) rest ...)
+     (hash-union (#%keybindings (hash) ("normal" args ...)) (keymap rest ...))]
+
+    [(_ (select args ...) rest ...)
+     (hash-union (#%keybindings (hash) ("select" args ...)) (keymap rest ...))]))

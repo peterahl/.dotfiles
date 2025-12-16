@@ -1,66 +1,69 @@
-(require-builtin steel/random as rand::)
-
 (require "cogs/keymaps.scm")
+; (require "cogs/conjure.scm")
+; (require "cogs/harpoon.scm")
+
+; (require "helix/editor.scm")
+; (require "nrepl.scm")
+
+(require "mattwparas-helix-package/splash.scm")
+
+(when (equal? (command-line) '("hx"))
+  (show-splash))
+
+(require "steel-pty/term.scm")
+
+(provide open-term
+         new-term
+         kill-active-terminal
+         switch-term
+         term-resize
+         (contract/out set-default-terminal-cols! (->/c int? void?))
+         (contract/out set-default-terminal-rows! (->/c int? void?))
+         (contract/out set-default-shell! (->/c string? void?))
+         xplr
+         open-debug-window
+         close-debug-window
+         hide-terminal)
+
+; (keymap (global)
+;         (normal ("SPC" (c (l ":conjure-open-log")
+;                          (s ":conjure-send-code"))))))
+
+; (keymap (global)
+;         (normal (space (m (a ":harpoon-add")
+;                           (r ":harpoon-remove")
+;                           (t ":harpoon-toggle")
+;                           (c ":harpoon-clear")
+;                           (l ":harpoon-list")
+;                           (m ":harpoon-open-menu")
+;                           (q ":harpoon-quick-jump")
+;                           ("1" ":harpoon-jump-to-1")
+;                           ("2" ":harpoon-jump-to-2")
+;                           ("3" ":harpoon-jump-to-3")
+;                           ("4" ":harpoon-jump-to-4")
+;                           ("5" ":harpoon-jump-to-5")))))
+
 (require (prefix-in helix. "helix/commands.scm"))
-(require (prefix-in helix.static. "helix/static.scm"))
-(require "helix/configuration.scm")
+(require "nrepl.scm")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Picking one from the possible themes is _fine_
-(define possible-themes '("tokyonight_moon"))
-
-(define (select-random lst)
-  (let ([index (rand::rng->gen-range 0 (length lst))]) (list-ref lst index)))
-
-(define (randomly-pick-theme options)
-  ;; Randomly select the theme from the possible themes list
-  (helix.theme (select-random options)))
-
-; (randomly-pick-theme possible-themes)
-
-;;;;;;;;;;;;;;;;;;;;;;;; Default modes ;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Enable the recentf snapshot, will watch every 2 minutes for active files,
-;; and flush those down to disk
-(recentf-snapshot)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;
-
-;; To remove a binding, set it to 'no_op
-;; For example, this will make it impossible to enter insert mode:
-;; (hash "normal" (hash "i" 'no_op))
-
-;; Set the global keybinding for now
-(add-global-keybinding
- (hash
-  "normal"
-  (hash "C-r" (hash "f" ":recentf-open-files") "space" (hash "l" ":load-buffer" "o" ":eval-sexpr"))))
-
-(define scm-keybindings (hash "insert" (hash "ret" ':scheme-indent "C-l" ':insert-lambda)))
-
-;; Grab whatever the existing keybinding map is
-(define standard-keybindings (deep-copy-global-keybindings))
-
-(define file-tree-base (deep-copy-global-keybindings))
-
-(merge-keybindings standard-keybindings scm-keybindings)
-(merge-keybindings file-tree-base FILE-TREE-KEYBINDINGS)
-
-;; <scratch> + <doc id> is probably the best way to handle this?
-(set-global-buffer-or-extension-keymap (hash "scm" standard-keybindings FILE-TREE file-tree-base))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;; Options ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(file-picker (fp-hidden #f))
-(cursorline #t)
-(soft-wrap (sw-enable #t))
-
-; (randomly-pick-theme possible-themes)
-
-; (open-term)
-
-;; (show-welcome-message)
-
-;; Probably should be a symbol?
-; (register-hook! 'post-insert-char 'prompt-on-char-press)
+(keymap (global)
+        (normal (space (n (C ":nrepl-connect")
+                          (D ":nrepl-disconnect")
+                          (J ":nrepl-jack-in")
+                          (L ":nrepl-load-file")
+                          (b ":nrepl-eval-buffer")
+                          (l ":nrepl-lookup-picker")
+                          (m ":nrepl-eval-multiple-selections")
+                          (p ":nrepl-eval-prompt")
+                          (s ":nrepl-eval-selection")))
+                (A-ret ":nrepl-eval-selection"))
+        (select (space (n (C ":nrepl-connect")
+                          (D ":nrepl-disconnect")
+                          (J ":nrepl-jack-in")
+                          (L ":nrepl-load-file")
+                          (b ":nrepl-eval-buffer")
+                          (l ":nrepl-lookup-picker")
+                          (m ":nrepl-eval-multiple-selections")
+                          (p ":nrepl-eval-prompt")
+                          (s ":nrepl-eval-selection")))
+                (A-ret ":nrepl-eval-selection")))

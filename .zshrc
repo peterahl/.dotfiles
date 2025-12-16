@@ -77,7 +77,7 @@ alias gr="git branch --remotes --format '%(refname:lstrip=2)' | fzf | xargs git 
 
 alias yd="yarn dev"
 alias qd="quarkus dev"
-alias hx="helix"
+# alias hx="helix"
 
 alias ls="exa"
 
@@ -150,3 +150,13 @@ complete -F _run_script_completion run-script.sh
 # if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
 #   source /usr/share/zsh/manjaro-zsh-prompt
 # fi
+
+# bun completions
+[ -s "/home/lejon/.bun/_bun" ] && source "/home/lejon/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/home/lejon/.opencode/bin:$PATH

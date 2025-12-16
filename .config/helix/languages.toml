@@ -27,8 +27,10 @@ command = "helix-gpt"
 # --------- BIOME ---------
 
 [language-server.biome]
-command = "npx"
-args = ["biome", "lsp-proxy"]
+command = "biome"
+args = ["lsp-proxy"]
+# command = "npx"
+# args = ["biome", "lsp-proxy"]
 
 # --------- QUTE ---------
 
@@ -42,15 +44,9 @@ validation = { enabled = true }
 
 [language-server.jdtls]
 command = "jdtls"
-args = []
-
-[language-server.jdtls.config]
-bundles = ["/usr/share/java-debug/com.microsoft.java.debug.plugin.jar"]
-extendedClientCapabilities.classFileContentsSupport = true
 
 [language-server.jdtls.config.java]
-"jdt.ls.vmargs" = "-Xms4G -Xmx12G -XX:+UseG1GC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping=true"
-"contentProvider.preferred" = "fernflower"
+"jdt.ls.vmargs" = "-Xms1G -Xmx6G -XX:+UseZGC -XX:+UseStringDeduplication -Dsun.zip.disableMemoryMapping=true"
 "signatureHelp.enabled" = true
 "completion.favoriteStaticMembers" = [
   "org.junit.Assert.*",
@@ -71,7 +67,7 @@ extendedClientCapabilities.classFileContentsSupport = true
 name = "java"
 auto-format = true
 formatter = { command = "google-java-format", args = ["-"] }
-language-servers = ["jdtls", "gpt"]
+language-servers = [{ name = "jdtls", except-features = ["format"] }, "gpt"]
 
 [language.debugger]
 name = "java-debug"
@@ -137,17 +133,31 @@ language-servers = [
 ]
 auto-format = true
 
+
+[[language]]
+name = "tsx"
+language-servers = [
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
+  "biome",
+  "tailwindcss-ls",
+  "gpt",
+]
+auto-format = true
+
 # --------- JSON ---------
 
 [[language]]
 name = "json"
 language-servers = [
-  { name = "vscode-json-language-server", except-features = [
-    "format",
-  ] },
-  "biome",
+  # { name = "vscode-json-language-server", except-features = [
+  #   "format",
+  # ] },
+  "vscode-json-language-server",
   "gpt",
 ]
+auto-format = true
 
 
 # ESLint ----------------------------------------------------------------------
