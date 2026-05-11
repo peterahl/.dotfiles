@@ -1,9 +1,9 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
 # export EDITOR=/usr/local/bin/nvim
 # export EDITOR=$HOME/.cargo/bin/hx
-export EDITOR=helix
+export EDITOR=hx
 # export SUDO_EDITOR="$HOME/.cargo/bin/hx"
-export SUDO_EDITOR="helix"
+export SUDO_EDITOR="hx"
 
 export YDOTOOL_SOCKET=/tmp/.ydotool_socket
 
@@ -35,7 +35,7 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 export STEEL_LSP_HOME=$HOME/.config/steel-lsp
 export STEEL_HOME=$HOME/.steel
-export HELIX_RUNTIME=$HOME/github/helix-steel/runtime
+export HELIX_RUNTIME=$HOME/git/github/helix/runtime
 
 # setxkbmap -layout us,se,us -variant ,,dvorak -option grp:win_space_toggle,caps:escape
 # setxkbmap -option 'ctrl:rctrl_ralt'

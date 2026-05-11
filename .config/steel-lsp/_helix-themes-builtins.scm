@@ -2,9 +2,12 @@
 
 (define (register-values module values)
   (map (lambda (ident) (#%module-add module (symbol->string ident) void)) values))
-(register-values #%helix-themes-module '(hashmap->theme
+(register-values #%helix-themes-module '(theme-set-style!
 add-theme!
 theme-style
-theme-set-style!
+current-theme
+current-theme-name
+hashmap->theme
+get-theme
 string->color
 ))

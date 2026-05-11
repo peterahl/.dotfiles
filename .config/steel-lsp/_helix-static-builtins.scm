@@ -2,10 +2,11 @@
 
 (define (register-values module values)
   (map (lambda (ident) (#%module-add module (symbol->string ident) void)) values))
-(register-values #%helix-static-module '(page_up
+(register-values #%helix-static-module '(pop-directory
 tree-sitter-highlight-name
 buffer-close!
 extend_prev_long_word_start
+page_up
 swap_view_right
 get-helix-scm-path
 dap_edit_log
@@ -69,6 +70,7 @@ extend_till_prev_char
 clipboard-paste-after
 selection->primary-index
 insert_newline
+set-register
 select_textobject_around
 goto_prev_parameter
 goto_next_tabstop
@@ -156,24 +158,25 @@ scroll_down
 extend_line_up
 file_explorer
 paste_clipboard_after
-move_visual_line_down
+workspace-untrust
 clipboard-paste-before
-buffer_picker
+move_visual_line_down
 buffer-close-all
-align_view_bottom
+move!
 move_prev_sub_word_end
 write-quit!
-commit_undo_checkpoint
+buffer_picker
 goto_line
 goto_next_diag
 extend_char_right
+commit_undo_checkpoint
+align_view_bottom
 goto_next_xml_element
 dap_step_out
-rename_symbol
-command_palette
 add_newline_below
 expand_selection
-range->span
+rename_symbol
+command_palette
 global_search
 show-clipboard-provider
 select_regex
@@ -199,8 +202,9 @@ goto_file
 shrink_selection
 goto_reference
 extend_to_line_end_newline
-range->selection
+range->span
 keep_primary_selection
+range->selection
 clipboard-yank-join
 quit
 open_above
@@ -356,25 +360,27 @@ replace
 switch_to_uppercase
 goto_next_parameter
 pipe-to
+push-directory
 extend_to_file_end
-goto_prev_class
 repeat_last_motion
 vsplit
 jump_view_right
-set-current-selection-object!
+goto_prev_class
 goto_prev_entry
-replace-selection-with
+set-current-selection-object!
 find_prev_char
 workspace_symbol_picker
 clear-register
 extend_line_above
 extend_prev_long_word_end
+replace-selection-with
 current-highlighted-text!
-range->to
+workspace-trust
 search_selection_detect_word_boundaries
 insert_char
 insert_char_interactive
 hover
+range->to
 primary-clipboard-yank-join
 set-option
 new
@@ -401,11 +407,12 @@ symbol_picker
 goto_type_definition
 select_references_to_symbol_under_cursor
 flip_selections
-goto_file_end
+show-directory-stack
 move_prev_sub_word_start
 rsearch
 move_next_long_word_end
 shrink_to_line_bounds
+goto_file_end
 select_textobject_inner
 move-window-far-left
 insert_tab
@@ -432,8 +439,8 @@ undo
 range
 open
 extend_till_char
-goto_file_start
 move_line_down
 write
+goto_file_start
 goto_next_buffer
 ))

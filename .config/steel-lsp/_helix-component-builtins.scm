@@ -2,7 +2,8 @@
 
 (define (register-values module values)
   (map (lambda (ident) (#%module-add module (symbol->string ident) void)) values))
-(register-values #%helix-component-module '(Widget/list?
+(register-values #%helix-component-module '(theme-scope-ref
+key-event-right?
 key-event-tab?
 key-event-down?
 key-event-enter?
@@ -25,6 +26,7 @@ key-event-end?
 theme->fg
 key-event-pause?
 key-event-up?
+native-component-required-size
 style-with-crossed-out
 event-result/close
 theme-scope
@@ -43,6 +45,7 @@ overlaid
 Color/Blue
 Color/LightYellow
 set-style-fg!
+focus-lost-event?
 style->bg
 key-event-caps-lock?
 style-fg
@@ -96,11 +99,14 @@ Color/rgb
 event->key-event
 Underline/DoubleLine
 area-x
+render-native-component
 mouse-event?
 key-event-left?
+focus-gained-event?
 Color/Reset
-Color-green
+markdown-component
 Color/LightGray
+Color-green
 event-mouse-kind
 widget/list/render
 key-event-backspace?
@@ -128,5 +134,5 @@ key-event-scroll-lock?
 key-modifier-shift
 event-mouse-row
 key-event-escape?
-key-event-right?
+Widget/list?
 ))

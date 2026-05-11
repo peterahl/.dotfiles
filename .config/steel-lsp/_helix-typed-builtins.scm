@@ -2,7 +2,8 @@
 
 (define (register-values module values)
   (map (lambda (ident) (#%module-add module (symbol->string ident) void)) values))
-(register-values #%helix-typed-module '(tree-sitter-highlight-name
+(register-values #%helix-typed-module '(pop-directory
+tree-sitter-highlight-name
 buffer-close!
 vsplit-new
 earlier
@@ -25,8 +26,8 @@ move
 redraw
 write!
 character-info
+push-directory
 pipe-to
-echo
 change-current-directory
 clipboard-yank
 vsplit
@@ -34,19 +35,21 @@ hsplit
 tree-sitter-subtree
 primary-clipboard-paste-replace
 run-shell-command
+echo
 clear-register
 later
 reset-diff-change
 format
 sort
 lsp-stop
+workspace-trust
 lsp-restart
 quit-all
-lsp-workspace-command
 exit
 theme
-write-buffer-close
 primary-clipboard-yank-join
+write-buffer-close
+lsp-workspace-command
 cquit
 clipboard-paste-before
 set-option
@@ -54,8 +57,10 @@ new
 encoding
 buffer-close-all
 write-quit!
-noop
+move!
 tree-sitter-scopes
+noop
+workspace-untrust
 read
 write-quit
 primary-clipboard-yank
@@ -66,8 +71,10 @@ buffer-previous
 show-clipboard-provider
 tree-sitter-layers
 goto
+set-register
 insert-output
 tutor
+show-directory-stack
 primary-clipboard-paste-after
 write-all
 buffer-close-others!

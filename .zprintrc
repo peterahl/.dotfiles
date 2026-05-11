@@ -1,1 +1,3 @@
-{:cwd-zprintrc? true}
+{:cwd-zprintrc? true
+ :map {:comma? false}
+ :style :rod}

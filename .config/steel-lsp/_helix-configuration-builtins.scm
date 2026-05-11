@@ -23,8 +23,10 @@ sw-enable
 register-whitespace
 ig-character
 raw-whitespace
+inline-diagnostics-cursor-line-disable
 ws-visible
 scroll_lines
+inline-diagnostics-other-lines-disable
 set-lsp-config!
 auto-pairs-default
 sw-wrap-at-text-width
@@ -41,8 +43,10 @@ bufferline
 fp-parents
 refresh-all-language-configs!
 rainbow-brackets
+#%editor-auto-pairs
 shell
 inline-diagnostics-cursor-line-enable
+inline-diagnostics-end-of-line-disable
 register-lsp-notification-handler
 raw-cursor-shape-set!
 fp-follow-symlinks
@@ -57,6 +61,7 @@ inline-diagnostics-max-wrap
 raw-indent-guides
 get-language-config
 completion-trigger-len
+#%update-configuration
 register-indent-guides
 raw-cursor-shape
 fp-git-exclude
@@ -84,8 +89,8 @@ inline-diagnostics-other-lines-enable
 default-line-ending
 set-configuration-for-file!
 get-lsp-config
-sw-max-wrap
 register-file-picker
+sw-max-wrap
 auto-save-after-delay-enable
 set-keybindings!
 auto-save

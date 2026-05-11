@@ -7,6 +7,7 @@ cursor-position
 lsp-client-offset-encoding
 set-error!
 pop-last-component-by-name!
+fuzzy-match
 on-key-callback
 lsp-reply-ok
 hx.cx->pos

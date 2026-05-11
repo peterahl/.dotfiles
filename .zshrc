@@ -54,9 +54,7 @@ KEYTIMEOUT=1
 #   source /usr/share/zsh/manjaro-zsh-prompt
 # fi
 
-source <(kubectl completion zsh)
-
-source <(flux completion zsh)
+# source <(kubectl completion zsh)
 
 export PATH=$HOME/go/bin:$PATH
 
@@ -102,7 +100,7 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 FCEDIT=$EDITOR
 
-eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+# eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 
 # # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
@@ -160,3 +158,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/lejon/.opencode/bin:$PATH
+eval "$(/home/lejon/.local/bin/mise activate zsh)"
