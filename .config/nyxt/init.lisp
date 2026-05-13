@@ -1,14 +1,12 @@
-;; (defvar *my-search-engines*
-;;   (list
-;;    '("python3" "https://docs.python.org/3/search.html?q=~a" "https://docs.python.org/3")
-;;    '("doi" "https://dx.doi.org/~a" "https://dx.doi.org/")
-;;    '("go" "https://www.google.com/search?q=~a" "https://www.google.com/")))
-;;
-;; (define-configuration buffer
-;;   ((search-engines (append (mapcar (lambda (engine) (apply 'make-search-engine engine))
-;;                                    *my-search-engines*)
-;;                            %slot-default%))))
-;;
+; (define-configuration (input-buffer)
+;   ((default-modes (pushnew 'nyxt/mode/emacs:emacs-mode %slot-value%))))
 
-(DEFINE-CONFIGURATION BUFFER
-  ((CURRENT-ZOOM-RATIO 0.75)))
+; (define-configuration browser
+;   ((theme theme:+dark-theme+)))
+ 
+; (DEFINE-CONFIGURATION BUFFER
+;   ((CURRENT-ZOOM-RATIO 0.75)))
+
+  
+; (define-nyxt-user-system-and-load "nyxt-user/search-engines"
+;   :depends-on (:nx-search-engines) :components ("search-engines.lisp"))

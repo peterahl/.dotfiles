@@ -1,3 +1,9 @@
 {:cwd-zprintrc? true
- :map {:comma? false}
- :style :rod}
+ :map           {:comma?    false
+                 :force-nl? true  ; Forces map entries onto new lines
+                 :indent    0     ; Aligns values with keys
+                 :sort?     true} ; Sorts keys consistently
+ :binding       {:indent    0     ; Aligns `let` values with their bindings
+                 :force-nl? true} ; Forces each binding pair onto its own
+                                  ; line
+ :style         :justified}
