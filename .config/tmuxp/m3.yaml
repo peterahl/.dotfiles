@@ -1,10 +1,13 @@
-session_name: home
-start_directory: ~/
+session_name: m3
+start_directory: ~/voady/infra/
 windows:
   - window_name: editor
     focus: true
     panes:
       - hx
+  - window_name: k9s
+    panes:
+      - k9s
   - window_name: shell
     panes:
       - ""

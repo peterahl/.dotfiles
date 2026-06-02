@@ -1,5 +1,5 @@
-session_name: voady-boka
-start_directory: ~/voady/boka-voady/
+session_name: m1
+start_directory: ~/.dotfiles/
 windows:
   - window_name: editor
     focus: true

@@ -6,4 +6,7 @@
  :binding       {:indent    0     ; Aligns `let` values with their bindings
                  :force-nl? true} ; Forces each binding pair onto its own
                                   ; line
+ :vector        {:wrap? false}
+ :pair          {:justify  {:max-variance 1000}
+                 :justify? true}
  :style         :justified}

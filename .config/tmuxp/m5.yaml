@@ -1,4 +1,4 @@
-session_name: voady-project
+session_name: m5
 start_directory: ~/voady/voady-project/
 windows:
   - window_name: java

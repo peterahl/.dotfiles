@@ -1,4 +1,4 @@
-session_name: tmp
+session_name: m9
 start_directory: /tmp
 windows:
   - window_name: shell

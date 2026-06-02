@@ -976,3 +976,26 @@ echo "version=$([[ -z '' ]] && echo dev-$(git rev-parse --short HEAD)-$(date +%s
 echo "version=$([[ -z 'aoeu' ]] && echo dev-$(git rev-parse --short HEAD)-$(date +%s) || echo au)"
 pwd
 quarkus dev
+which clj
+zsh
+which clj
+pwd
+which java
+clear
+which clj
+which mise
+which rg
+mise
+mise activate bash
+which rg
+which clj
+which mise
+which clj
+mise doctor
+mise install
+which clj
+mise install
+which java
+clear
+which java
+which clj

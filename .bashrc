@@ -116,3 +116,5 @@ shopt -s histappend
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/lejon/.sdkman"
 [[ -s "/home/lejon/.sdkman/bin/sdkman-init.sh" ]] && source "/home/lejon/.sdkman/bin/sdkman-init.sh"
+
+eval "$(/home/lejon/.local/bin/mise activate bash)"

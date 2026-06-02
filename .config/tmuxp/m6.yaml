@@ -1,5 +1,5 @@
-session_name: dotfiles
-start_directory: ~/.dotfiles/
+session_name: m6
+start_directory: ~/dev/dev-company/
 windows:
   - window_name: editor
     focus: true

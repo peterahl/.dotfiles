@@ -1,5 +1,5 @@
-session_name: voady-api
-start_directory: ~/voady/voady-api/
+session_name: m7
+start_directory: ~/git/boka/
 windows:
   - window_name: editor
     focus: true

@@ -1,5 +1,5 @@
-session_name: voady-company
-start_directory: ~/voady/voady-company/
+session_name: m4
+start_directory: ~/dev/biff_v2/
 windows:
   - window_name: editor
     focus: true
