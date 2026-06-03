@@ -34,11 +34,16 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 znap source romkatv/powerlevel10k
 znap source Aloxaf/fzf-tab
 
-setopt appendhistory # Immediately append history instead of overwriting
-setopt histignorealldups # If a new command is a duplicate, remove the older one
-HISTFILE=~/.zhistory
-HISTSIZE=20000
-SAVEHIST=20000
+HISTFILE=~/.cache/zsh/history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY        # Save history with timestamps.
+setopt INC_APPEND_HISTORY_TIME # Immediately append commands and track duration.
+setopt HIST_IGNORE_ALL_DUPS    # Never add duplicate entries.
+setopt HIST_EXPIRE_DUPS_FIRST	 # Prioritizes the expiration of duplicate entries when trimming history.
+setopt HIST_IGNORE_SPACE       # Ignore commands that start with a space.
+setopt HIST_REDUCE_BLANKS      # Remove unnecessary blank lines.
+setopt SHARE_HISTORY           # Shares history across all active Zsh sessions, allowing access to commands from different terminals.
 
 KEYTIMEOUT=1
 
