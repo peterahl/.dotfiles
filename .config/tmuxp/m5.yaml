@@ -1,9 +1,8 @@
 session_name: m5
-start_directory: ~/voady/voady-project/
+start_directory: $HOME/dev/skogit
 windows:
-  - window_name: java
+  - window_name: dev
     focus: true
-    start_directory: ~/voady/voady-project/packages/backend/
     panes:
       - hx
       - ""
