@@ -233,6 +233,8 @@ language-servers = ["prisma-language-server"]
 name = "go"
 auto-format = true
 language-servers = ["gopls"]
+indent = { tab-width = 3, unit = "\t" }
+
 
 # --------- Lua ---------
 
@@ -300,3 +302,8 @@ injection-regex = "env"
 comment-token = "#"
 indent = { tab-width = 4, unit = "\t" }
 grammar = "bash"
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "rumdl fmt --silent --stdin" }

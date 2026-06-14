@@ -1,5 +1,5 @@
 session_name: m4
-start_directory: ~/dev/biff_v2/
+start_directory: ~/dev/bookit/
 windows:
   - window_name: editor
     focus: true

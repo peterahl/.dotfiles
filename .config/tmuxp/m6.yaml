@@ -1,5 +1,5 @@
 session_name: m6
-start_directory: ~/dev/dev-company/
+start_directory: ~/dev/lövön/
 windows:
   - window_name: editor
     focus: true
