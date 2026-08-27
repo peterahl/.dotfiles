@@ -307,3 +307,7 @@ grammar = "bash"
 name = "markdown"
 auto-format = true
 formatter = { command = "rumdl fmt --silent --stdin" }
+
+[[language]]
+name = "kotlin"
+language-servers = ["kotlin-lsp"]
