@@ -38,8 +38,8 @@ keybinds clear-defaults=true {
         // Zooma/unzooma nuvarande pane till helskärm (motsvarar M-f i .tmux.conf)
         bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "locked"; }
 
-        // Slaska upp en ny pane direkt i projektets mapp (split eller ny floating pane)
-        bind "Alt n" { NewPane; SwitchToMode "locked"; }
+        // Slaska upp en ny pane som stacked by default direkt i projektets mapp
+        bind "Alt n" { NewPane "stacked"; SwitchToMode "locked"; }
 
         // Navigera mellan panes i Zellij med Alt+h/j/k/l (så Ctrl+h/j/k/l är fritt för Helix)
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
@@ -67,7 +67,7 @@ keybinds clear-defaults=true {
 
     // --- Prefix-läge (Ctrl+a) - Mappar mot dina vanor från .tmux.conf ---
     tmux {
-        bind "Esc" "Enter" "Ctrl c" "Ctrl g" { SwitchToMode "locked"; }
+        bind "Esc" "Enter" "Ctrl g" { SwitchToMode "locked"; }
 
         // Ctrl+a följt av Ctrl+a skickar ett riktigt Ctrl+a till terminalen
         bind "Ctrl a" { Write 1; SwitchToMode "locked"; }
@@ -80,13 +80,13 @@ keybinds clear-defaults=true {
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "locked"; }
         bind "w" "t" { ToggleFloatingPanes; SwitchToMode "locked"; }
 
-        // Zooma/unzooma (f eller z) och toggla pane-ramar (b)
+        // Zooma/unzooma (f eller z), växla layout stacked/split (Space) och toggla pane-ramar (b)
         bind "f" "z" { ToggleFocusFullscreen; SwitchToMode "locked"; }
+        bind "Space" { NextSwapLayout; SwitchToMode "locked"; }
         bind "b" "Ctrl b" { TogglePaneFrames; SwitchToMode "locked"; }
 
-        // Staplad pane (c/Ctrl+c = ny pane staplad på nuvarande, C/T = ny tab)
-        bind "c" "Ctrl c" { NewPane "stacked"; SwitchToMode "locked"; }
-        bind "C" "T" { NewTab; SwitchToMode "locked"; }
+        // Flikar / Tabs (c/Ctrl+c = ny tab precis som i tmux)
+        bind "c" "Ctrl c" "T" { NewTab; SwitchToMode "locked"; }
         bind "," "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "." { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "Tab" { ToggleTab; SwitchToMode "locked"; }
@@ -218,7 +218,7 @@ default_layout "projects"
 // Matcha ditt Helix-tema (catppuccin_mocha)
 theme "catppuccin-mocha"
 
-// Pane-ramar behövs för att staplade panes (Ctrl+a -> c) ska visa sina titlar i stapeln.
+// Pane-ramar behövs för att staplade panes (Alt+n) ska visa sina titlar i stapeln.
 // Du kan när som helst toggla ramar av/på med Ctrl+a -> b
 pane_frames true
 
