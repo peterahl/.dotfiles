@@ -1,0 +1,61 @@
+// Projekt-layout som ersätter ~/.config/tmuxp/m1..m9.yaml
+//
+// Hur det funkar:
+// - Hoppa mellan projekten med Alt+1 .. Alt+8
+// - I varje projekt körs Helix (hx) i fullskärm i rätt mapp (cwd).
+// - Tryck Alt+t när som helst för att poppa fram/gömma projektets egen
+//   svävande terminal (den skapas automatiskt i projektets cwd första gången
+//   du trycker Alt+t och ligger sedan kvar i bakgrunden för den fliken).
+// - Tryck Alt+n om du vill slaska upp en vanlig split (eller en extra floating pane).
+
+layout {
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+    }
+
+    // Alt+1: m1 (~/.dotfiles)
+    tab name="dotfiles" cwd="~/.dotfiles" focus=true {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+2: m2 (~/)
+    tab name="home" cwd="~" {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+3: m3 (~/voady/infra med både hx och k9s i en stack - växla med Alt+j/k)
+    tab name="infra" cwd="~/voady/infra" {
+        pane stacked=true {
+            pane name="hx" command="hx" expanded=true
+            pane name="k9s" command="k9s"
+        }
+    }
+
+    // Alt+4: m4 (~/dev/bookit)
+    tab name="bookit" cwd="~/dev/bookit" {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+5: m5 (~/dev/skogit)
+    tab name="skogit" cwd="~/dev/skogit" {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+6: m6 (~/dev/lövön)
+    tab name="lövön" cwd="~/dev/lövön" {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+7: m7 (~/git/boka)
+    tab name="boka" cwd="~/git/boka" {
+        pane name="hx" command="hx"
+    }
+
+    // Alt+8: m8/m9 (/tmp - ren slask-terminal)
+    tab name="slask" cwd="/tmp" {
+        pane name="shell"
+    }
+}
